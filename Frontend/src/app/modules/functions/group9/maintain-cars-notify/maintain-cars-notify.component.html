@@ -1,0 +1,136 @@
+<div [@routerTransition]>
+    <div class="m-content">
+        <div class="m-portlet m-portlet__header m-portlet-mobile">
+            <div class="m-portlet__nav">
+                <ul>
+                    <li>
+                        <a routerLink="/app/admin/model-car-add">
+                            <i class="flaticon-add"></i>
+                            Thêm mới
+                        </a>
+                    </li>
+                    <!-- *ngIf="isGranted('Pages.Group0.Car.Update')" -->
+                    <li>
+                        <a [class.disabled]=""
+                            [routerLink]="['/app/admin/model-car-edit', {id : 0}]">
+                            <i class="flaticon-edit"></i> Chỉnh sửa
+                        </a>
+                    </li>
+                    <li>
+                        <span (click)="search()">
+                            <i class="flaticon-search"></i>
+                            Tìm kiếm
+                        </span>
+                    </li>
+                    <!-- *ngIf="isGranted('Pages.Group4.Car.Delete')" -->
+                    <li>
+                        <span (click)="search()" [class.disabled]="0">
+                            <i class="fa fa-trash"></i> Xóa
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-subheader pd-0">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto col-xs-6">
+                    <span class="m-section__sub m-section__sub--separator">
+                        {{l("Trang chủ")}}
+                    </span>
+                    <span class="m-section__sub m-section__sub--separator active">
+                        <a routerLink="/app/admin/maintain-car-notify">{{l("Thông Báo Bảo Trì Xe")}} {{currentUserName}}</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-content">
+        <div class="m-portlet m-portlet-mobile">
+            <div class="m-portlet__body">
+                <form #filterForm="ngForm" (submit)="search()">
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <label for="loaiXe_Hang">Mã Bảo Trì</label>
+                            <div class="form-group">
+                                <!-- <p-autoComplete id="loaiXe_Hang" [(ngModel)]="carManufacturerOpt"
+                                    [suggestions]="carManufacturerSuggestions"
+                                    (completeMethod)="filterCarManufacturerOpt($event)"
+                                    (onClear)="clearOption(CAR_TYPE_MANUFACTURER)"
+                                    (onSelect)="validateFilterInput(CAR_TYPE_MANUFACTURER)" (onKeyUp)="onKeyUp($event)"
+                                    [dropdown]="true" field="name" placeholder="Hãng xe tên" name="loaiXe_Hang">
+                                </p-autoComplete> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="loaiXe_Ten">Mã Xe</label>
+                            <div class="form-group">
+                                <!-- <p-autoComplete id="loaiXe_Ten" [(ngModel)]="carTypeNameOpt"
+                                    [suggestions]="carTypeNameSuggestions"
+                                    (completeMethod)="filterCarTypeNameOpt($event)"
+                                    (onSelect)="validateFilterInput(CAR_TYPE_NAME)" field="name" [dropdown]="true"
+                                    (onClear)="clearOption(CAR_TYPE_NAME)" placeholder="Loại xe tên"
+                                    (onKeyUp)="onKeyUp($event)" name="loaiXe_Ten">
+                                </p-autoComplete> -->
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="loaiXe_LoaiNhienLieu">Ngày Bảo Trì</label>
+                                <div class="form-group">
+                                    <!-- <p-autoComplete id="loaiXe_LoaiNhienLieu" [(ngModel)]="carFuelOpt"
+                                        [suggestions]="carFuelSuggestions" (completeMethod)="filterCarFuelOpt($event)"
+                                        (onSelect)="validateFilterInput(CAR_FUEL)" [forceSelection]="true"
+                                        [readonly]="true" [dropdown]="true" field="name" placeholder="Loại nhiên liệu"
+                                        name="loaiXe_LoaiNhienLieu">
+                                    </p-autoComplete> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="loaiXe_NamSX" class="text">Ngày Xuất Xưởng</label>
+                            <div class="form-group">
+                                <!-- <p-autoComplete [(ngModel)]="carYearOpt" id="loaiXe_NamSX"
+                                    [suggestions]="carYearSuggestions" (completeMethod)="filterCarYearOpt($event)"
+                                    (onSelect)="validateFilterInput(CAR_YEAR)" [dropdown]="true" [readonly]="true"
+                                    [forceSelection]="true" field="name" placeholder="Năm sản xuất" name="loaiXe_NamSX">
+                                </p-autoComplete> -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="loaiXe_NamSX">Nơi Bảo Trì</label>
+                            <div class="form-group">
+                                <!-- <input id="loaiXe_DinhMucNhienLieu" #loaiXe_DinhMucNhienLieu="ngModel"
+                                    class="form-control" type="text" name="loaiXe_DinhMucNhienLieu"
+                                    [(ngModel)]="carTypeInput.loaiXe_DinhMucNhienLieu" maxlength="11"
+                                    pattern="^[0-9]+$"> -->
+                                <!-- <validation-messages [formCtrl]="loaiXe_DinhMucNhienLieu"
+                                    [errorDefs]="[{pattern: l('Vui lòng nhập số')}]">
+                                </validation-messages> -->
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" hidden [disabled]="!filterForm.form.valid" (keyup.enter)="search()"></button>
+                </form>
+                <div class="row align-items-center">
+                    <!--<Primeng-TurboTable-Start>-->
+                    <div class="primeng-datatable-container">
+                         <!--  -->
+                        <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                            {{l('NoData')}}
+                        </div>
+                    </div>
+                    <!--<Primeng-TurboTable-End>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

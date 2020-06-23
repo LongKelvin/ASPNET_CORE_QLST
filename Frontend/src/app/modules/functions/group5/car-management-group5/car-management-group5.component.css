@@ -1,0 +1,9 @@
+tr.selected,
+tr:nth-child(2n).selected {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+tr:hover,
+tr:nth-child(2n):hover {
+    background-color: rgba(112, 148, 142, 0.2) !important;
+}
