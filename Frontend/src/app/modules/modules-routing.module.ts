@@ -14,6 +14,7 @@ import { NewCarsSearchComponent } from "./new-cars/new-cars-search/new-cars-sear
 import { MaintainCarsNotifyComponent} from "./maintain-cars/maintain-cars-notify/maintain-cars-notify.component";
 import { MaintainCarsNotifyAddComponent } from "./maintain-cars/maintain-cars-notify-add/maintain-cars-notify-add.component";
 import { MaintainCarNotifyComponent } from "./maintain-car-notify/maintain-car-notify/maintain-car-notify.component";
+import { MaintainCarNotifyAddComponent} from "./maintain-car-notify/maintain-car-notify-add/maintain-car-notify-add.component"
 
 @NgModule({
     imports: [
@@ -43,7 +44,7 @@ import { MaintainCarNotifyComponent } from "./maintain-car-notify/maintain-car-n
                         ]
                     },
                     {
-                        path: 'maintain-cars-notify-add', component: MaintainCarNotifyComponent
+                        path: 'maintain-car-notify-add', component: MaintainCarNotifyAddComponent
                     },
                      {
                         path: 'car-maintenance-notify-edit', component: MaintainCarNotifyComponent
