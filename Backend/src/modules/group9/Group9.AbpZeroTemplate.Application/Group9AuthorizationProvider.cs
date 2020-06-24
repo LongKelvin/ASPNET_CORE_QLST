@@ -21,24 +21,21 @@ namespace Group9.AbpZeroTemplate.Application
 
         public override void SetPermissions(IPermissionDefinitionContext context)
         {
-            //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
+            ////COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
             var pages = context.GetPermissionOrNull("Pages") ?? context.CreatePermission("Pages", L("Pages"));
+
             var Group9 = pages.CreateChildPermission("Pages.Group9", L("Group9"));
 
+            var group9LoaiXe = pages.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9LoaiXe, L("Group9LoaiXe"));
+            group9LoaiXe.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9LoaiXe_Add, L("Add"));
 
-            var demoModels = pages.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car, L("Car"));
-            demoModels.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Add, L("Create"));
-            demoModels.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Update, L("Edit"));
-            demoModels.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_View, L("View"));
-            demoModels.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Delete, L("Delete"));
-            demoModels.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Approve, L("Approve"));
+            var group9BaoTri = pages.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri, L("BaoTri"));
+            group9BaoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri_Add, L("Create"));
+            group9BaoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri_Update, L("Edit"));
+            group9BaoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri_View, L("View"));
+            group9BaoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri_Delete, L("Delete"));
 
-            var baoTri = pages.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Maintenance_Notify, L("Maintain-Cars"));
-            baoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Maintenance_Notify_Add, L("Create"));
-            baoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Maintenance_Notify_Update, L("Edit"));
-            baoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Maintenance_Notify_View, L("View"));
-            baoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Car_Maintenance_Notify_Delete, L("Delete"));
         }
 
         private static ILocalizableString L(string name)
