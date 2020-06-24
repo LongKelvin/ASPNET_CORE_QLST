@@ -12,7 +12,7 @@ export class MaintainCarNotifyComponent extends AppComponentBase implements OnIn
     super(injector);
   }
 
-
+  
   ngOnInit() {
   }
 
