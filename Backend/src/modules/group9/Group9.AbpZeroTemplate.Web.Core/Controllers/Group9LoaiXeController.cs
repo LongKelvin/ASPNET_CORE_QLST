@@ -12,21 +12,21 @@ using System.Threading.Tasks;
 
 namespace Group9.AbpZeroTemplate.Application.Controllers
 {
-  [Route("api/[controller]/[action]")]
-  public class Group9LoaiXeController : AbpController
-  {
-    private readonly IGroup9LoaiXeAppService Group9LoaiXeAppService;
-
-    public Group9LoaiXeController(IGroup9LoaiXeAppService Group9LoaiXeAppService)
+    [Route("api/[controller]/[action]")]
+    public class Group9LoaiXeController : AbpController
     {
-      this.Group9LoaiXeAppService = Group9LoaiXeAppService;
-    }
+        private readonly IGroup9LoaiXeAppService Group9LoaiXeAppService;
 
-    [HttpGet]
-    public string test()
-    {
-      return Group9LoaiXeAppService.test();
-    }
+        public Group9LoaiXeController(IGroup9LoaiXeAppService Group9LoaiXeAppService)
+        {
+            this.Group9LoaiXeAppService = Group9LoaiXeAppService;
+        }
+
+        [HttpGet]
+        public string test()
+        {
+            return Group9LoaiXeAppService.test();
+        }
         [HttpPost]
         public IDictionary<string, object> LOAIXE_Group9Insert([FromBody]Group9LoaiXeDto input)
         {
