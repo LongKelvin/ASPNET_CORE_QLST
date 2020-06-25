@@ -6,6 +6,9 @@ import { ModelCarAddGroup9Component } from './model-car-add-group9/model-car-add
 import { MaintainCarsNotifyAddComponent} from "./maintain-cars-notify-add/maintain-cars-notify-add.component"
 import { MaintainCarsNotifyComponent } from "./maintain-cars-notify/maintain-cars-notify.component"
 import { Group9ServiceProxyModule } from './group9.service-proxy.module';
+import { TableModule } from "primeng/table";
+import { AutoCompleteModule } from 'primeng/primeng';
+import { UtilsModule } from "@shared/utils/utils.module";
 
 @NgModule({
   imports: [
@@ -13,6 +16,10 @@ import { Group9ServiceProxyModule } from './group9.service-proxy.module';
     FormsModule,
     RouterModule,
     Group9ServiceProxyModule,
+    TableModule,
+    RouterModule,
+    UtilsModule,
+    AutoCompleteModule,
   ],
   declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent],  
    

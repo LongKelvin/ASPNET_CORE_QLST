@@ -44,7 +44,7 @@ import { MaintainCarNotifyAddComponent} from "./maintain-car-notify/maintain-car
                         ]
                     },
                     {
-                        path: 'maintain-car-notify-add', component: MaintainCarNotifyAddComponent
+                        path: 'maintain-cars-notify-add', component: MaintainCarNotifyAddComponent
                     },
                      {
                         path: 'car-maintenance-notify-edit', component: MaintainCarNotifyComponent

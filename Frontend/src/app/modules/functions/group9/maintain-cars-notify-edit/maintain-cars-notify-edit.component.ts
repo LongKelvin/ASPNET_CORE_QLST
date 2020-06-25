@@ -10,10 +10,10 @@ import { Console } from 'console';
 
 @Component({
     selector: 'app-maintain-cars-notify-add',
-    templateUrl: './maintain-cars-notify-add.component.html',
-    styleUrls: ['./maintain-cars-notify-add.component.css', '../../style.less']
+    templateUrl: './maintain-cars-notify-edit.component.html',
+    styleUrls: ['./maintain-cars-notify-edit.component.css', '../../style.less']
 })
-export class MaintainCarsNotifyAddComponent extends AppComponentBase implements OnInit, AfterViewInit {
+export class MaintainCarsNotifyEditComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
     constructor(injector: Injector, private group9BaoTriService: Group9BaoTriServiceProxy) {
         super(injector);
@@ -48,8 +48,6 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
         throw new Error("Method not implemented.");
     }
 
-
-
     getValue() {
         this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
@@ -78,31 +76,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
      
       }
 
-    add() {
-        this.getValue();
-        if (this.checkvalue() == false) return null;
-    
-        this.group9BaoTriService.group9BaoTri_Insert(this.group9BaoTriInput).subscribe((response) => {
-            if (response["Result"] == "1") {
-                this.notify.error("Thêm loại xe thất bại", "ERROR", environment.opt);
-                this.huyconfirm();
-            } else {
-                this.notify.info("Thêm loại xe thành công", "SUCCESS", environment.opt);
-            }
-        });
-        this.notify.info("Thêm tỳhgfhgfgfhgfhg", "SUCCESS", environment.opt);
-    }
-
-    insert(): void{
-    this.getValue();
-    this.group9BaoTriService.group9BaoTri_Insert(this.group9BaoTriInput).subscribe((response) => {
-      if (response["Result"] == "1") {
-          this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
-      } else {
-          this.notify.success("Thêm xe thành công","SUCCESS", environment.opt);
-      }
-  });
-  }
+  
 
     checkvalue(): boolean {
         if (this.maxe == null) {

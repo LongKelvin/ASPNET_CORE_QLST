@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MaintainCarsNotifyAddComponent } from './maintain-cars-notify-add.component';
+import { MaintainCarsNotifyEditComponent } from './maintain-cars-notify-edit.component';
 
-describe('MaintainCarsNotifyAddComponent', () => {
-    let component: MaintainCarsNotifyAddComponent;
-    let fixture: ComponentFixture<MaintainCarsNotifyAddComponent>;
+describe('MaintainCarsNotifyEditComponent', () => {
+    let component: MaintainCarsNotifyEditComponent;
+    let fixture: ComponentFixture<MaintainCarsNotifyEditComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MaintainCarsNotifyAddComponent]
+            declarations: [MaintainCarsNotifyEditComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MaintainCarsNotifyAddComponent);
+        fixture = TestBed.createComponent(MaintainCarsNotifyEditComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
