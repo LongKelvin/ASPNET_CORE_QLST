@@ -24,40 +24,36 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
    
    
         [HttpPost]
-        public IDictionary<string, object> Group9BaoTri_Insert([FromBody]Group9BaoTriDto input)
+        public IDictionary<string, object> BAOTRI_Group9Insert([FromBody]Group9BaoTriDto input)
         {
-            return Group9BaoTriAppService.Group9BaoTri_Insert(input);
+            return Group9BaoTriAppService.BAOTRI_Group9Insert(input);
         }
         [HttpPost]
-        public IDictionary<string, object> Group9BaoTri_Delete(int id)
+        public IDictionary<string, object> BAOTRI_Group9Delete(int id)
         {
-            return Group9BaoTriAppService.Group9BaoTri_Delete(id);
+            return Group9BaoTriAppService.BAOTRI_Group9Delete(id);
         }
         [HttpPost]
         public IDictionary<string, object> Group9BaoTri_Update([FromBody]Group9BaoTriDto input)
         {
-            return Group9BaoTriAppService.Group9BaoTri_Update(input);
+            return Group9BaoTriAppService.BAOTRI_Group9Update(input);
         }
         [HttpPost]
         public List<Group9BaoTriDto> Group9BaoTri_Search([FromBody]Group9BaoTriDto input)
         {
-            return Group9BaoTriAppService.Group9BaoTri_Search(input);
+            return Group9BaoTriAppService.BAOTRI_Group9Search(input);
         }
         [HttpPost]
         public Group9BaoTriDto Group9BaoTri_ById(int id)
         {
-            return Group9BaoTriAppService.Group9BaoTri_ById(id);
+            return Group9BaoTriAppService.BAOTRI_Group9ById(id);
         }
         [HttpPost]
-        public List<int> Group9BaoTri_ListMaXe()
+
+        public List<Group9BaoTriDto> Group9BaoTri_SearchAll()
         {
-            return Group9BaoTriAppService.Group9BaoTri_ListMaXe();
-        }
-        [HttpPost]
-        public List<int> Group9BaoTri_ListMaTaiXe()
-        {
-            return Group9BaoTriAppService.Group9BaoTri_ListMaTaiXe();
+            return Group9BaoTriAppService.BAOTRI_Group9SearchAll();
         }
 
     }
- }
+}

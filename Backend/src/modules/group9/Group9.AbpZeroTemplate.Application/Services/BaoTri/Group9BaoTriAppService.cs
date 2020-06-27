@@ -15,13 +15,13 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
 {
     public interface IGroup9BaoTriAppService : IApplicationService
     {
-        IDictionary<string, object> Group9BaoTri_Update(Group9BaoTriDto input);
-        Group9BaoTriDto Group9BaoTri_ById(int id);
-        IDictionary<string, object> Group9BaoTri_Insert(Group9BaoTriDto input);
-        IDictionary<string, object> Group9BaoTri_Delete(int id);
-        List<Group9BaoTriDto> Group9BaoTri_Search(Group9BaoTriDto input);
-        List<int> Group9BaoTri_ListMaTaiXe();
-        List<int> Group9BaoTri_ListMaXe();
+        IDictionary<string, object> BAOTRI_Group9Update(Group9BaoTriDto input);
+        Group9BaoTriDto BAOTRI_Group9ById(int id);
+        IDictionary<string, object> BAOTRI_Group9Insert(Group9BaoTriDto input);
+        IDictionary<string, object> BAOTRI_Group9Delete(int id);
+        List<Group9BaoTriDto> BAOTRI_Group9Search(Group9BaoTriDto input);
+        List<Group9BaoTriDto> BAOTRI_Group9SearchAll();
+
     }
     public class Group9BaoTriAppService : BaseService, IGroup9BaoTriAppService
     {
@@ -30,50 +30,40 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
              
         }
 
-        public Group9BaoTriDto Group9BaoTri_ById(int id)
+        public Group9BaoTriDto BAOTRI_Group9ById(int id)
         {
-            return procedureHelper.GetData<Group9BaoTriDto>("Group9BaoTri_ById", new
+            return procedureHelper.GetData<Group9BaoTriDto>("BAOTRI_Group9ById", new
             {
                 Ma = id
             }).FirstOrDefault();
         }
 
-        public IDictionary<string, object> Group9BaoTri_Delete(int id)
+        public IDictionary<string, object> BAOTRI_Group9Delete(int id)
         {
-            return procedureHelper.GetData<dynamic>("Group9BaoTri_Delete", new
+            return procedureHelper.GetData<dynamic>("BAOTRI_Group9Delete", new
             {
                 Ma = id
             }).FirstOrDefault();
         }
 
-        public IDictionary<string, object> Group9BaoTri_Insert(Group9BaoTriDto input)
+        public IDictionary<string, object> BAOTRI_Group9Insert(Group9BaoTriDto input)
         {
-            return procedureHelper.GetData<dynamic>("Group9BaoTri_Insert", input).FirstOrDefault();
+            return procedureHelper.GetData<dynamic>("BAOTRI_Group9Insert", input).FirstOrDefault();
         }
 
-        public List<int> Group9BaoTri_ListMaTaiXe()
+        public List<Group9BaoTriDto> BAOTRI_Group9Search(Group9BaoTriDto input)
         {
-            return procedureHelper.GetData<dynamic>("Group9BaoTri_ListMaTaiXe", new
-            {
-            }).FirstOrDefault();
+            return procedureHelper.GetData<Group9BaoTriDto>("BAOTRI_Group9Search", input);
         }
 
-        public List<int> Group9BaoTri_ListMaXe()
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchAll()
         {
-            return procedureHelper.GetData<dynamic>("Group9BaoTri_ListMaXe", new
-            {
-            }).FirstOrDefault();
+            return procedureHelper.GetData<Group9BaoTriDto>("BAOTRI_Group9SearchAll", new { });
         }
 
-        public List<Group9BaoTriDto> Group9BaoTri_Search(Group9BaoTriDto input)
+        public IDictionary<string, object> BAOTRI_Group9Update(Group9BaoTriDto input)
         {
-            return procedureHelper.GetData<Group9BaoTriDto>("Group9BaoTri_Search", input);
-        }
-
-     
-        public IDictionary<string, object> Group9BaoTri_Update(Group9BaoTriDto input)
-        {
-            return procedureHelper.GetData<dynamic>("Group9BaoTri_Update", input).FirstOrDefault();
+            return procedureHelper.GetData<dynamic>("BAOTRI_Group9Update", input).FirstOrDefault();
         }
     }
 } 
