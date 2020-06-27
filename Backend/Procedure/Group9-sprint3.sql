@@ -1,5 +1,5 @@
 ﻿-------------------[dbo].[Group9BaoTri_Insert] 6/17/2020----------------
-create proc [dbo].[BAOTRI_Group9Insert]
+create or alter proc [dbo].[BAOTRI_Group9Insert]
     @BaoTri_NgayBaoTri      datetime NULL ,
 	@BaoTri_NoiBaoTri       nvarchar(max) NULL ,
 	@BaoTri_NgayXuatXuong   datetime NULL ,
@@ -63,9 +63,10 @@ rollback transaction
 
 end catch
 
+go
 -------------------[dbo].[Group9BaoTri_Update] 6/17/2020----------------
 
-create proc [dbo].[BAOTRI_Group9Update]
+create or alter proc [dbo].[BAOTRI_Group9Update]
     @Ma int = NULL,
     @BaoTri_NgayBaoTri      datetime NULL ,
 	@BaoTri_NoiBaoTri       nvarchar(max) NULL ,
@@ -113,10 +114,10 @@ rollback transaction
 
 end catch
 
-
+go
 -------------------[dbo].[Group9BaoTri_ById] 6/17/2020----------------
 
-create proc [dbo].[BAOTRI_Group9ById]
+create or alter proc [dbo].[BAOTRI_Group9ById]
     @Ma int = NULL
 as
 begin
@@ -124,18 +125,18 @@ select *
 from BaoTri
 where Ma = @Ma and BaoTri_TrangThai = 'N'
 end
-
+go
 -------------------[dbo].[Group9BaoTri_SearchAll] 6/17/2020----------------
-create proc [dbo].[BAOTRI_Group9SearchAll]
+create or alter proc [dbo].[BAOTRI_Group9SearchAll]
 as
 begin
 select *
 from BaoTri
 where BaoTri_TrangThai = 'N'
 end
-
+go
 -------------------[dbo].[Group9BaoTri_Search] 6/17/2020----------------
-create proc [dbo].[BAOTRI_Group9Search] 
+create or alter proc [dbo].[BAOTRI_Group9Search] 
  @Ma int = NULL,
     @BaoTri_NgayBaoTri      datetime NULL ,
 	@BaoTri_NoiBaoTri       nvarchar(max) NULL ,
@@ -168,9 +169,9 @@ begin
 	and (BaoTri_TrangThai = 'N')
 
 end
-
+go
 -------------------[dbo].[Group9BaoTri_Delete] 6/17/2020----------------
-create proc [dbo].[BAOTRI_Group9Delete] @Ma int = NULL
+create or alter proc [dbo].[BAOTRI_Group9Delete] @Ma int = NULL
 as
 
 if(exists(select * from BaoTri where BaoTri_TinhTrangBaoTri = 'D' and Ma = @Ma))
