@@ -34,25 +34,37 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
             return Group9BaoTriAppService.BAOTRI_Group9Delete(id);
         }
         [HttpPost]
-        public IDictionary<string, object> Group9BaoTri_Update([FromBody]Group9BaoTriDto input)
+        public IDictionary<string, object> BAOTRI_Group9Update([FromBody]Group9BaoTriDto input)
         {
             return Group9BaoTriAppService.BAOTRI_Group9Update(input);
         }
         [HttpPost]
-        public List<Group9BaoTriDto> Group9BaoTri_Search([FromBody]Group9BaoTriDto input)
+        public List<Group9BaoTriDto> BAOTRI_Group9Search([FromBody]Group9BaoTriDto input)
         {
             return Group9BaoTriAppService.BAOTRI_Group9Search(input);
         }
         [HttpPost]
-        public Group9BaoTriDto Group9BaoTri_ById(int id)
+        public Group9BaoTriDto BAOTRI_Group9ById(int id)
         {
             return Group9BaoTriAppService.BAOTRI_Group9ById(id);
         }
         [HttpPost]
 
-        public List<Group9BaoTriDto> Group9BaoTri_SearchAll()
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchAll()
         {
             return Group9BaoTriAppService.BAOTRI_Group9SearchAll();
+        }
+
+        [HttpPost]
+        public IDictionary<string, object> BAOTRI_Group9App(int id, string checkerId)
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9App(id, checkerId);
+        }
+
+        [HttpGet]
+        public string GetCurrentUserName()
+        {
+            return Group9BaoTriAppService.GetCurrentUserName();
         }
 
     }

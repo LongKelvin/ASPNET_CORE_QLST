@@ -19,5 +19,13 @@ namespace Group9.AbpZeroTemplate.Application
         public const string Pages_Administration_Group9BaoTri_Update = "Pages.Group9.BaoTri.Update";
         public const string Pages_Administration_Group9BaoTri_View = "Pages.Group9.BaoTri.View";
         public const string Pages_Administration_Group9BaoTri_Delete = "Pages.Group9.BaoTri.Delete";
+        public const string Pages_Administration_Group9BaoTri_App = "Pages.Group9.BaoTri.App";
+
+
+        public const string Pages_Administration_Group9HoatDongTaiXe = "Pages.Group9.HoatDongTaiXe";
+        public const string Pages_Administration_Group9HoatDongTaiXe_Add = "Pages.Group9.HoatDongTaiXe.Add";
+        public const string Pages_Administration_Group9HoatDongTaiXe_Update = "Pages.Group9.HoatDongTaiXe.Update";
+        public const string Pages_Administration_Group9HoatDongTaiXe_View = "Pages.Group9.HoatDongTaiXe.View";
+        public const string Pages_Administration_Group9HoatDongTaiXe_Delete = "Pages.Group9.HoatDongTaiXe.Delete";
     }
 }

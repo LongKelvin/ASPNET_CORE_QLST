@@ -21,13 +21,23 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         IDictionary<string, object> BAOTRI_Group9Delete(int id);
         List<Group9BaoTriDto> BAOTRI_Group9Search(Group9BaoTriDto input);
         List<Group9BaoTriDto> BAOTRI_Group9SearchAll();
-
+        IDictionary<string, object> BAOTRI_Group9App(int id, string checkerId);
+        string GetCurrentUserName();
     }
     public class Group9BaoTriAppService : BaseService, IGroup9BaoTriAppService
     {
         public Group9BaoTriAppService()
         {
              
+        }
+
+        public IDictionary<string, object> BAOTRI_Group9App(int id, string checkerId)
+        {
+            return procedureHelper.GetData<dynamic>("BAOTRI_App", new
+            {
+                Id = id,
+                CheckerId = checkerId
+            }).FirstOrDefault();
         }
 
         public Group9BaoTriDto BAOTRI_Group9ById(int id)

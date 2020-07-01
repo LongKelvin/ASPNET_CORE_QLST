@@ -35,6 +35,13 @@ namespace Group9.AbpZeroTemplate.Application
             group9BaoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri_Update, L("Edit"));
             group9BaoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri_View, L("View"));
             group9BaoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri_Delete, L("Delete"));
+            group9BaoTri.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9BaoTri_App, L("App"));
+
+            var group9HoatDongTaiXe = pages.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9HoatDongTaiXe, L("HoatDongTaiXe"));
+            group9HoatDongTaiXe.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9HoatDongTaiXe_Add, L("Create"));
+            group9HoatDongTaiXe.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9HoatDongTaiXe_Update, L("Edit"));
+            group9HoatDongTaiXe.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9HoatDongTaiXe_View, L("View"));
+            group9HoatDongTaiXe.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9HoatDongTaiXe_Delete, L("Delete"));
 
         }
 
