@@ -9,6 +9,9 @@ import { Group9ServiceProxyModule } from './group9.service-proxy.module';
 import { TableModule } from "primeng/table";
 import { AutoCompleteModule } from 'primeng/primeng';
 import { UtilsModule } from "@shared/utils/utils.module";
+import { DriverScheduleComponent} from "./driver-schedule/driver-schedule.component"
+import { DriverScheduleAddComponent} from "./driver-schedule-add/driver-schedule-add.component"
+import { DriverScheduleEditComponent} from "./driver-schedule-edit/driver-schedule-edit.component"
 
 @NgModule({
   imports: [
@@ -21,8 +24,11 @@ import { UtilsModule } from "@shared/utils/utils.module";
     UtilsModule,
     AutoCompleteModule,
   ],
-  declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent],  
+  declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
+  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent],  
    
-  exports:[ModelCarAddGroup9Component,MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent]
+  exports:[ModelCarAddGroup9Component,MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
+  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent
+  ]
 })
 export class Group9Module { }

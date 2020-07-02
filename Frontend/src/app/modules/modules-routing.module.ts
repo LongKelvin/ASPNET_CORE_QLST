@@ -15,6 +15,9 @@ import { MaintainCarsNotifyComponent} from "./maintain-cars/maintain-cars-notify
 import { MaintainCarsNotifyAddComponent } from "./maintain-cars/maintain-cars-notify-add/maintain-cars-notify-add.component";
 import { MaintainCarNotifyComponent } from "./maintain-car-notify/maintain-car-notify/maintain-car-notify.component";
 import { MaintainCarNotifyAddComponent} from "./maintain-car-notify/maintain-car-notify-add/maintain-car-notify-add.component"
+import { DriverScheduleComponent} from "./drivers-schedule/driver-schedule/driver-schedule.component"
+import { DriverScheduleAddComponent} from "./drivers-schedule/driver-schedule-add/driver-schedule-add.component"
+import { DriverScheduleEditComponent} from "./drivers-schedule/driver-schedule-edit/driver-schedule-edit.component"
 
 @NgModule({
     imports: [
@@ -44,6 +47,12 @@ import { MaintainCarNotifyAddComponent} from "./maintain-car-notify/maintain-car
                         ]
                     },
                     {
+                        path: 'driver-schedule', component: DriverScheduleComponent,
+                        children: [
+
+                        ]
+                    },
+                    {
                         path: 'maintain-cars-notify-add', component: MaintainCarNotifyAddComponent
                     },
                      {
@@ -53,6 +62,13 @@ import { MaintainCarNotifyAddComponent} from "./maintain-car-notify/maintain-car
                         path: 'car-maintenance-notify-search', component: MaintainCarNotifyComponent 
 
                     },
+                    {
+                        path: 'driver-schedule-add', component: DriverScheduleAddComponent
+                    },
+                     {
+                        path: 'driver-schedule-edit', component: DriverScheduleEditComponent
+                    },
+        
                     //--------------
                     {
                         path: 'car-add', component: CarAddComponent

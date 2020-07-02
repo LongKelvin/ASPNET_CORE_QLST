@@ -22,6 +22,7 @@ import { RouterModule } from "@angular/router";
 import { FunctionsModule } from './functions/functions.module';
 import { MaintainCarsModule} from './maintain-cars/maintain-cars.module'
 import { MaintainCarNotifyModule} from './maintain-car-notify/maintain-car-notify.module';
+import { DriversScheduleModule} from './drivers-schedule/drivers-schedule.module'
 @NgModule({
     imports: [
         CommonModule,
@@ -38,7 +39,8 @@ import { MaintainCarNotifyModule} from './maintain-car-notify/maintain-car-notif
         RouterModule,
         FunctionsModule,
         MaintainCarsModule,
-        MaintainCarNotifyModule
+        MaintainCarNotifyModule,
+        DriversScheduleModule
     ],
     declarations: [ 
     ],

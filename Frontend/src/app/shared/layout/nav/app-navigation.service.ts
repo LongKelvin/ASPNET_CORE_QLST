@@ -82,6 +82,12 @@ export class AppNavigationService {
                 "flaticon-plus",
                 "/app/admin/maintain-cars-notify"
             ),
+            new AppMenuItem(
+                "Quản lý hoạt động tài xế",
+                "Pages.Group0.Car",
+                'flaticon-line-graph',
+                "/app/admin/driver-schedule"
+            ),
         ]);
     }
 
