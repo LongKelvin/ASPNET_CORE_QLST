@@ -1,37 +1,160 @@
-<!DOCTYPE html>
-<html>
+<div [@routerTransition]>
+    <form class="m-content" #roleForm="ngForm" novalidate (ngSubmit)="luuconfirm()" autocomplete="off">
+        <div class="m-portlet m-portlet__header m-portlet-mobile">
+            <div class="m-portlet__nav">
+                <ul>
+                    <li>
+                        <a style="cursor: pointer;" (click)="huyconfirm()"><i class="fa fa-times"></i> Hủy</a>
+                    </li>
+                    <li>
+                        <a style="cursor: pointer;" (click)="luuconfirm()"><i class="fa fa-check"></i> Lưu</a>
+                    </li>
+                </ul>
+            </div>
 
-<head>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-    </style>
-</head>
+        </div>
+        <div class="m-subheader">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto col-xs-6">
+                    <span style="cursor: pointer;" class="m-section__sub m-section__sub--separator">
+                        Trang chủ
+                    </span>
+                    <span class="m-section__sub m-section__sub--separator active">
+                        <a routerLink="/app/admin/driver-schedule">Quản lý hoạt động tài xế</a>
+                    </span>
+                    <span style="cursor: pointer;" class="m-section__sub m-section__sub--separator">
+                        Thêm lịch trình tài xế
+                    </span>
+                </div>
+            </div>
+        </div>
 
-<body>
+        <!-- Content -->
+        <div class="m-content">
+            <div class="m-portlet m-portlet-mobile">
+                <div class="m-portlet__body">
+                    <form class="ng-tns-c10-9 ng-pristine ng-valid ng-touched" autocomplete="off" novalidate="">
 
-    <h1>Driver-Schedule-EDIT-Screen </h1>
+                        <div class="col-xl-3">
 
-    <p>The tr element defines a row in a table:</p>
+                            <label for="maLichTrinh">Mã Lịch Trình của xe</label>
+                            <div class="form-group">
+                                <p-autoComplete id="maLichTrinh" [(ngModel)]="SCHEDULE_ID" [suggestions]="SCHEDULE_ID"
+                                    (completeMethod)="filterScheduleId($event)" (onClear)="clearOption()"
+                                    (onSelect)="validateFilterInput()" (onKeyUp)="onKeyUp($event)" [dropdown]="true"
+                                    field="name" placeholder="Mã Lịch Trình" name="maLichTrinh">
+                                </p-autoComplete>
+                            </div>
 
-    <table>
-        <tr>
-            <th>Month</th>
-            <th>Savings</th>
-        </tr>
-        <tr>
-            <td>January</td>
-            <td>$100</td>
-        </tr>
-        <tr>
-            <td>February</td>
-            <td>$80</td>
-        </tr>
-    </table>
+                        </div>
 
-</body>
+                        <!-- content -->
+                        <div class="col-xl-3">
+                            <label></label>
+                        </div>
+                        <div class="col-xl-3">
+                            <label></label>
+                        </div>
+                        <div class="col-xl-3">
 
-</html>
+                            <label class="ng-tns-c10-9">Thời gian hoạt động</label>
+                        </div>
+                        <div class="col-xl-3">
+                            <label></label>
+                        </div>
+
+                        <div class="row m--margin-bottom-10">
+
+                            <div class="col-xl-3">
+                                <div class="form-group">
+                                    <label class="ng-tns-c10-9" for="ngayBatDau">Ngày Bắt Đầu </label>
+                                    <div class="input-group">
+                                        <input class="form-control ng-pristine ng-valid ng-touched text-uppercase"
+                                            id="ngayBatDau" name="ngayBatDau" type="date" ng-reflect-name="ngayBatDau"
+                                            [(ngModel)]="START_DATE" require>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3">
+                                <div class="form-group">
+                                    <label class="ng-tns-c10-9" for="ngayKetThuc">Ngày Kết Thúc </label>
+                                    <div class="input-group">
+                                        <input class="form-control ng-pristine ng-valid ng-touched text-uppercase"
+                                            id="ngayKetThuc" name="ngayKetThuc" type="date"
+                                            ng-reflect-name="ngayKetThuc" [(ngModel)]="END_DATE" require>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <label></label>
+                        </div>
+                        <div class="col-xl-6">
+                            <label></label>
+                        </div>
+                        <div class="row m--margin-bottom-10">
+
+                            <div class="col-md-8 col-xl-3">
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="kmthucte">Số km thực tế</label>
+                                        <div class="input-group">
+                                            <input class="input-width" id="kmthucte" name="kmthucte"
+                                                [(ngModel)]="kmthucte" type="number" pInputText />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3">
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="kmthucte">Số km ước tính</label>
+                                        <div class="input-group">
+                                            <input class="input-width" readonly id="kmuoctinh" name="kmuoctinh"
+                                                [(ngModel)]="kmuoctinh" type="number" pInputText />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3">
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="nhienlieutieuthu">Nhiên liệu tiêu thụ
+                                            (lít)</label>
+                                        <div class="input-group">
+                                            <input class="input-width" readonly id="nhienlieutieuthu"
+                                                name="nhienlieutieuthu" [(ngModel)]="nhienlieutieuthu" type="number"
+                                                pInputText />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+<!--dialog xác nhận Lưu dữ liệu-->
+<p-dialog styleClass="dialog-width" header="Lưu" [(visible)]="luudialog" [style]="{width: '1000vw'}"
+    [baseZIndex]="10000">
+    Lưu toàn bộ dữ liệu ?
+    <p-footer>
+        <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton (click)="luudialog=false;"
+            label="Thêm"></button>
+        <button type="button" pButton (click)="luudialog=false" label="Hủy" class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>

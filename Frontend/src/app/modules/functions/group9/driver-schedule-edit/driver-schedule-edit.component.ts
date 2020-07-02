@@ -12,7 +12,7 @@ import { Paginator } from "primeng/primeng";
 })
 export class DriverScheduleEditComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
-    @ViewChild("dataTable") dataTable: Table;
+   @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
 
     constructor(injector: Injector, ) {
@@ -20,12 +20,44 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
         this.currentUserName = this.appSession.user.userName;
     }
 
+   
+
     currentUserName: string;
+    SCHEDULE_ID: string;
+    START_DATE: number = Date.now();
+    END_DATE: number = Date.now() + 7;
+    kmthucte: number;
+    kmuoctinh: number;
+    nhienlieutieuthu: number;
+  
+    luudialog: boolean;
+
 
     ngOnInit() {
     }
     
     ngAfterViewInit(): void {
        
+    }
+
+    luuconfirm(){}
+    huyconfirm(){}
+
+    numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+   }
+
+   filterScheduleId(){}
+    clearOption(){}
+    validateFilterInput(){}
+    onKeyUp(event) {
+        if (event.keyCode === 13) {
+           
+        }
     }
 }

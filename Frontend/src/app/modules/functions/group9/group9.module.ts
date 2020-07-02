@@ -12,6 +12,10 @@ import { UtilsModule } from "@shared/utils/utils.module";
 import { DriverScheduleComponent} from "./driver-schedule/driver-schedule.component"
 import { DriverScheduleAddComponent} from "./driver-schedule-add/driver-schedule-add.component"
 import { DriverScheduleEditComponent} from "./driver-schedule-edit/driver-schedule-edit.component"
+import { InputTextModule} from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/primeng';
+import { DialogModule} from 'primeng/dialog';
+import { ButtonModule} from 'primeng/button';
 
 @NgModule({
   imports: [
@@ -23,6 +27,11 @@ import { DriverScheduleEditComponent} from "./driver-schedule-edit/driver-schedu
     RouterModule,
     UtilsModule,
     AutoCompleteModule,
+    InputTextModule,
+    DropdownModule,
+    DialogModule,
+    ButtonModule
+
   ],
   declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
   DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent],  
