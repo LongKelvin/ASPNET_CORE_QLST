@@ -1,4 +1,4 @@
-Create table HoatDongTaiXe(
+﻿Create table HoatDongTaiXe(
 [Ma] int NOT NULL IDENTITY(1,1) primary key,
 [HoatDongTaiXe_MaLichTrinh] int null,
 [HoatDongTaiXe_KmThucTe] float null,
@@ -24,7 +24,7 @@ as
 
 if(exists(select * from HoatDongTaiXe where HoatDongTaiXe_MaLichTrinh= @HoatDongTaiXe_MaLichTrinh and HoatDongTaiXe_TrangThai = 'N'))
 begin
-	select '1' as Result, N' ?� t?n t?i trong h? th?ng' as ErrorDesc
+	select '1' as Result, N'Hoạt động đã tồn tại trong hệ thống' as ErrorDesc
 	return
 end
 else
@@ -44,9 +44,9 @@ begin try
 	VALUES(   
 @HoatDongTaiXe_MaLichTrinh,
 @HoatDongTaiXe_KmThucTe,
-@HoatDongTaiXe_TrangThai,
+'N',
 @HoatDongTaiXe_NguoiTao,
-@HoatDongTaiXe_NgayTao,
+GETDATE(),
 @HoatDongTaiXe_NhienLieu,
 @HoatDongTaiXe_KmUocTinh)
 	declare @Ma int = SCOPE_IDENTITY()
@@ -75,7 +75,7 @@ as
 
 if(not exists(select * from HoatDongTaiXe where Ma = @Ma))
 begin
-	select '1' as Result, N'D? li?u kh�ng t?n t?i trong h? th?ng' as ErrorDesc
+	select '1' as Result, N'Hoạt động không tồn tại trong hệ thống' as ErrorDesc
 	RETURN
 end
 begin transaction
