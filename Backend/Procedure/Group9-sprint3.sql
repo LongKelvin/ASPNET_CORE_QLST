@@ -1,5 +1,7 @@
-﻿-------------------[dbo].[Group9BaoTri_Insert] 6/17/2020----------------
-create or alter proc [dbo].[BAOTRI_Group9Insert]
+﻿USE DbPratice
+Go
+-------------------[dbo].[Group9BaoTri_Insert] 6/17/2020----------------
+create proc [dbo].[BAOTRI_Group9Insert]
     @BaoTri_NgayBaoTri      datetime NULL ,
 	@BaoTri_NoiBaoTri       nvarchar(max) NULL ,
 	@BaoTri_NgayXuatXuong   datetime NULL ,
@@ -45,7 +47,7 @@ begin try
 		@BaoTri_NoiBaoTri     ,
 		@BaoTri_NgayXuatXuong  ,
 		@BaoTri_ThanhTien       ,
-		'C',
+		'U',
 		@BaoTri_MaXe           ,
 		@BaoTri_MaTaiXe      ,
 		@BaoTri_NguoiTao   ,
@@ -62,11 +64,10 @@ begin catch
 rollback transaction
 
 end catch
-
 go
 -------------------[dbo].[Group9BaoTri_Update] 6/17/2020----------------
 
-create or alter proc [dbo].[BAOTRI_Group9Update]
+create proc [dbo].[BAOTRI_Group9Update]
     @Ma int = NULL,
     @BaoTri_NgayBaoTri      datetime NULL ,
 	@BaoTri_NoiBaoTri       nvarchar(max) NULL ,
@@ -117,7 +118,7 @@ end catch
 go
 -------------------[dbo].[Group9BaoTri_ById] 6/17/2020----------------
 
-create or alter proc [dbo].[BAOTRI_Group9ById]
+create proc [dbo].[BAOTRI_Group9ById]
     @Ma int = NULL
 as
 begin
@@ -127,7 +128,7 @@ where Ma = @Ma and BaoTri_TrangThai = 'N'
 end
 go
 -------------------[dbo].[Group9BaoTri_SearchAll] 6/17/2020----------------
-create or alter proc [dbo].[BAOTRI_Group9SearchAll]
+create proc [dbo].[BAOTRI_Group9SearchAll]
 as
 begin
 select *
@@ -136,7 +137,7 @@ where BaoTri_TrangThai = 'N'
 end
 go
 -------------------[dbo].[Group9BaoTri_Search] 6/17/2020----------------
-create or alter proc [dbo].[BAOTRI_Group9Search] 
+create proc [dbo].[BAOTRI_Group9Search] 
  @Ma int = NULL,
     @BaoTri_NgayBaoTri      datetime NULL ,
 	@BaoTri_NoiBaoTri       nvarchar(max) NULL ,
@@ -171,7 +172,7 @@ begin
 end
 go
 -------------------[dbo].[Group9BaoTri_Delete] 6/17/2020----------------
-create or alter proc [dbo].[BAOTRI_Group9Delete] @Ma int = NULL
+create proc [dbo].[BAOTRI_Group9Delete] @Ma int = NULL
 as
 
 if(exists(select * from BaoTri where BaoTri_TinhTrangBaoTri = 'D' and Ma = @Ma))
@@ -184,6 +185,24 @@ begin try
 	update BaoTri set BaoTri_TrangThai = 'X' where Ma = @Ma
 commit transaction
 	select '0' as Result, N'' as ErrorDesc, @Ma as Ma
+end try
+begin catch
+
+rollback transaction
+
+end catch
+go
+-------------------[dbo].[Group9BaoTri_App] 6/17/2020----------------
+
+create Proc [dbo].[Group9BaoTri_App] @Id int = NULL,@CheckerId varchar(15)
+as
+begin transaction
+begin try
+	update BaoTri 
+	set BaoTri_TinhTrangBaoTri = 'A', CheckerId = @CheckerId
+	where Id = @Id
+commit transaction
+	select '0' as Result, N'' as ErrorDesc, @id as ID
 end try
 begin catch
 
