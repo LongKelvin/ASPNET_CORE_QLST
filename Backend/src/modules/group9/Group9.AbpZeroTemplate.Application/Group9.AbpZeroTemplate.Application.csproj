@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\GSoft.AbpZeroTemplate.Application.Shared\GSoft.AbpZeroTemplate.Application.Shared.csproj" />
+    <ProjectReference Include="..\..\..\GSoft.AbpZeroTemplate.Core\GSoft.AbpZeroTemplate.Core.csproj" />
   </ItemGroup>
 
 </Project>

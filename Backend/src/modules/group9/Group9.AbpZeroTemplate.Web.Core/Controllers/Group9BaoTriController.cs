@@ -21,10 +21,15 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
         {
             this.Group9BaoTriAppService = Group9BaoTriAppService;
         }
-   
-   
+
         [HttpPost]
-        public IDictionary<string, object> BAOTRI_Group9Insert([FromBody]Group9BaoTriDto input)
+        public async Task BAOTRI_Group9SendNotification(string userName, string maThongBao, string maXe, DateTime ngayBaoTri, string NoiBaoTri)
+        {
+            await Group9BaoTriAppService.BAOTRI_Group9SendNotification(userName, maThongBao, maXe, ngayBaoTri, NoiBaoTri);
+        }
+
+        [HttpPost]
+        public IDictionary<string, object> BAOTRI_Group9Insert([FromBody] Group9BaoTriDto input)
         {
             return Group9BaoTriAppService.BAOTRI_Group9Insert(input);
         }
@@ -34,12 +39,12 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
             return Group9BaoTriAppService.BAOTRI_Group9Delete(id);
         }
         [HttpPost]
-        public IDictionary<string, object> BAOTRI_Group9Update([FromBody]Group9BaoTriDto input)
+        public IDictionary<string, object> BAOTRI_Group9Update([FromBody] Group9BaoTriDto input)
         {
             return Group9BaoTriAppService.BAOTRI_Group9Update(input);
         }
         [HttpPost]
-        public List<Group9BaoTriDto> BAOTRI_Group9Search([FromBody]Group9BaoTriDto input)
+        public List<Group9BaoTriDto> BAOTRI_Group9Search([FromBody] Group9BaoTriDto input)
         {
             return Group9BaoTriAppService.BAOTRI_Group9Search(input);
         }
