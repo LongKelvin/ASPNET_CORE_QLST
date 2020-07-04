@@ -6,20 +6,26 @@ using System.Threading.Tasks;
 
 namespace Group9.AbpZeroTemplate.Application
 {
-    public static class Group9PermissionsConst
-    {
-        public const string Pages_Administration_Car = "Pages.Group9.Car";
-        public const string Pages_Administration_Car_Add = "Pages.Group9.Car.Add";
-        public const string Pages_Administration_Car_Update = "Pages.Group9.Car.Update";
-        public const string Pages_Administration_Car_View = "Pages.Group9.Car.View";
-        public const string Pages_Administration_Car_Delete = "Pages.Group9.Car.Delete";
-        public const string Pages_Administration_Car_Approve = "Pages.Group9.Car.Approve";
+  public static class Group9PermissionsConst
+  {
 
-        public const string Pages_Administration_Car_Maintenance_Notify = "Pages.Group9.Car_Maintenance_Notify";
-        public const string Pages_Administration_Car_Maintenance_Notify_Add = "Pages.Group9.Car_Maintenance_Notify.Add";
-        public const string Pages_Administration_Car_Maintenance_Notify_Update = "Pages.Group9.Car_Maintenance_Notify.Update";
-        public const string Pages_Administration_Car_Maintenance_Notify_View = "Pages.Group9.Car_Maintenance_Notify.View";
-        public const string Pages_Administration_Car_Maintenance_Notify_Delete = "Pages.Group9.Car_Maintenance_Notify.Delete";
-        public const string Pages_Administration_Car_Maintenance_Notify_Approve = "Pages.Group9.Car_Maintenance_Notify.Approve";
+
+        public const string Pages_Administration_Group9LoaiXe = "Pages.Group9.Group9LoaiXe";
+        public const string Pages_Administration_Group9LoaiXe_Add = "Pages.Group9.Group9LoaiXe.Add";
+
+
+        public const string Pages_Administration_Group9BaoTri = "Pages.Group9.BaoTri";
+        public const string Pages_Administration_Group9BaoTri_Add = "Pages.Group9.BaoTri.Add";
+        public const string Pages_Administration_Group9BaoTri_Update = "Pages.Group9.BaoTri.Update";
+        public const string Pages_Administration_Group9BaoTri_View = "Pages.Group9.BaoTri.View";
+        public const string Pages_Administration_Group9BaoTri_Delete = "Pages.Group9.BaoTri.Delete";
+        public const string Pages_Administration_Group9BaoTri_App = "Pages.Group9.BaoTri.App";
+
+
+        public const string Pages_Administration_Group9HoatDongTaiXe = "Pages.Group9.HoatDongTaiXe";
+        public const string Pages_Administration_Group9HoatDongTaiXe_Add = "Pages.Group9.HoatDongTaiXe.Add";
+        public const string Pages_Administration_Group9HoatDongTaiXe_Update = "Pages.Group9.HoatDongTaiXe.Update";
+        public const string Pages_Administration_Group9HoatDongTaiXe_View = "Pages.Group9.HoatDongTaiXe.View";
+        public const string Pages_Administration_Group9HoatDongTaiXe_Delete = "Pages.Group9.HoatDongTaiXe.Delete";
     }
 }
