@@ -10,7 +10,8 @@ namespace Group10.AbpZeroTemplate.Application
     public override void Initialize()
     {
       Configuration.Authorization.Providers.Add<Group10AuthorizationProvider>();
-    }
+            Configuration.Authorization.Providers.Add<Group10AuthorizationProviderSuaChua>();
+        }
 
     public override void PreInitialize()
     {

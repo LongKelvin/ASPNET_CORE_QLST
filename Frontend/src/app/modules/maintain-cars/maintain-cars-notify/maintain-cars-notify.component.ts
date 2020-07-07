@@ -1,20 +1,15 @@
-import { Component, Injector, OnInit } from "@angular/core";
-import { AppComponentBase } from "@shared/common/app-component-base";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-maintain-cars-notify',
     templateUrl: './maintain-cars-notify.component.html',
-    styleUrls: ['./maintain-cars-notify.component.less']
+    styleUrls: ['./maintain-cars-notify.component.css']
 })
-export class MaintainCarsNotifyComponent extends AppComponentBase implements OnInit {
+export class MaintainCarsNotifyComponent implements OnInit {
 
-    constructor(injector: Injector) {
-    super(injector);
-  }
+    constructor() { }
+
     ngOnInit() {
     }
 
-    ngAfterViewInit(): void {
-  }
 }
-

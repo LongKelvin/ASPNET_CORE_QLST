@@ -26,20 +26,21 @@ import { SelectEditionComponent } from './register/select-edition.component';
                 children: [
                     { path: '', redirectTo: 'login' },
                     { path: 'login', component: LoginComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'register', component: RegisterComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'register-tenant', component: RegisterTenantComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'register-tenant-result', component: RegisterTenantResultComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'reset-password', component: ResetPasswordComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'email-activation', component: EmailActivationComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'confirm-email', component: ConfirmEmailComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'send-code', component: SendTwoFactorCodeComponent, canActivate: [AccountRouteGuard] },
-                    { path: 'verify-code', component: ValidateTwoFactorCodeComponent, canActivate: [AccountRouteGuard] },
+                    { path: '**', redirectTo: 'login', pathMatch: 'full' }
+                    // { path: 'register', component: RegisterComponent, canActivate: [AccountRouteGuard] },
+                    // { path: 'register-tenant', component: RegisterTenantComponent, canActivate: [AccountRouteGuard] },
+                    // { path: 'register-tenant-result', component: RegisterTenantResultComponent, canActivate: [AccountRouteGuard] },
+                    // { path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [AccountRouteGuard] },
+                    // { path: 'reset-password', component: ResetPasswordComponent, canActivate: [AccountRouteGuard] },
+                    // { path: 'email-activation', component: EmailActivationComponent, canActivate: [AccountRouteGuard] },
+                    // { path: 'confirm-email', component: ConfirmEmailComponent, canActivate: [AccountRouteGuard] },
+                    // { path: 'send-code', component: SendTwoFactorCodeComponent, canActivate: [AccountRouteGuard] },
+                    // { path: 'verify-code', component: ValidateTwoFactorCodeComponent, canActivate: [AccountRouteGuard] },
 
-                    { path: 'buy', component: BuyComponent },
-                    { path: 'extend', component: UpgradeOrExtendComponent },
-                    { path: 'upgrade', component: UpgradeOrExtendComponent },
-                    { path: 'select-edition', component: SelectEditionComponent }
+                    // { path: 'buy', component: BuyComponent },
+                    // { path: 'extend', component: UpgradeOrExtendComponent },
+                    // { path: 'upgrade', component: UpgradeOrExtendComponent },
+                    // { path: 'select-edition', component: SelectEditionComponent }
                 ]
             }
         ])

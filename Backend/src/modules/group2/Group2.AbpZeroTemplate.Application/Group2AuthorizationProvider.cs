@@ -27,12 +27,12 @@ namespace Group2.AbpZeroTemplate.Application
       var Group2 = pages.CreateChildPermission("Pages.Group2", L("Group2"));
 
 
-      var demoModels = pages.CreateChildPermission(Group2PermissionsConst.Pages_Administration_Car, L("Car"));
-      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_Car_Add, L("Create"));
-      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_Car_Update, L("Edit"));
-      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_Car_View, L("View"));
-      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_Car_Delete, L("Delete"));
-      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_Car_Approve, L("Approve"));
+      var demoModels = pages.CreateChildPermission(Group2PermissionsConst.Pages_Administration_TaiXe, L("Group2_TaiXe"));
+      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_TaiXe_Add, L("Create"));
+      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_TaiXe_Update, L("Edit"));
+      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_TaiXe_View, L("View"));
+      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_TaiXe_Delete, L("Delete"));
+      demoModels.CreateChildPermission(Group2PermissionsConst.Pages_Administration_TaiXe_Approve, L("Approve"));
     }
 
     private static ILocalizableString L(string name)

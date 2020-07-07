@@ -5,7 +5,9 @@ import * as ApiServiceProxies from "../../../../shared/service-proxies/service-p
 
 @NgModule({
     providers: [
-        ApiServiceProxies.Group5XeServiceProxy, ApiServiceProxies.Group5XeServiceProxy,
+        ApiServiceProxies.Group4DeXuatServiceProxy, 
+        ApiServiceProxies.Group4XeServiceProxy,
+        ApiServiceProxies.Group4BangGiaServiceProxy,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AbpHttpInterceptor,

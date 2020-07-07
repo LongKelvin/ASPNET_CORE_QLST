@@ -1,4 +1,4 @@
-<div [@routerTransition]>
+<div>
   <div class="m-content">
     <div class="m-portlet m-portlet__header m-portlet-mobile">
       <div class="m-portlet__nav">
@@ -103,34 +103,28 @@
                 Checkbox
               </th>
               <th>
-                Tên xe
+                Tên loại xe
               </th>
               <th>
-                Màu
+                Hãng loại xe
               </th>
               <th>
-                Mục đích
+                Năm sản xuất
               </th>
               <th>
-                Trạng thái
+                Tên
               </th>
               <th>
                 Người tạo
               </th>
               <th>
-                Ngày tạo
-              </th>
-              <th>
                 Số lượng
               </th>
               <th>
-                Bảng giá
+                Mục đích
               </th>
               <th>
-                Chủ thầu
-              </th>
-              <th>
-                Lý do
+                Ghi chú
               </th>
             </tr>
           </ng-template>
@@ -145,35 +139,25 @@
                 </label>
               </td>
               <td>
-                <span>{{record.ma}}</span>
+                <span>{{record.loaiXe_Ten}}</span>
+              </td>
+              <td>
+                <span>{{record.loaiXe_Hang}}</span>
+              </td>
+              <td>
+                <span>{{record.loaiXe_NamSX}}</span>
               </td>
               <td>
                 <span>{{record.deXuat_TenXe}}</span>
               </td>
               <td>
-                <span>{{record.deXuat_Mau}}</span>
-              </td>
-              <td>
-                <span>{{record.deXuat_MucDich}}</span>
-              </td>
-              <td>
-                <span>{{record.deXuat_TrangThai}}</span>
-              </td>
-              <td>
                 <span>{{record.deXuat_NguoiTao}}</span>
-              </td>
-              <td>
-                <span>{{record.deXuat_NgayTao | date: 'shortDate'}}</span>
               </td>
               <td>
                 <span>{{record.deXuat_SoLuong}}</span>
               </td>
               <td>
-                <span>{{record.deXuatBangGia_Gia}}</span>
-                <!--  | currency:'VND':true -->
-              </td>
-              <td>
-                <span>{{record.deXuatBangGia_ChuThau}}</span>
+                <span>{{record.deXuat_MucDich}}</span>
               </td>
               <td>
                 <span>{{record.deXuat_LyDo}}</span>

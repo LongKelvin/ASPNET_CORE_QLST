@@ -8,7 +8,7 @@ import { CarEditGroup6Component } from './car-edit-group6/car-edit-group6.compon
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
   ],
   declarations: [CarEditGroup6Component],
   exports: [CarEditGroup6Component]

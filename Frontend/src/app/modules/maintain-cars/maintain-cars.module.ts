@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaintainCarsComponent } from './maintain-cars/maintain-cars.component';
-import { MaintainCarsRequestComponent } from './maintain-cars-request/maintain-cars-request.component';
+import { MaintainCarsEditComponent } from './maintain-cars-edit/maintain-cars-edit.component';
+import { MaintainCarsAddComponent } from './maintain-cars-add/maintain-cars-add.component';
 import { MaintainCarsNotifyComponent } from './maintain-cars-notify/maintain-cars-notify.component';
-import { MaintainCarsNotifyAddComponent } from './maintain-cars-notify-add/maintain-cars-notify-add.component';
 import { ModulesRoutingModule } from '../modules-routing.module';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -22,9 +22,12 @@ import { FunctionsModule } from '../functions/functions.module';
     ],
     declarations: [
         MaintainCarsComponent,
-        MaintainCarsRequestComponent,
+        MaintainCarsEditComponent,
+        MaintainCarsAddComponent,
         MaintainCarsNotifyComponent,
-        MaintainCarsNotifyAddComponent
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
     ]
 })
 export class MaintainCarsModule { }

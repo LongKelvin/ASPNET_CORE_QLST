@@ -23,19 +23,31 @@ namespace Group4.AbpZeroTemplate.Application
     {
       //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
-      var pages = context.GetPermissionOrNull("Pages") ?? context.CreatePermission("Pages", L("Pages"));
-      var Group4 = pages.CreateChildPermission("Pages.Group4", L("Group4"));
+    var pages = context.GetPermissionOrNull("Pages") ?? context.CreatePermission("Pages", L("Pages"));
+
+    var group4LoaiXe = pages.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LoaiXe, L("Group4LoaiXe"));
+    group4LoaiXe.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LoaiXe_Search, L("Xem"));
+    group4LoaiXe.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LoaiXe_Delete, L("Xóa"));
+
+    var group4TuyenChay = pages.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4TuyenChay, L("Group4TuyenChay"));
+    group4TuyenChay.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4TuyenChay_Insert, L("Thêm"));
+    group4TuyenChay.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4TuyenChay_Search, L("Xem"));
 
 
-      var demoModels = pages.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Car, L("Car"));
-      demoModels.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Car_Add, L("Create"));
-      demoModels.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Car_Update, L("Edit"));
-      demoModels.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Car_View, L("View"));
-      demoModels.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Car_Delete, L("Delete"));
-      demoModels.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Car_Approve, L("Approve"));
-    }
+    var group4LichTrinh = pages.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LichTrinh, L("Group4LichTrinh"));
+    group4LichTrinh.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LichTrinh_Insert, L("Thêm"));
+    group4LichTrinh.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LichTrinh_Search, L("Xem"));
+    group4LichTrinh.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LichTrinh_SearchById, L("Xem chi tiết"));
+    group4LichTrinh.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LichTrinh_Delete, L("Xóa"));
+    group4LichTrinh.CreateChildPermission(Group4PermissionsConst.Pages_Administration_Group4LichTrinh_Update, L("Cập nhật"));
 
-    private static ILocalizableString L(string name)
+
+
+
+
+        }
+
+        private static ILocalizableString L(string name)
     {
       return new LocalizableString(name, AbpZeroTemplateConsts.LocalizationSourceName);
     }

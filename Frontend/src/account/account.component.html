@@ -1,4 +1,4 @@
-<div [ngClass]="{'m-grid m-grid--hor m-grid--root m-page': !useFullWidthLayout(), 'm-content': useFullWidthLayout() }"
+<!-- <div [ngClass]="{'m-grid m-grid--hor m-grid--root m-page': !useFullWidthLayout(), 'm-content': useFullWidthLayout() }"
     [style.text-align]="useFullWidthLayout() ? 'center' : 'left'">
     <div [ngClass]="{'uit_bg m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-grid--tablet-and-mobile m-grid--hor-tablet-and-mobile m-login m-login--1 m-login--singin': !useFullWidthLayout(), 'row':useFullWidthLayout()}"
         id="m_login">
@@ -31,15 +31,12 @@
         </div>
         <div *ngIf="!useFullWidthLayout()"
             class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1 m-login__content m-grid-item--center">
-            <!-- <div class="m-grid__item m-grid__item--middle">
-                <h3 class="m-login__welcome">
-                   AspNet Zero
-                </h3>
-                <p class="m-login__msg">
-                    Base solution for your next web application
-                </p>
-            </div> -->
+
             <img [src]="getBgUrl()" class="w-100 h-100" alt="uit">
         </div>
     </div>
+</div> -->
+
+<div class="h-100">
+    <router-outlet></router-outlet>
 </div>

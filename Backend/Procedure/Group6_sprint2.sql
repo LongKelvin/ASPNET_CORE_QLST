@@ -27,4 +27,25 @@ rollback transaction
 end catch
 GO
 
+create proc Xe_Group6_SearchByDay
+@start_day nvarchar(20) = null,
+@end_day nvarchar(20) = null
+as 
+if(@start_day is null and @end_day is null)
+begin
+	select * from Xe
+end
+if(@start_day is null and @end_day is not null)
+begin
+	select * from Xe where Xe_NgayTao = @end_day
+end
+else if(@start_day is not null and @end_day is null)
+begin
+	select * from Xe where Xe_NgayTao = @start_day
+end
+if(@start_day is not null and @end_day is not null)
+begin
+	select * from Xe where Xe_NgayTao between @start_day and @end_day
+end
+
 

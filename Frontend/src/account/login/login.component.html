@@ -1,4 +1,4 @@
-<div class="m-login__signin" [@routerTransition]>
+<!-- <div class="m-login__signin" [@routerTransition]>
     <div class="m-login__head">
         <h3 class="m-login__title">
             {{l("LogIn")}}
@@ -57,4 +57,89 @@
             <a routerLink="/account/email-activation" id="email-activation-btn" class="m-link m-link--primary m-login__account-link">{{l("EmailActivation")}}</a>
         </div>
     </div>
+</div> -->
+<div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+
+    <div class="content">
+
+        <div class="row h-100">
+
+            <div class="col-5 h-100">
+                <img src="../../assets/SE214.K22.PMCL/Backgroud_Login.png" class="h-100 w-100" alt="">
+            </div>
+
+            <div class="col-7 h-100">
+
+                <div class="row h-100 align-items-center">
+
+
+                    <form #loginForm="ngForm" (ngSubmit)="login()" class="col-7 ml-5">
+
+                        <div class="form-group mb-5">
+                            <h1>Log In</h1>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="">Username *</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                </div>
+                                <input name="userNameOrEmailAddress" required type="text" class="form-control"
+                                    aria-label="Username" aria-describedby="basic-addon1"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Enter your username"
+                                    #userNameOrEmailAddressInput="ngModel"
+                                    [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress">
+                            </div>
+                            <validation-messages [formCtrl]="userNameOrEmailAddressInput"></validation-messages>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="">Password *</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <i class="fa fa-key"></i>
+                                    </span>
+                                </div>
+                                <input name="password" required maxlength="32" type="password" class="form-control"
+                                    aria-label="Username" aria-describedby="basic-addon1" #passwordInput="ngModel"
+                                    [(ngModel)]="loginService.authenticateModel.password"
+                                    [ngModelOptions]="{standalone: true}" placeholder="Enter your password">
+                            </div>
+                            <validation-messages [formCtrl]="passwordInput"></validation-messages>
+
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label ml-2" for="remember"
+                                [ngModelOptions]="{standalone: true}" [(ngModel)]=" loginService.rememberMe"
+                                value="true">Remember</label>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn-custom" [disabled]="loading || !loginForm.form.valid">
+                                <ng-template [ngIf]="loading">
+                                    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                                    <span class="sr-only">Loading...</span>
+                                </ng-template>
+                                Sign in
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>

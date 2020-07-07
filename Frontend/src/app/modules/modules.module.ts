@@ -18,11 +18,25 @@ import { ModulesServiceProxyModule } from "./modules.service-proxy.module";
 import { CarsModule } from './cars/cars.module';
 import { ModelCarsModule } from './model-cars/model-cars.module';
 import { NewCarsModule } from './new-cars/new-cars.module';
+import { ScheduleCarsModule } from './schedule-cars/schedule-cars.module';
+import { DriversModule } from './drivers/drivers.module';
+import { MaintainCarsModule } from './maintain-cars/maintain-cars.module';
 import { RouterModule } from "@angular/router";
 import { FunctionsModule } from './functions/functions.module';
-import { MaintainCarsModule} from './maintain-cars/maintain-cars.module'
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { MaintenanceCarModule } from "./maintenance-car/maintenance-car.module";
+import { MaintenancePriceModule } from "./maintenance-price/maintenance-price.module";
+import { AccreditationRoadPriceModule } from "./accreditation-road-price/accreditation-road-price.module";
+import { RoadModule } from './road/road.module';
+import { InsuranceModule } from './insurance/insurance.module';
+import { RepairCarModule } from './repair-car/repair-car.module';
+import { SuggestRentCarModule } from './suggest-rent-car/suggest-rent-car.module';
+import { RentModule } from './rent/rent.module';
+import { UsageCarComponent } from './usage-car/usage-car.component';
+import { RoadPriceModule } from './road-price/road-price.module';
 import { MaintainCarNotifyModule} from './maintain-car-notify/maintain-car-notify.module';
 import { DriversScheduleModule} from './drivers-schedule/drivers-schedule.module'
+
 @NgModule({
     imports: [
         CommonModule,
@@ -36,13 +50,26 @@ import { DriversScheduleModule} from './drivers-schedule/drivers-schedule.module
         CarsModule,
         ModelCarsModule,
         NewCarsModule,
+        DriversModule,
+        MaintainCarsModule,
+        ScheduleCarsModule,
         RouterModule,
         FunctionsModule,
-        MaintainCarsModule,
+        MaintenanceCarModule,
+        MaintenancePriceModule,
+        AccreditationRoadPriceModule,
+        RoadModule,
+        InsuranceModule,
+        RepairCarModule,
+        SuggestRentCarModule,
+        RentModule,
+        RoadPriceModule,
         MaintainCarNotifyModule,
         DriversScheduleModule
     ],
-    declarations: [ 
+    declarations: [
+        DashboardComponent,
+        UsageCarComponent
     ],
     providers: [ConfirmationService]
 })

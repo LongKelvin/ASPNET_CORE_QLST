@@ -15,4 +15,13 @@ namespace Group10.AbpZeroTemplate.Application
     public const string Pages_Administration_Car_Delete = "Pages.Group10.Car.Delete";
     public const string Pages_Administration_Car_Approve = "Pages.Group10.Car.Approve";
   }
+    public static class Group10SuaChuaPermissionsConst
+    {
+        public const string Pages_Administration_SuaChua = "Pages.Group10.SuaChua";
+        public const string Pages_Administration_SuaChua_Add = "Pages.Group10.SuaChua.Add";
+        public const string Pages_Administration_SuaChua_Update = "Pages.Group10.SuaChua.Update";
+        public const string Pages_Administration_SuaChua_View = "Pages.Group10.SuaChua.View";
+        public const string Pages_Administration_SuaChua_Delete = "Pages.Group10.SuaChua.Delete";
+        public const string Pages_Administration_SuaChua_Approve = "Pages.Group10.SuaChua.Approve";
+    }
 }

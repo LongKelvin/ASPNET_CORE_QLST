@@ -68,7 +68,8 @@
         <p-table #dataTable [value]="primengTableHelper.records"
           [paginator]="primengTableHelper.totalRecordsCount === 0 ? false : true"
           [rows]="primengTableHelper.defaultRecordsCountPerPage"
-          [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage" totalRecords="totalRecords"
+          [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage" 
+          totalRecords="totalRecords"
           pageLinks="3">
           <ng-template pTemplate="header">
             <tr>

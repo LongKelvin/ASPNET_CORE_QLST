@@ -9,11 +9,14 @@ import { ExternalLoginProvider, LoginService } from './login.service';
 
 @Component({
     templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
     animations: [accountModuleAnimation()]
 })
 export class LoginComponent extends AppComponentBase implements OnInit {
     submitting = false;
     isMultiTenancyEnabled: boolean = this.multiTenancy.isEnabled;
+
+    loading: boolean = false;
 
     constructor(
         injector: Injector,
@@ -57,9 +60,15 @@ export class LoginComponent extends AppComponentBase implements OnInit {
     }
 
     login(): void {
+
+        this.loading = true;
+
         this.submitting = true;
         this.loginService.authenticate(
-            () => this.submitting = false
+            () => {
+                this.submitting = false;
+                this.loading = false;
+            }
         );
     }
 

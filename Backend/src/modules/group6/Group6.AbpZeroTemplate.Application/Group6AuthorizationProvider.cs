@@ -33,6 +33,7 @@ namespace Group6.AbpZeroTemplate.Application
       demoModels.CreateChildPermission(Group6PermissionsConst.Pages_Administration_Car_View, L("View"));
       demoModels.CreateChildPermission(Group6PermissionsConst.Pages_Administration_Car_Delete, L("Delete"));
       demoModels.CreateChildPermission(Group6PermissionsConst.Pages_Administration_Car_Approve, L("Approve"));
+      demoModels.CreateChildPermission(Group6PermissionsConst.Pages_Administration_Car_FindByDay, L("FindByDay"));
     }
 
     private static ILocalizableString L(string name)

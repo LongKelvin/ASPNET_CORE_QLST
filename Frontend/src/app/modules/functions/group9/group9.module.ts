@@ -30,7 +30,7 @@ import { ButtonModule} from 'primeng/button';
     InputTextModule,
     DropdownModule,
     DialogModule,
-    ButtonModule
+    ButtonModule,
 
   ],
   declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,

@@ -7,8 +7,8 @@ import {
     Injector
 } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { Table } from "primeng/components/table/table";
-import { Paginator } from "primeng/primeng";
+import { Table } from "primeng/table";
+import { Paginator } from "primeng/paginator";
 import {
     Group4LoaiXeDto,
     Group4LoaiXeServiceProxy,

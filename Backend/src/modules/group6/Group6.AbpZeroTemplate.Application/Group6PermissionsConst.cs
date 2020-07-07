@@ -14,5 +14,6 @@ namespace Group6.AbpZeroTemplate.Application
     public const string Pages_Administration_Car_View = "Pages.Group6.Car.View";
     public const string Pages_Administration_Car_Delete = "Pages.Group6.Car.Delete";
     public const string Pages_Administration_Car_Approve = "Pages.Group6.Car.Approve";
+        public const string Pages_Administration_Car_FindByDay = "Pages.Group6.Car.FindByDay";
   }
 }
