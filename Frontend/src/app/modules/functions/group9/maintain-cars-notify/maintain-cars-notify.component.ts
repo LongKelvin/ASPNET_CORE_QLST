@@ -3,7 +3,7 @@ import { Component,ViewChild, OnInit,AfterViewInit,Injector} from '@angular/core
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Table } from "primeng/components/table/table";
 import { Paginator } from "primeng/primeng";
-import { Group9BaoTriServiceProxy, Group9BaoTriDto } from '@shared/service-proxies/service-proxies';
+import { Group9BaoTriServiceProxy, Group9BaoTriDto, Group4XeDto, Group4XeServiceProxy } from '@shared/service-proxies/service-proxies';
 import {
     Group4LoaiXeDto,
     Group4LoaiXeServiceProxy,
@@ -24,9 +24,15 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
     constructor(injector: Injector, private Group4LoaiXeServiceProxy: Group4LoaiXeServiceProxy,
+        private group4XeService: Group4XeServiceProxy,
         private group9BaoTriServiceProxy: Group9BaoTriServiceProxy) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
+        this.group4XeService.xE_Group4Search({} as any).subscribe(response=>{
+            this.xe_list = response;
+        })
+
+        console.log(this);
     }
 
     currentUserName: string;
@@ -44,6 +50,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
 
     MA_XE: string = "maXe";
 
+    xe_list : Group4XeDto[];
 
     //Car Year
     carYearOpts: Array<object> = [{ name: "Tất cả", value: "-1" }];
