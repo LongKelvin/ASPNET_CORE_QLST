@@ -3368,612 +3368,6 @@ export class Group10ServiceProxy {
 }
 
 @Injectable()
-export class Group10SuaChuaServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "";
-    }
-
-    /**
-     * @input (optional) 
-     * @return Success
-     */
-    suaChua_Group10Insert(input: Group10SuaChuaDto | null | undefined): Observable<{ [key: string] : any; }> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/SuaChua_Group10Insert";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSuaChua_Group10Insert(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSuaChua_Group10Insert(<any>response_);
-                } catch (e) {
-                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSuaChua_Group10Insert(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200) {
-                result200 = {};
-                for (let key in resultData200) {
-                    if (resultData200.hasOwnProperty(key))
-                        result200[key] = resultData200[key];
-                }
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<{ [key: string] : any; }>(<any>null);
-    }
-
-    /**
-     * @input (optional) 
-     * @return Success
-     */
-    suaChua_Group10Update(input: Group10SuaChuaDto | null | undefined): Observable<{ [key: string] : any; }> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/SuaChua_Group10Update";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSuaChua_Group10Update(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSuaChua_Group10Update(<any>response_);
-                } catch (e) {
-                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSuaChua_Group10Update(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200) {
-                result200 = {};
-                for (let key in resultData200) {
-                    if (resultData200.hasOwnProperty(key))
-                        result200[key] = resultData200[key];
-                }
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<{ [key: string] : any; }>(<any>null);
-    }
-
-    /**
-     * @input (optional) 
-     * @return Success
-     */
-    suaChua_Group10Delete(input: Group10SuaChuaDto | null | undefined): Observable<{ [key: string] : any; }> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/SuaChua_Group10Delete";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSuaChua_Group10Delete(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSuaChua_Group10Delete(<any>response_);
-                } catch (e) {
-                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSuaChua_Group10Delete(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200) {
-                result200 = {};
-                for (let key in resultData200) {
-                    if (resultData200.hasOwnProperty(key))
-                        result200[key] = resultData200[key];
-                }
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<{ [key: string] : any; }>(<any>null);
-    }
-
-    /**
-     * @input (optional) 
-     * @return Success
-     */
-    suaChua_Group10Approve(input: Group10SuaChuaDto | null | undefined): Observable<{ [key: string] : any; }> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/SuaChua_Group10Approve";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSuaChua_Group10Approve(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSuaChua_Group10Approve(<any>response_);
-                } catch (e) {
-                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSuaChua_Group10Approve(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200) {
-                result200 = {};
-                for (let key in resultData200) {
-                    if (resultData200.hasOwnProperty(key))
-                        result200[key] = resultData200[key];
-                }
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<{ [key: string] : any; }>(<any>null);
-    }
-
-    /**
-     * @input (optional) 
-     * @return Success
-     */
-    suaChua_Group10Refuse(input: Group10SuaChuaDto | null | undefined): Observable<{ [key: string] : any; }> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/SuaChua_Group10Refuse";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSuaChua_Group10Refuse(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSuaChua_Group10Refuse(<any>response_);
-                } catch (e) {
-                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSuaChua_Group10Refuse(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200) {
-                result200 = {};
-                for (let key in resultData200) {
-                    if (resultData200.hasOwnProperty(key))
-                        result200[key] = resultData200[key];
-                }
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<{ [key: string] : any; }>(<any>null);
-    }
-
-    /**
-     * @input (optional) 
-     * @return Success
-     */
-    suaChua_Group10Search(input: Group10SuaChuaDto | null | undefined): Observable<Group10SuaChuaDto[]> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/SuaChua_Group10Search";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSuaChua_Group10Search(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSuaChua_Group10Search(<any>response_);
-                } catch (e) {
-                    return <Observable<Group10SuaChuaDto[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<Group10SuaChuaDto[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSuaChua_Group10Search(response: HttpResponseBase): Observable<Group10SuaChuaDto[]> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200 && resultData200.constructor === Array) {
-                result200 = [];
-                for (let item of resultData200)
-                    result200.push(Group10SuaChuaDto.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<Group10SuaChuaDto[]>(<any>null);
-    }
-
-    /**
-     * @input (optional) 
-     * @return Success
-     */
-    suaChua_Group10SearchById(input: Group10SuaChuaDto | null | undefined): Observable<Group10SuaChuaDto> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/SuaChua_Group10SearchById";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSuaChua_Group10SearchById(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSuaChua_Group10SearchById(<any>response_);
-                } catch (e) {
-                    return <Observable<Group10SuaChuaDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<Group10SuaChuaDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processSuaChua_Group10SearchById(response: HttpResponseBase): Observable<Group10SuaChuaDto> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? Group10SuaChuaDto.fromJS(resultData200) : new Group10SuaChuaDto();
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<Group10SuaChuaDto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    xe_Group10GetAllXeCoBienSo(): Observable<Group10XeDto[]> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/Xe_Group10GetAllXeCoBienSo";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processXe_Group10GetAllXeCoBienSo(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processXe_Group10GetAllXeCoBienSo(<any>response_);
-                } catch (e) {
-                    return <Observable<Group10XeDto[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<Group10XeDto[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processXe_Group10GetAllXeCoBienSo(response: HttpResponseBase): Observable<Group10XeDto[]> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200 && resultData200.constructor === Array) {
-                result200 = [];
-                for (let item of resultData200)
-                    result200.push(Group10XeDto.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<Group10XeDto[]>(<any>null);
-    }
-
-    /**
-     * @input (optional) 
-     * @return Success
-     */
-    taiXe_Group10GetTaiXeByUsername(input: Group10TaiXeDto | null | undefined): Observable<Group10TaiXeDto> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/TaiXe_Group10GetTaiXeByUsername";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(input);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processTaiXe_Group10GetTaiXeByUsername(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processTaiXe_Group10GetTaiXeByUsername(<any>response_);
-                } catch (e) {
-                    return <Observable<Group10TaiXeDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<Group10TaiXeDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processTaiXe_Group10GetTaiXeByUsername(response: HttpResponseBase): Observable<Group10TaiXeDto> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 ? Group10TaiXeDto.fromJS(resultData200) : new Group10TaiXeDto();
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<Group10TaiXeDto>(<any>null);
-    }
-
-    /**
-     * @return Success
-     */
-    xe_Group10GetAllTaiXe(): Observable<Group10TaiXeDto[]> {
-        let url_ = this.baseUrl + "/api/Group10SuaChua/Xe_Group10GetAllTaiXe";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processXe_Group10GetAllTaiXe(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processXe_Group10GetAllTaiXe(<any>response_);
-                } catch (e) {
-                    return <Observable<Group10TaiXeDto[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<Group10TaiXeDto[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processXe_Group10GetAllTaiXe(response: HttpResponseBase): Observable<Group10TaiXeDto[]> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200 && resultData200.constructor === Array) {
-                result200 = [];
-                for (let item of resultData200)
-                    result200.push(Group10TaiXeDto.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<Group10TaiXeDto[]>(<any>null);
-    }
-}
-
-@Injectable()
 export class Group1EditLXServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -5591,8 +4985,8 @@ export class Group9BaoTriServiceProxy {
      * @input (optional) 
      * @return Success
      */
-    group9BaoTri_Insert(input: Group9BaoTriDto | null | undefined): Observable<{ [key: string] : any; }> {
-        let url_ = this.baseUrl + "/api/Group9BaoTri/Group9BaoTri_Insert";
+    bAOTRI_Group9Insert(input: Group9BaoTriDto | null | undefined): Observable<{ [key: string] : any; }> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9Insert";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(input);
@@ -5608,11 +5002,11 @@ export class Group9BaoTriServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGroup9BaoTri_Insert(response_);
+            return this.processBAOTRI_Group9Insert(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGroup9BaoTri_Insert(<any>response_);
+                    return this.processBAOTRI_Group9Insert(<any>response_);
                 } catch (e) {
                     return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
                 }
@@ -5621,7 +5015,7 @@ export class Group9BaoTriServiceProxy {
         }));
     }
 
-    protected processGroup9BaoTri_Insert(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
+    protected processBAOTRI_Group9Insert(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -5653,8 +5047,8 @@ export class Group9BaoTriServiceProxy {
      * @id (optional) 
      * @return Success
      */
-    group9BaoTri_Delete(id: number | null | undefined): Observable<{ [key: string] : any; }> {
-        let url_ = this.baseUrl + "/api/Group9BaoTri/Group9BaoTri_Delete?";
+    bAOTRI_Group9Delete(id: number | null | undefined): Observable<{ [key: string] : any; }> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9Delete?";
         if (id !== undefined)
             url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -5669,11 +5063,11 @@ export class Group9BaoTriServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGroup9BaoTri_Delete(response_);
+            return this.processBAOTRI_Group9Delete(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGroup9BaoTri_Delete(<any>response_);
+                    return this.processBAOTRI_Group9Delete(<any>response_);
                 } catch (e) {
                     return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
                 }
@@ -5682,7 +5076,7 @@ export class Group9BaoTriServiceProxy {
         }));
     }
 
-    protected processGroup9BaoTri_Delete(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
+    protected processBAOTRI_Group9Delete(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -5714,8 +5108,8 @@ export class Group9BaoTriServiceProxy {
      * @input (optional) 
      * @return Success
      */
-    group9BaoTri_Update(input: Group9BaoTriDto | null | undefined): Observable<{ [key: string] : any; }> {
-        let url_ = this.baseUrl + "/api/Group9BaoTri/Group9BaoTri_Update";
+    bAOTRI_Group9Update(input: Group9BaoTriDto | null | undefined): Observable<{ [key: string] : any; }> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9Update";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(input);
@@ -5731,11 +5125,11 @@ export class Group9BaoTriServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGroup9BaoTri_Update(response_);
+            return this.processBAOTRI_Group9Update(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGroup9BaoTri_Update(<any>response_);
+                    return this.processBAOTRI_Group9Update(<any>response_);
                 } catch (e) {
                     return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
                 }
@@ -5744,7 +5138,7 @@ export class Group9BaoTriServiceProxy {
         }));
     }
 
-    protected processGroup9BaoTri_Update(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
+    protected processBAOTRI_Group9Update(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -5776,8 +5170,8 @@ export class Group9BaoTriServiceProxy {
      * @input (optional) 
      * @return Success
      */
-    group9BaoTri_Search(input: Group9BaoTriDto | null | undefined): Observable<Group9BaoTriDto[]> {
-        let url_ = this.baseUrl + "/api/Group9BaoTri/Group9BaoTri_Search";
+    bAOTRI_Group9Search(input: Group9BaoTriDto | null | undefined): Observable<Group9BaoTriDto[]> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9Search";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(input);
@@ -5793,11 +5187,11 @@ export class Group9BaoTriServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGroup9BaoTri_Search(response_);
+            return this.processBAOTRI_Group9Search(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGroup9BaoTri_Search(<any>response_);
+                    return this.processBAOTRI_Group9Search(<any>response_);
                 } catch (e) {
                     return <Observable<Group9BaoTriDto[]>><any>_observableThrow(e);
                 }
@@ -5806,7 +5200,7 @@ export class Group9BaoTriServiceProxy {
         }));
     }
 
-    protected processGroup9BaoTri_Search(response: HttpResponseBase): Observable<Group9BaoTriDto[]> {
+    protected processBAOTRI_Group9Search(response: HttpResponseBase): Observable<Group9BaoTriDto[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -5836,8 +5230,8 @@ export class Group9BaoTriServiceProxy {
      * @id (optional) 
      * @return Success
      */
-    group9BaoTri_ById(id: number | null | undefined): Observable<Group9BaoTriDto> {
-        let url_ = this.baseUrl + "/api/Group9BaoTri/Group9BaoTri_ById?";
+    bAOTRI_Group9ById(id: number | null | undefined): Observable<Group9BaoTriDto> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9ById?";
         if (id !== undefined)
             url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
@@ -5852,11 +5246,11 @@ export class Group9BaoTriServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGroup9BaoTri_ById(response_);
+            return this.processBAOTRI_Group9ById(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGroup9BaoTri_ById(<any>response_);
+                    return this.processBAOTRI_Group9ById(<any>response_);
                 } catch (e) {
                     return <Observable<Group9BaoTriDto>><any>_observableThrow(e);
                 }
@@ -5865,7 +5259,7 @@ export class Group9BaoTriServiceProxy {
         }));
     }
 
-    protected processGroup9BaoTri_ById(response: HttpResponseBase): Observable<Group9BaoTriDto> {
+    protected processBAOTRI_Group9ById(response: HttpResponseBase): Observable<Group9BaoTriDto> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -5890,8 +5284,8 @@ export class Group9BaoTriServiceProxy {
     /**
      * @return Success
      */
-    group9BaoTri_ListMaXe(): Observable<number[]> {
-        let url_ = this.baseUrl + "/api/Group9BaoTri/Group9BaoTri_ListMaXe";
+    bAOTRI_Group9SearchAll(): Observable<Group9BaoTriDto[]> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9SearchAll";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5904,20 +5298,20 @@ export class Group9BaoTriServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGroup9BaoTri_ListMaXe(response_);
+            return this.processBAOTRI_Group9SearchAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGroup9BaoTri_ListMaXe(<any>response_);
+                    return this.processBAOTRI_Group9SearchAll(<any>response_);
                 } catch (e) {
-                    return <Observable<number[]>><any>_observableThrow(e);
+                    return <Observable<Group9BaoTriDto[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<number[]>><any>_observableThrow(response_);
+                return <Observable<Group9BaoTriDto[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGroup9BaoTri_ListMaXe(response: HttpResponseBase): Observable<number[]> {
+    protected processBAOTRI_Group9SearchAll(response: HttpResponseBase): Observable<Group9BaoTriDto[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -5931,7 +5325,7 @@ export class Group9BaoTriServiceProxy {
             if (resultData200 && resultData200.constructor === Array) {
                 result200 = [];
                 for (let item of resultData200)
-                    result200.push(item);
+                    result200.push(Group9BaoTriDto.fromJS(item));
             }
             return _observableOf(result200);
             }));
@@ -5940,14 +5334,207 @@ export class Group9BaoTriServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<number[]>(<any>null);
+        return _observableOf<Group9BaoTriDto[]>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @checkerId (optional) 
+     * @return Success
+     */
+    bAOTRI_Group9App(id: number | null | undefined, checkerId: string | null | undefined): Observable<{ [key: string] : any; }> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9App?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        if (checkerId !== undefined)
+            url_ += "checkerId=" + encodeURIComponent("" + checkerId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processBAOTRI_Group9App(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processBAOTRI_Group9App(<any>response_);
+                } catch (e) {
+                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processBAOTRI_Group9App(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200) {
+                result200 = {};
+                for (let key in resultData200) {
+                    if (resultData200.hasOwnProperty(key))
+                        result200[key] = resultData200[key];
+                }
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<{ [key: string] : any; }>(<any>null);
     }
 
     /**
      * @return Success
      */
-    group9BaoTri_ListMaTaiXe(): Observable<number[]> {
-        let url_ = this.baseUrl + "/api/Group9BaoTri/Group9BaoTri_ListMaTaiXe";
+    getCurrentUserName(): Observable<string> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/GetCurrentUserName";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCurrentUserName(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCurrentUserName(<any>response_);
+                } catch (e) {
+                    return <Observable<string>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<string>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCurrentUserName(response: HttpResponseBase): Observable<string> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<string>(<any>null);
+    }
+}
+
+@Injectable()
+export class Group9HoatDongTaiXeServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @input (optional) 
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9Insert(input: Group9HoatDongTaiXeDto | null | undefined): Observable<{ [key: string] : any; }> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9Insert";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9Insert(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9Insert(<any>response_);
+                } catch (e) {
+                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9Insert(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200) {
+                result200 = {};
+                for (let key in resultData200) {
+                    if (resultData200.hasOwnProperty(key))
+                        result200[key] = resultData200[key];
+                }
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<{ [key: string] : any; }>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9Delete(id: number | null | undefined): Observable<{ [key: string] : any; }> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9Delete?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5960,20 +5547,144 @@ export class Group9BaoTriServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGroup9BaoTri_ListMaTaiXe(response_);
+            return this.processHOATDONGTAIXE_Group9Delete(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGroup9BaoTri_ListMaTaiXe(<any>response_);
+                    return this.processHOATDONGTAIXE_Group9Delete(<any>response_);
                 } catch (e) {
-                    return <Observable<number[]>><any>_observableThrow(e);
+                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<number[]>><any>_observableThrow(response_);
+                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGroup9BaoTri_ListMaTaiXe(response: HttpResponseBase): Observable<number[]> {
+    protected processHOATDONGTAIXE_Group9Delete(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200) {
+                result200 = {};
+                for (let key in resultData200) {
+                    if (resultData200.hasOwnProperty(key))
+                        result200[key] = resultData200[key];
+                }
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<{ [key: string] : any; }>(<any>null);
+    }
+
+    /**
+     * @input (optional) 
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9Update(input: Group9HoatDongTaiXeDto | null | undefined): Observable<{ [key: string] : any; }> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9Update";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9Update(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9Update(<any>response_);
+                } catch (e) {
+                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9Update(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200) {
+                result200 = {};
+                for (let key in resultData200) {
+                    if (resultData200.hasOwnProperty(key))
+                        result200[key] = resultData200[key];
+                }
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<{ [key: string] : any; }>(<any>null);
+    }
+
+    /**
+     * @input (optional) 
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9Search(input: Group9HoatDongTaiXeDto | null | undefined): Observable<Group9HoatDongTaiXeDto[]> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9Search";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9Search(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9Search(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9HoatDongTaiXeDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9HoatDongTaiXeDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9Search(response: HttpResponseBase): Observable<Group9HoatDongTaiXeDto[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -5987,7 +5698,7 @@ export class Group9BaoTriServiceProxy {
             if (resultData200 && resultData200.constructor === Array) {
                 result200 = [];
                 for (let item of resultData200)
-                    result200.push(item);
+                    result200.push(Group9HoatDongTaiXeDto.fromJS(item));
             }
             return _observableOf(result200);
             }));
@@ -5996,7 +5707,118 @@ export class Group9BaoTriServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<number[]>(<any>null);
+        return _observableOf<Group9HoatDongTaiXeDto[]>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9ById(id: number | null | undefined): Observable<Group9HoatDongTaiXeDto> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9ById?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9ById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9ById(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9HoatDongTaiXeDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9HoatDongTaiXeDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9ById(response: HttpResponseBase): Observable<Group9HoatDongTaiXeDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? Group9HoatDongTaiXeDto.fromJS(resultData200) : new Group9HoatDongTaiXeDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9HoatDongTaiXeDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9SearchAll(): Observable<Group9HoatDongTaiXeDto[]> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9SearchAll";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9SearchAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9SearchAll(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9HoatDongTaiXeDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9HoatDongTaiXeDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9SearchAll(response: HttpResponseBase): Observable<Group9HoatDongTaiXeDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Group9HoatDongTaiXeDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9HoatDongTaiXeDto[]>(<any>null);
     }
 }
 
@@ -15194,7 +15016,6 @@ export interface IAcceptFriendshipRequestInput {
 }
 
 export class Group10XeDto implements IGroup10XeDto {
-    ma!: number | undefined;
     xe_MaLoaiXe!: number | undefined;
     xe_Ten!: string | undefined;
     xe_BienSo!: string | undefined;
@@ -15214,7 +15035,6 @@ export class Group10XeDto implements IGroup10XeDto {
 
     init(data?: any) {
         if (data) {
-            this.ma = data["ma"];
             this.xe_MaLoaiXe = data["xe_MaLoaiXe"];
             this.xe_Ten = data["xe_Ten"];
             this.xe_BienSo = data["xe_BienSo"];
@@ -15234,7 +15054,6 @@ export class Group10XeDto implements IGroup10XeDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["ma"] = this.ma;
         data["xe_MaLoaiXe"] = this.xe_MaLoaiXe;
         data["xe_Ten"] = this.xe_Ten;
         data["xe_BienSo"] = this.xe_BienSo;
@@ -15247,7 +15066,6 @@ export class Group10XeDto implements IGroup10XeDto {
 }
 
 export interface IGroup10XeDto {
-    ma: number | undefined;
     xe_MaLoaiXe: number | undefined;
     xe_Ten: string | undefined;
     xe_BienSo: string | undefined;
@@ -15255,138 +15073,6 @@ export interface IGroup10XeDto {
     xe_Mau: string | undefined;
     xe_NguoiTao: string | undefined;
     soLuong: number | undefined;
-}
-
-export class Group10SuaChuaDto implements IGroup10SuaChuaDto {
-    ma!: number | undefined;
-    suaChua_MaXe!: number | undefined;
-    suaChua_BienSo!: string | undefined;
-    suaChua_MaTaiXe!: number | undefined;
-    suaChua_TenTaiXe!: string | undefined;
-    suaChua_LyDo!: string | undefined;
-    suaChua_ThanhTien!: number | undefined;
-    suaChua_NgayTao!: moment.Moment | undefined;
-    suaChua_NguoiTao!: string | undefined;
-    suaChua_TrangThai!: string | undefined;
-    suaChua_TrangThaiDuyet!: string | undefined;
-    suaChua_NgayDuyet!: moment.Moment | undefined;
-    suaChua_NguoiDuyet!: string | undefined;
-    suaChua_TrangThaiSuaChua!: string | undefined;
-
-    constructor(data?: IGroup10SuaChuaDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.ma = data["ma"];
-            this.suaChua_MaXe = data["suaChua_MaXe"];
-            this.suaChua_BienSo = data["suaChua_BienSo"];
-            this.suaChua_MaTaiXe = data["suaChua_MaTaiXe"];
-            this.suaChua_TenTaiXe = data["suaChua_TenTaiXe"];
-            this.suaChua_LyDo = data["suaChua_LyDo"];
-            this.suaChua_ThanhTien = data["suaChua_ThanhTien"];
-            this.suaChua_NgayTao = data["suaChua_NgayTao"] ? moment(data["suaChua_NgayTao"].toString()) : <any>undefined;
-            this.suaChua_NguoiTao = data["suaChua_NguoiTao"];
-            this.suaChua_TrangThai = data["suaChua_TrangThai"];
-            this.suaChua_TrangThaiDuyet = data["suaChua_TrangThaiDuyet"];
-            this.suaChua_NgayDuyet = data["suaChua_NgayDuyet"] ? moment(data["suaChua_NgayDuyet"].toString()) : <any>undefined;
-            this.suaChua_NguoiDuyet = data["suaChua_NguoiDuyet"];
-            this.suaChua_TrangThaiSuaChua = data["suaChua_TrangThaiSuaChua"];
-        }
-    }
-
-    static fromJS(data: any): Group10SuaChuaDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new Group10SuaChuaDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["ma"] = this.ma;
-        data["suaChua_MaXe"] = this.suaChua_MaXe;
-        data["suaChua_BienSo"] = this.suaChua_BienSo;
-        data["suaChua_MaTaiXe"] = this.suaChua_MaTaiXe;
-        data["suaChua_TenTaiXe"] = this.suaChua_TenTaiXe;
-        data["suaChua_LyDo"] = this.suaChua_LyDo;
-        data["suaChua_ThanhTien"] = this.suaChua_ThanhTien;
-        data["suaChua_NgayTao"] = this.suaChua_NgayTao ? this.suaChua_NgayTao.toISOString() : <any>undefined;
-        data["suaChua_NguoiTao"] = this.suaChua_NguoiTao;
-        data["suaChua_TrangThai"] = this.suaChua_TrangThai;
-        data["suaChua_TrangThaiDuyet"] = this.suaChua_TrangThaiDuyet;
-        data["suaChua_NgayDuyet"] = this.suaChua_NgayDuyet ? this.suaChua_NgayDuyet.toISOString() : <any>undefined;
-        data["suaChua_NguoiDuyet"] = this.suaChua_NguoiDuyet;
-        data["suaChua_TrangThaiSuaChua"] = this.suaChua_TrangThaiSuaChua;
-        return data; 
-    }
-}
-
-export interface IGroup10SuaChuaDto {
-    ma: number | undefined;
-    suaChua_MaXe: number | undefined;
-    suaChua_BienSo: string | undefined;
-    suaChua_MaTaiXe: number | undefined;
-    suaChua_TenTaiXe: string | undefined;
-    suaChua_LyDo: string | undefined;
-    suaChua_ThanhTien: number | undefined;
-    suaChua_NgayTao: moment.Moment | undefined;
-    suaChua_NguoiTao: string | undefined;
-    suaChua_TrangThai: string | undefined;
-    suaChua_TrangThaiDuyet: string | undefined;
-    suaChua_NgayDuyet: moment.Moment | undefined;
-    suaChua_NguoiDuyet: string | undefined;
-    suaChua_TrangThaiSuaChua: string | undefined;
-}
-
-export class Group10TaiXeDto implements IGroup10TaiXeDto {
-    ma!: number | undefined;
-    taiXe_HoTen!: string | undefined;
-    taiXe_TenNguoiDung!: string | undefined;
-
-    constructor(data?: IGroup10TaiXeDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.ma = data["ma"];
-            this.taiXe_HoTen = data["taiXe_HoTen"];
-            this.taiXe_TenNguoiDung = data["taiXe_TenNguoiDung"];
-        }
-    }
-
-    static fromJS(data: any): Group10TaiXeDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new Group10TaiXeDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["ma"] = this.ma;
-        data["taiXe_HoTen"] = this.taiXe_HoTen;
-        data["taiXe_TenNguoiDung"] = this.taiXe_TenNguoiDung;
-        return data; 
-    }
-}
-
-export interface IGroup10TaiXeDto {
-    ma: number | undefined;
-    taiXe_HoTen: string | undefined;
-    taiXe_TenNguoiDung: string | undefined;
 }
 
 export class Group1LoaiXeDto implements IGroup1LoaiXeDto {
@@ -16187,6 +15873,70 @@ export interface IGroup9BaoTriDto {
     baoTri_TrangThai: string | undefined;
     baoTri_GhiChu: string | undefined;
     baoTri_SoHoaDon: string | undefined;
+}
+
+export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
+    ma!: number | undefined;
+    hoatDongTaiXe_MaLichTrinh!: number | undefined;
+    hoatDongTaiXe_KmThucTe!: number | undefined;
+    hoatDongTaiXe_TrangThai!: string | undefined;
+    hoatDongTaiXe_NguoiTao!: string | undefined;
+    hoatDongTaiXe_NgayTao!: moment.Moment | undefined;
+    hoatDongTaiXe_NhienLieu!: number | undefined;
+    hoatDongTaiXe_KmUocTinh!: number | undefined;
+
+    constructor(data?: IGroup9HoatDongTaiXeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.ma = data["ma"];
+            this.hoatDongTaiXe_MaLichTrinh = data["hoatDongTaiXe_MaLichTrinh"];
+            this.hoatDongTaiXe_KmThucTe = data["hoatDongTaiXe_KmThucTe"];
+            this.hoatDongTaiXe_TrangThai = data["hoatDongTaiXe_TrangThai"];
+            this.hoatDongTaiXe_NguoiTao = data["hoatDongTaiXe_NguoiTao"];
+            this.hoatDongTaiXe_NgayTao = data["hoatDongTaiXe_NgayTao"] ? moment(data["hoatDongTaiXe_NgayTao"].toString()) : <any>undefined;
+            this.hoatDongTaiXe_NhienLieu = data["hoatDongTaiXe_NhienLieu"];
+            this.hoatDongTaiXe_KmUocTinh = data["hoatDongTaiXe_KmUocTinh"];
+        }
+    }
+
+    static fromJS(data: any): Group9HoatDongTaiXeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new Group9HoatDongTaiXeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ma"] = this.ma;
+        data["hoatDongTaiXe_MaLichTrinh"] = this.hoatDongTaiXe_MaLichTrinh;
+        data["hoatDongTaiXe_KmThucTe"] = this.hoatDongTaiXe_KmThucTe;
+        data["hoatDongTaiXe_TrangThai"] = this.hoatDongTaiXe_TrangThai;
+        data["hoatDongTaiXe_NguoiTao"] = this.hoatDongTaiXe_NguoiTao;
+        data["hoatDongTaiXe_NgayTao"] = this.hoatDongTaiXe_NgayTao ? this.hoatDongTaiXe_NgayTao.toISOString() : <any>undefined;
+        data["hoatDongTaiXe_NhienLieu"] = this.hoatDongTaiXe_NhienLieu;
+        data["hoatDongTaiXe_KmUocTinh"] = this.hoatDongTaiXe_KmUocTinh;
+        return data; 
+    }
+}
+
+export interface IGroup9HoatDongTaiXeDto {
+    ma: number | undefined;
+    hoatDongTaiXe_MaLichTrinh: number | undefined;
+    hoatDongTaiXe_KmThucTe: number | undefined;
+    hoatDongTaiXe_TrangThai: string | undefined;
+    hoatDongTaiXe_NguoiTao: string | undefined;
+    hoatDongTaiXe_NgayTao: moment.Moment | undefined;
+    hoatDongTaiXe_NhienLieu: number | undefined;
+    hoatDongTaiXe_KmUocTinh: number | undefined;
 }
 
 export class Group9LoaiXeDto implements IGroup9LoaiXeDto {

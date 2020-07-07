@@ -82,7 +82,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
         this.getValue();
         if (this.checkvalue() == false) return null;
     
-        this.group9BaoTriService.group9BaoTri_Insert(this.group9BaoTriInput).subscribe((response) => {
+        this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
             if (response["Result"] == "1") {
                 this.notify.error("Thêm loại xe thất bại", "ERROR", environment.opt);
                 this.huyconfirm();
@@ -95,7 +95,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
 
     insert(): void{
     this.getValue();
-    this.group9BaoTriService.group9BaoTri_Insert(this.group9BaoTriInput).subscribe((response) => {
+    this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
       if (response["Result"] == "1") {
           this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
       } else {

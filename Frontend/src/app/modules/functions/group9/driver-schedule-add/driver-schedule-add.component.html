@@ -1,13 +1,13 @@
 <div [@routerTransition]>
-    <form class="m-content" #roleForm="ngForm" novalidate (ngSubmit)="luuconfirm()" autocomplete="off">
+    <form class="m-content" #roleForm="ngForm" novalidate (ngSubmit)="Save_Confirm()" autocomplete="off">
         <div class="m-portlet m-portlet__header m-portlet-mobile">
             <div class="m-portlet__nav">
                 <ul>
                     <li>
-                        <a style="cursor: pointer;" (click)="huyconfirm()"><i class="fa fa-times"></i> Hủy</a>
+                        <a style="cursor: pointer;" (click)="Cancel_Confirm()"><i class="fa fa-times"></i> Hủy</a>
                     </li>
                     <li>
-                        <a style="cursor: pointer;" (click)="luuconfirm()"><i class="fa fa-check"></i> Lưu</a>
+                        <a style="cursor: pointer;" (click)="Save_Confirm()"><i class="fa fa-check"></i> Lưu</a>
                     </li>
                 </ul>
             </div>
@@ -101,9 +101,10 @@
                                         <div class="col-md-8">
                                             <label class="ng-tns-c10-9" for="kmthucte">Số km thực tế</label>
                                             <div class="input-group">
-                                                <input class="input-width"  id="kmthucte" 
-                                                name="kmthucte" [(ngModel)]="kmthucte" 
+                                                <input class="input-width "  id="kmthucte" 
+                                                name="kmthucte" [(ngModel)]="KM_ACTUAL" 
                                                 type="number"
+                                                min = "1"
                                                 pInputText />
                                             </div>
                                         </div>
@@ -116,7 +117,7 @@
                                             <label class="ng-tns-c10-9" for="kmthucte">Số km ước tính</label>
                                             <div class="input-group">
                                                 <input class="input-width" readonly id="kmuoctinh" 
-                                                name="kmuoctinh" [(ngModel)]="kmuoctinh" 
+                                                name="kmuoctinh" [(ngModel)]="KM_ESTIMATE" 
                                                 type="number" pInputText />
                                             </div>
                                         </div>
@@ -129,7 +130,7 @@
                                             <label class="ng-tns-c10-9" for="nhienlieutieuthu">Nhiên liệu tiêu thụ (lít)</label>
                                             <div class="input-group">
                                                 <input class="input-width" readonly id="nhienlieutieuthu"
-                                                 name="nhienlieutieuthu" [(ngModel)]="nhienlieutieuthu"
+                                                 name="nhienlieutieuthu" [(ngModel)]="FUEL_ACTUAL"
                                                     type="number" pInputText />
                                             </div>
                                         </div>
@@ -149,12 +150,23 @@
     </form>
 </div>
 <!--dialog xác nhận Lưu dữ liệu-->
-<p-dialog styleClass="dialog-width" header="Lưu" [(visible)]="luudialog" [style]="{width: '1000vw'}"
+<p-dialog styleClass="dialog-width" header="Lưu" [(visible)]="Save_Dialog" [style]="{width: '2000vw'}"
     [baseZIndex]="10000">
     Lưu toàn bộ dữ liệu ?
     <p-footer>
         <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton
-            (click)="luudialog=false;" label="Thêm"></button>
-        <button type="button" pButton (click)="luudialog=false" label="Hủy" class="ui-button-secondary"></button>
+            (click)="Save_Dialog=false;" label="Yes"></button>
+        <button type="button" pButton (click)="Save_Dialog=false" label="No" class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+
+<!--dialog xác nhận Huy-->
+<p-dialog styleClass="dialog-width" header="Lưu" [(visible)]="Cancel_Dialog" [style]="{width: '2000vw'}"
+    [baseZIndex]="10000">
+    Bạn muốn huỷ bỏ tiến trình ?
+    <p-footer>
+        <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton (click)="Cancel_Dialog=false;"
+            label="Yes"></button>
+        <button type="button" pButton (click)="Cancel_Dialog=false" label="No" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>
