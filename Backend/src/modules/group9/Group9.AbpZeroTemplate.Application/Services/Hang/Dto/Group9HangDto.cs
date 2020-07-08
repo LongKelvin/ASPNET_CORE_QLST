@@ -1,19 +1,7 @@
-﻿using System.Linq;
-using System.Linq.Dynamic.Core;
-using System.Collections.Generic;
-using GSoft.AbpZeroTemplate.Helpers;
-using GSoft.AbpZeroTemplate.Sessions;
-using Microsoft.AspNetCore.Builder;
-using Abp.Application.Services;
-using Abp.Runtime.Session;
-using System.Threading.Tasks;
-using GSoft.AbpZeroTemplate.Sessions;
-using GSoft.AbpZeroTemplate.Sessions.Dto;
-using Abp.Notifications;
-using Abp.Domain.Repositories;
-using GSoft.AbpZeroTemplate.Authorization.Users;
+﻿
+using System;
 
-namespace Group9.AbpZeroTemplate.Web.Core.Cars
+namespace Group9.AbpZeroTemplate.Application.Share.Group9.Dto
 {
     public class Group9HangDto
     {

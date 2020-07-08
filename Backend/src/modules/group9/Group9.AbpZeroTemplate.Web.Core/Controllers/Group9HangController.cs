@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Group0.AbpZeroTemplate.Application.Controllers
+namespace Group9.AbpZeroTemplate.Application.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class Group9HangXeController : AbpController
