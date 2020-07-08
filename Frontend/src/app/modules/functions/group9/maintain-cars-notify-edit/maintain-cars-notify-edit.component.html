@@ -93,7 +93,7 @@
                                     <div class="input-group">
                                         <div class="ui-inputgroup">
                                             <input class="input-width" 
-                                              id="Gia" name="Gia" [(ngModel)]="thanhtien" type="text" (keyup)="formatCurrency($event)" pKeyFilter="pint" [step]="1000"  required  pInputText
+                                              id="Gia" name="Gia" [(ngModel)]="thanhtien" (keypress)="numberOnly($event)" type="text" (keyup)="formatCurrency($event)" pKeyFilter="pint" [step]="1000"  required  pInputText
                                             />
                                               <span class="ui-inputgroup-addon span-gia" >VNĐ</span>
                                           </div>

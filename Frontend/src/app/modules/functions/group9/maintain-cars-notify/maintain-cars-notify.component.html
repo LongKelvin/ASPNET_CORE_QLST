@@ -11,8 +11,8 @@
                     </li>
                     <!-- *ngIf="isGranted('Pages.Group0.Car.Update')" -->
                     <li>
-                        <a [class.disabled]="!curCarTypeId"
-                            [routerLink]="['/app/admin/maintain-cars-notify-edit', {id : curCarTypeId}]">
+                        <a [class.disabled]="!curMaBaoTri"
+                            [routerLink]="['/app/admin/maintain-cars-notify-edit', {id : curMaBaoTri}]">
                             <i class="flaticon-edit"></i> Chỉnh sửa
                         </a>
                     </li>
@@ -24,7 +24,7 @@
                     </li>
                     <!-- *ngIf="isGranted('Pages.Group4.Car.Delete')" -->
                     <li>
-                        <span (click)="delete()" [class.disabled]="!curCarTypeId">
+                        <span (click)="delete()" [class.disabled]="!curMaBaoTri">
                             <i class="fa fa-trash"></i> Xóa
                         </span>
                     </li>
@@ -112,6 +112,9 @@
                                         Checkbox
                                     </th>
                                     <th>
+                                        STT
+                                    </th>
+                                    <th>
                                         Mã Bảo Trì
                                     </th>
                                     <th>
@@ -124,9 +127,6 @@
                                        Ngày Xuất Xưởng
                                     </th>
                                     <th>
-                                        Ngày Bảo Trì
-                                    </th>
-                                    <th>
                                        Thành Tiền
                                     </th>
                                     <th>
@@ -136,6 +136,9 @@
                                     <th>
                                         Ngày tạo
                                     </th>
+                                    <th>
+                                        Người thực hiện
+                                    </th>
                                 </tr>
                             </ng-template>
 
@@ -144,7 +147,7 @@
                                     <td>
                                         <label class="m-radio" for="Theme_Default-{{record.ma}}">
                                             <input id="Theme_Default-{{record.ma}}" name="Theme"
-                                                [(ngModel)]="curCarTypeId" value="{{record.ma}}" type="radio">
+                                                [(ngModel)]="curMaBaoTri" value="{{record.ma}}" type="radio">
                                             <span></span>
                                         </label>
                                     </td>
@@ -155,25 +158,25 @@
                                         <span>{{record.ma}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_Ten}}</span>
+                                        <span>{{record.baotri_MaXe}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_Hang}}</span>
+                                        <span>{{record.baoTri_NgayBaoTri | date: 'shortDate'}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_SoLuong}}</span>
+                                        <span>{{record.baoTri_NgayXuatXuong | date: 'shortDate'}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_NamSX}}</span>
+                                        <span>{{record.baoTri_ThanhTien}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_LoaiNhienLieu === "X" ? "Xăng" : "Dầu"}}</span>
+                                        <span>{{record.baoTri_NguoiTao }}</span>
+                                    </td>    
+                                    <td>
+                                        <span>{{record.baoTri_NgayTao | date: 'shortDate'}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_DinhMucNhienLieu}}</span>
-                                    </td>
-                                    <td>
-                                        <span>{{record.loaiXe_NgayTao | date: 'shortDate' }}</span>
+                                        <span>{{record.baoTri_NguoiTao}}</span>
                                     </td>
                                 </tr>
                             </ng-template>
