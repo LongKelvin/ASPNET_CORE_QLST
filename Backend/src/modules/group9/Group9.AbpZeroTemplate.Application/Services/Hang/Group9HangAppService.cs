@@ -27,9 +27,9 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         List<Group9HangDto> Hang_Group9SearchAll();
 
     }
-    public class Group9HangXeAppService : BaseService, IGroup9HangAppService
+    public class Group9HangAppService : BaseService, IGroup9HangAppService
     {
-        public Group9HangXeAppService()
+        public Group9HangAppService()
         {
 
         }

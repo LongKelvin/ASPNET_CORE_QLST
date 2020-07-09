@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace Group9.AbpZeroTemplate.Application.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class Group9HangXeController : AbpController
+    public class Group9HangController : AbpController
     {
         private readonly IGroup9HangAppService Group9HangAppService;
 
-        public Group9HangXeController(IGroup9HangAppService Group9HangAppService)
+        public Group9HangController(IGroup9HangAppService Group9HangAppService)
         {
             this.Group9HangAppService = Group9HangAppService;
         }
