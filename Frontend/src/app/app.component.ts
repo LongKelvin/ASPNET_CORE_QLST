@@ -16,7 +16,7 @@ import { SignalRHelper } from 'shared/helpers/SignalRHelper';
 export class AppComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
     private viewContainerRef: ViewContainerRef;
-    private router: Router;
+   
 
     subscriptionStartType = SubscriptionStartType;
     installationMode = true;

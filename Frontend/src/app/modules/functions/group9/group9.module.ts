@@ -16,6 +16,7 @@ import { InputTextModule} from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/primeng';
 import { DialogModule} from 'primeng/dialog';
 import { ButtonModule} from 'primeng/button';
+import { CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { ButtonModule} from 'primeng/button';
     DropdownModule,
     DialogModule,
     ButtonModule,
-
+    CalendarModule,
+    
   ],
   declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
   DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent],  
@@ -39,5 +41,8 @@ import { ButtonModule} from 'primeng/button';
   exports:[ModelCarAddGroup9Component,MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
   DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent
   ]
+
 })
+
 export class Group9Module { }
+

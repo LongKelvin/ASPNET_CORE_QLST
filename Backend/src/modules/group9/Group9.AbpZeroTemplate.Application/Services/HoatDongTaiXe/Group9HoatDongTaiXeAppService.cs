@@ -21,6 +21,7 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         IDictionary<string, object> HOATDONGTAIXE_Group9Delete(int id);
         List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Search(Group9HoatDongTaiXeDto input);
         List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9SearchAll();
+        List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchLichTrinh();
 
     }
     public class Group9HoatDongTaiXeAppService : BaseService, IGroup9HoatDongTaiXeAppService
@@ -59,6 +60,11 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         public List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9SearchAll()
         {
             return procedureHelper.GetData<Group9HoatDongTaiXeDto>("HOATDONGTAIXE_Group9SearchAll", new { });
+        }
+
+        public List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchLichTrinh()
+        {
+            return procedureHelper.GetData<Group9LichTrinhDto>("HOATDONGTAIXE_Group9SearchLichTrinh", new { });
         }
 
         public IDictionary<string, object> HOATDONGTAIXE_Group9Update(Group9HoatDongTaiXeDto input)
