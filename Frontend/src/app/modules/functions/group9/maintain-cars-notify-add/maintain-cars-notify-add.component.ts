@@ -53,7 +53,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     getValue() {
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = null;
-        this.group9BaoTriInput.baoTri_NgayBaoTri = null;
+        this.group9BaoTriInput.baoTri_NgayDuyet = null;
         this.group9BaoTriInput.baoTri_NgayTao = null;
         this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
         this.group9BaoTriInput.baoTri_NguoiTao = this.nguoitao;

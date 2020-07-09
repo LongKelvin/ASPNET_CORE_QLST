@@ -1,3 +1,4 @@
+import { ManufacturerCarModule } from './manufacturer-car/manufacturer-car.module';
 import { NgModule } from "@angular/core";
 
 import {
@@ -36,7 +37,6 @@ import { UsageCarComponent } from './usage-car/usage-car.component';
 import { RoadPriceModule } from './road-price/road-price.module';
 import { MaintainCarNotifyModule} from './maintain-car-notify/maintain-car-notify.module';
 import { DriversScheduleModule} from './drivers-schedule/drivers-schedule.module'
-
 @NgModule({
     imports: [
         CommonModule,
@@ -65,7 +65,8 @@ import { DriversScheduleModule} from './drivers-schedule/drivers-schedule.module
         RentModule,
         RoadPriceModule,
         MaintainCarNotifyModule,
-        DriversScheduleModule
+        DriversScheduleModule,
+        ManufacturerCarModule
     ],
     declarations: [
         DashboardComponent,

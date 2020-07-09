@@ -50,7 +50,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.tinhtrang;
-        this.group9BaoTriInput.baoTri_NgayBaoTri = moment(this.ngaybaotri);
+        this.group9BaoTriInput.baoTri_NgayDuyet = moment(this.ngaybaotri);
         this.group9BaoTriInput.baoTri_NgayTao = this.ngaytao;
         this.group9BaoTriInput.baoTri_NgayXuatXuong = this.ngayxuatxuong;
         this.group9BaoTriInput.baoTri_NguoiTao = this.nguoitao;
@@ -58,7 +58,6 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_ThanhTien = this.thanhtien;
         this.group9BaoTriInput.baoTri_NoiBaoTri = this.noibaotri;
         this.group9BaoTriInput.baoTri_GhiChu = this.ghichu;
-        // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
     }
 
     commaSeparateNumber(val){
