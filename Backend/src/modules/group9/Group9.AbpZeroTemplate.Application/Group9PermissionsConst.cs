@@ -27,5 +27,12 @@ namespace Group9.AbpZeroTemplate.Application
         public const string Pages_Administration_Group9HoatDongTaiXe_Update = "Pages.Group9.HoatDongTaiXe.Update";
         public const string Pages_Administration_Group9HoatDongTaiXe_View = "Pages.Group9.HoatDongTaiXe.View";
         public const string Pages_Administration_Group9HoatDongTaiXe_Delete = "Pages.Group9.HoatDongTaiXe.Delete";
+
+        public const string Pages_Administration_Group9Hang = "Pages.Group9.Hang";
+        public const string Pages_Administration_Group9Hang_Add = "Pages.Group9.Hang.Add";
+        public const string Pages_Administration_Group9Hang_Update = "Pages.Group9.Hang.Update";
+        public const string Pages_Administration_Group9Hang_View = "Pages.Group9.Hang.View";
+        public const string Pages_Administration_Group9Hang_Delete = "Pages.Group9.Hang.Delete";
+
     }
 }

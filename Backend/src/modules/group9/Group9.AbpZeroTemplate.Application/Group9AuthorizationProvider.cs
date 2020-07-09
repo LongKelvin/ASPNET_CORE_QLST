@@ -43,9 +43,15 @@ namespace Group9.AbpZeroTemplate.Application
             group9HoatDongTaiXe.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9HoatDongTaiXe_View, L("View"));
             group9HoatDongTaiXe.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9HoatDongTaiXe_Delete, L("Delete"));
 
+            var group9Hang = pages.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9Hang, L("Hang"));
+            group9Hang.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9Hang_Add, L("Create"));
+            group9Hang.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9Hang_Update, L("Edit"));
+            group9Hang.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9Hang_View, L("View"));
+            group9Hang.CreateChildPermission(Group9PermissionsConst.Pages_Administration_Group9Hang_Delete, L("Delete"));
+
         }
 
-    private static ILocalizableString L(string name)
+        private static ILocalizableString L(string name)
     {
       return new LocalizableString(name, AbpZeroTemplateConsts.LocalizationSourceName);
     }

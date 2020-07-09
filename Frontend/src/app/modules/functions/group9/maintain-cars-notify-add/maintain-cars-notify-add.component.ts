@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { Group9BaoTriServiceProxy, Group9BaoTriDto } from '@shared/service-proxies/service-proxies';
+import { Group9BaoTriServiceProxy, Group9BaoTriDto, Group4XeServiceProxy, Group4XeDto} from '@shared/service-proxies/service-proxies';
 import { environment } from 'environments/environment';
 import { Table } from "primeng/components/table/table";
 import { Paginator, SelectItem } from "primeng/primeng";
@@ -15,24 +15,22 @@ import { Console } from 'console';
 })
 export class MaintainCarsNotifyAddComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
-    constructor(injector: Injector, private group9BaoTriService: Group9BaoTriServiceProxy) {
+    constructor(injector: Injector, private group9BaoTriService: Group9BaoTriServiceProxy,
+        private group4XeService: Group4XeServiceProxy,) {
         super(injector);
-        // this.carService.getCurrentUserName().subscribe(response=>{
-        //   this.currentUserName = response;
-        // })
+        this.group9BaoTriService.getCurrentUserName().subscribe(response=>{
+          this.currentUserName = response;
+        })
+        this.group4XeService.xE_Group4Search({} as any).subscribe(response=>{
+            this.xe_list = response;
+        })
         console.log(this);
     }
 
+    currentUserName: string
     maxe: number;
     mataixe: number;
-    tinhtrang: string;
-    ngaybaotri: moment.Moment;
-    ngaytao: moment.Moment;
-    ngayxuatxuong: moment.Moment;
     nguoitao: string;
-    trangthai: string;
-    thanhtien: number;
-    noibaotri: string;
     ghichu: string;
 
     luudialog: boolean;
@@ -42,6 +40,8 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     group9BaoTriInput: Group9BaoTriDto = new Group9BaoTriDto();
     currentId: number;
     saving = false;
+    carManufacturerOpt: object = {};
+    xe_list : Group4XeDto[];
 
 
     ngAfterViewInit(): void {
@@ -51,17 +51,16 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
 
 
     getValue() {
-        this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
-        this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.tinhtrang;
-        this.group9BaoTriInput.baoTri_NgayBaoTri = this.ngaybaotri;
-        this.group9BaoTriInput.baoTri_NgayTao = this.ngaytao;
-        this.group9BaoTriInput.baoTri_NgayXuatXuong = this.ngayxuatxuong;
+        this.group9BaoTriInput.baoTri_TinhTrangBaoTri = null;
+        this.group9BaoTriInput.baoTri_NgayBaoTri = null;
+        this.group9BaoTriInput.baoTri_NgayTao = null;
+        this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
         this.group9BaoTriInput.baoTri_NguoiTao = this.nguoitao;
-        this.group9BaoTriInput.baoTri_TrangThai = this.trangthai;
-        this.group9BaoTriInput.baoTri_ThanhTien = this.thanhtien;
-        this.group9BaoTriInput.baoTri_NoiBaoTri = this.noibaotri;
-        this.group9BaoTriInput.baoTri_GhiChu = this.ghichu;
+        this.group9BaoTriInput.baoTri_TrangThai = "U";
+        this.group9BaoTriInput.baoTri_ThanhTien = null;
+        this.group9BaoTriInput.baoTri_NoiBaoTri = null;
+        this.group9BaoTriInput.baoTri_GhiChu = this.currentUserName;
         // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
     }
 
@@ -80,8 +79,10 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
 
     add() {
         this.getValue();
-        if (this.checkvalue() == false) return null;
-    
+        //if (this.checkvalue() == false) return null;
+      
+        this.notify.error("Bạn chưa nhập ngày bảo trì", "ERROR", environment.opt);
+
         this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
             if (response["Result"] == "1") {
                 this.notify.error("Thêm loại xe thất bại", "ERROR", environment.opt);
@@ -109,28 +110,8 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
             this.notify.error("Bạn chưa nhập mã xe", "ERROR", environment.opt);
             return false;
         }
-        else if (this.tinhtrang == null || this.tinhtrang == '') {
-            this.notify.error("Bạn chưa nhập tình trạng xe", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.ngaybaotri == null) {
-            this.notify.error("Bạn chưa nhập ngày bảo trì", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.ngayxuatxuong == null) {
-            this.notify.error("Bạn chưa nhập ngày xuất xưởng", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.noibaotri == null || this.noibaotri == '') {
-            this.notify.error("Bạn chưa nhập nơi bảo trì", "ERROR", environment.opt);
-            return false;
-        }
         else if (this.ghichu == null || this.ghichu == '') {
             this.notify.error("Bạn chưa nhập ghi chú", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.nguoitao == null || this.nguoitao == '') {
-            this.notify.error("Bạn chưa nhập người tạo", "ERROR", environment.opt);
             return false;
         }
         return true;
@@ -144,16 +125,10 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
 
     huyconfirm() {
         this.maxe = null;
-        this.tinhtrang = null;
-        this.ngaybaotri = null;
-        this.ngayxuatxuong = null;
-        this.noibaotri = null;
-        this.thanhtien = null;
         this.ghichu = null;
         this.nguoitao = null;
     }
 
     ngOnInit() {
     }
-
 }

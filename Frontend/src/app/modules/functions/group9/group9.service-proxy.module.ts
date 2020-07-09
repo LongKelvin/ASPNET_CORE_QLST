@@ -9,8 +9,6 @@ import * as ApiServiceProxies from "../../../../shared/service-proxies/service-p
         ApiServiceProxies.Group9BaoTriServiceProxy,
         ApiServiceProxies.Group9HoatDongTaiXeServiceProxy,
         ApiServiceProxies.Group4LichTrinhServiceProxy,
-        ApiServiceProxies.Group4TuyenChayServiceProxy,
-        ApiServiceProxies.Group2TaiXeServiceProxy,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AbpHttpInterceptor,

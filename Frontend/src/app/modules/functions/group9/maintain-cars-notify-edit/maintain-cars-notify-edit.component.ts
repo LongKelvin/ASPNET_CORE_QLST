@@ -2,10 +2,7 @@ import { Component, OnInit, Injector, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Group9BaoTriServiceProxy, Group9BaoTriDto } from '@shared/service-proxies/service-proxies';
 import { environment } from 'environments/environment';
-import { Table } from "primeng/components/table/table";
-import { Paginator, SelectItem } from "primeng/primeng";
 import * as moment from 'moment';
-import { Console } from 'console';
 
 
 @Component({
@@ -21,6 +18,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         //   this.currentUserName = response;
         // })
         console.log(this);
+        //this.group9BaoTriInput.ma = this.getRouteParam("ma");
     }
 
     maxe: number;
@@ -52,7 +50,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.tinhtrang;
-        this.group9BaoTriInput.baoTri_NgayBaoTri = this.ngaybaotri;
+        this.group9BaoTriInput.baoTri_NgayBaoTri = moment(this.ngaybaotri);
         this.group9BaoTriInput.baoTri_NgayTao = this.ngaytao;
         this.group9BaoTriInput.baoTri_NgayXuatXuong = this.ngayxuatxuong;
         this.group9BaoTriInput.baoTri_NguoiTao = this.nguoitao;
@@ -129,5 +127,12 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
 
     ngOnInit() {
     }
-
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+          return false;
+        }
+        return true;
+    
+      }
 }
