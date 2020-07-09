@@ -10,6 +10,7 @@ using Abp.Runtime.Session;
 using System.Threading.Tasks;
 using GSoft.AbpZeroTemplate.Sessions;
 using GSoft.AbpZeroTemplate.Sessions.Dto;
+using System;
 
 namespace Group9.AbpZeroTemplate.Web.Core.Cars
 {
@@ -21,6 +22,8 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         IDictionary<string, object> HOATDONGTAIXE_Group9Delete(int id);
         List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Search(Group9HoatDongTaiXeDto input);
         List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9SearchAll();
+        List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int ma, DateTime tuNgay, DateTime denNgay);
+
 
     }
     public class Group9HoatDongTaiXeAppService : BaseService, IGroup9HoatDongTaiXeAppService
@@ -59,6 +62,15 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         public List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9SearchAll()
         {
             return procedureHelper.GetData<Group9HoatDongTaiXeDto>("HOATDONGTAIXE_Group9SearchAll", new { });
+        }
+
+        public List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int ma, DateTime tuNgay, DateTime denNgay)
+        {
+            return procedureHelper.GetData<Group9HoatDongTaiXeDto>("HOATDONGTAIXE_Group9Tracking", new { 
+                MaLichTrinh = ma,
+                HoatDongTaiXe_TuNgay = tuNgay,
+                HoatDongTaiXe_DenNgay = denNgay
+            });
         }
 
         public IDictionary<string, object> HOATDONGTAIXE_Group9Update(Group9HoatDongTaiXeDto input)

@@ -1,6 +1,6 @@
 ﻿Create table HoatDongTaiXe(
 [Ma] int NOT NULL IDENTITY(1,1) primary key,
-	[HoatDongTaiXe_Ma] [int]  varchar(20) NULL,
+	[HoatDongTaiXe_Ma]  varchar(20) NULL,
 [HoatDongTaiXe_MaLichTrinh] int null,
 [HoatDongTaiXe_KmThucTe] float null,
 [HoatDongTaiXe_TrangThai] varchar(1) NULL ,
@@ -181,3 +181,19 @@ begin catch
 rollback transaction
 
 end catch
+
+-------------------[dbo].[HOATDONGTAIXE_Tracking] 6/27/2020----------------
+create proc [dbo].[HOATDONGTAIXE_Group9Tracking]
+@MaLichTrinh int = NULL,
+@HoatDongTaiXe_TuNgay   datetime NULL ,
+@HoatDongTaiXe_DenNgay   datetime NULL 
+as
+begin
+	select * from HoatDongTaiXe
+	where (@MaLichTrinh is null or HoatDongTaiXe_MaLichTrinh = @MaLichTrinh)
+	and (@HoatDongTaiXe_TuNgay is null or HoatDongTaiXe_NgayBatDau >= @HoatDongTaiXe_TuNgay)
+	and (@HoatDongTaiXe_DenNgay is null or HoatDongTaiXe_NgayKetThuc <= @HoatDongTaiXe_DenNgay)
+
+end
+go
+-----

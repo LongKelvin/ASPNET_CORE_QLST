@@ -54,6 +54,11 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
         {
             return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9SearchAll();
         }
+        [HttpPost]
+        public List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int ma, DateTime tuNgay, DateTime denNgay)
+        {
+            return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9Tracking(ma, tuNgay, denNgay);
 
+        }
     }
 }

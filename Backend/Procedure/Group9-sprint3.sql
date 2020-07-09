@@ -107,7 +107,7 @@ begin try
 		  ,[BaoTri_MaTaiXe] = @BaoTri_MaTaiXe
 		  ,[BaoTri_NguoiTao] = @BaoTri_NguoiTao
 		  ,[BaoTri_NgayTao] = @BaoTri_NgayTao
-		  ,[BaoTri_TrangThai] = @BaoTri_TrangThai
+		  ,[BaoTri_TrangThai] = 'N'
 		  ,[BaoTri_GhiChu] = @BaoTri_GhiChu 
 	WHERE Ma = @Ma
 commit transaction
@@ -173,7 +173,7 @@ begin
 	and (@BaoTri_NgayTao is null or BaoTri_NgayTao = @BaoTri_NgayTao)
 	and (@BaoTri_TrangThai is null or BaoTri_TrangThai = @BaoTri_TrangThai)
 	and (@BaoTri_GhiChu is null or BaoTri_GhiChu = @BaoTri_GhiChu)
-	and (BaoTri_TrangThai = 'N')
+	and (BaoTri_TrangThai = 'N' or BaoTri_TrangThai = 'A')
 
 end
 go
@@ -181,7 +181,7 @@ go
 create or alter proc [dbo].[BAOTRI_Group9Delete] @Ma int = NULL
 as
 
-if(exists(select * from BaoTri where BaoTri_TinhTrangBaoTri = 'A' and Ma = @Ma))
+if(exists(select * from BaoTri where BaoTri_TrangThai = 'A' and Ma = @Ma))
 begin
 	select '1' as Result, N'Xe đã được duyệt không được xóa' as ErrorDesc
 	return
@@ -205,7 +205,7 @@ as
 begin transaction
 begin try
 	update BaoTri 
-	set BaoTri_TinhTrangBaoTri = 'A', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
+	set BaoTri_TrangThai = 'A', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
 	where Ma = @Id
 commit transaction
 	select '0' as Result, N'' as ErrorDesc, @id as Ma
