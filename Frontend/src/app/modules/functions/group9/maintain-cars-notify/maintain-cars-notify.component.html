@@ -28,6 +28,12 @@
                             <i class="fa fa-trash"></i> Xóa
                         </span>
                     </li>
+                    
+                    <li>
+                        <span (click)="approve()" [class.disabled]="!curMaBaoTri">
+                            <i class="fa fa-app"></i> Duyệt
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -53,14 +59,6 @@
                         <div class="col-md-3">
                             <label for="maXe">Mã Xe</label>
                             <div class="form-group">
-                                <!-- <p-autoComplete id="maXe" [(ngModel)]="carManufacturerOpt"
-                                    [suggestions]="carManufacturerSuggestions"
-                                    (completeMethod)="filterCarManufacturerOpt($event)"
-                                    (onClear)="clearOption(CAR_TYPE_MANUFACTURER)"
-                                    (onSelect)="validateFilterInput(CAR_TYPE_MANUFACTURER)" (onKeyUp)="onKeyUp($event)"
-                                    [dropdown]="true" field="name" placeholder="Mã Xe" name="maXe">
-                                </p-autoComplete> -->
-
                                 <select class="form-control" id="maXe" name="maXe" [(ngModel)]="carManufacturerOpt">
                                     <option value>Tất cả</option>
                                     <option *ngFor="let item of xe_list" value="{{item.ma}}">{{item.xe_Ten}}</option>

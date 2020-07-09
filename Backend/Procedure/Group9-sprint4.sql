@@ -197,3 +197,4 @@ begin
 end
 go
 -----
+exec [HOATDONGTAIXE_Group9Tracking] null, null, null

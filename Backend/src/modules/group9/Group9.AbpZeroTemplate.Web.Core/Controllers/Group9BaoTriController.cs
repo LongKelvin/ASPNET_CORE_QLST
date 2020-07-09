@@ -23,9 +23,9 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
         }
 
         [HttpPost]
-        public async Task BAOTRI_Group9SendNotification(string ma, string maThongBao, string maXe, DateTime ngayBaoTri, string NoiBaoTri)
+        public async Task BAOTRI_Group9SendNotification(string ma, int maThongBao, int maXe, DateTime ngayBaoTri)
         {
-            await Group9BaoTriAppService.BAOTRI_Group9SendNotification(ma, maThongBao, maXe, ngayBaoTri, NoiBaoTri);
+            await Group9BaoTriAppService.BAOTRI_Group9SendNotification(ma, maThongBao, maXe, ngayBaoTri);
         }
 
         [HttpPost]

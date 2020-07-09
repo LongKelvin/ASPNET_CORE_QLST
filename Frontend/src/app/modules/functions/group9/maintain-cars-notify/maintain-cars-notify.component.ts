@@ -9,6 +9,7 @@ import {
     Group4LoaiXeServiceProxy,
     
 } from "@shared/service-proxies/service-proxies";
+import * as moment from 'moment';
 
 
 @Component({
@@ -39,6 +40,8 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     }
 
     currentUserName: string;
+    ngayBaoTri!: moment.Moment | undefined
+    maXe : number
     ngOnInit() {
     }
     ngAfterViewInit(): void {
@@ -210,6 +213,26 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
         );
     }
 
+    approve(){
+        let self = this;
+        self.message.confirm(
+            self.l('Xoá loại xe này', this.curMaBaoTri),
+            this.l('AreYouSure'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.group9BaoTriService.bAOTRI_Group9App(this.curMaBaoTri, this.currentUserName).subscribe((response) => {
+                        if (response["Result"] === "1") {
+                            this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                        } else {
+                            this.notify.success("Duyệt thông báo thành công, thông báo đang được gửi đi", "SUCCESS", environment.opt);
+                            //this.resetOptions();
+                            this.send();
+                        }
+                    });
+                }
+            }
+        );
+    }
     search() {
         // show loading trong gridview
         this.getValue();
@@ -229,6 +252,16 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             });
     }
 
+    send(){
+        this.group9BaoTriService.bAOTRI_Group9SendNotification(this.currentUserName, this.curMaBaoTri, this.maXe, this.ngayBaoTri).subscribe((response) => {
+            if (response["Result"] === "1") {
+                this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+            } else {
+                this.notify.success("Duyệt thông báo thành công, thông báo đang được gửi đi", "SUCCESS", environment.opt);
+                //this.resetOptions();
+            }
+        });
+    }
     
     getListThongBao(){
         this.group9BaoTriService.bAOTRI_Group9Search({} as any).subscribe(response=>{
