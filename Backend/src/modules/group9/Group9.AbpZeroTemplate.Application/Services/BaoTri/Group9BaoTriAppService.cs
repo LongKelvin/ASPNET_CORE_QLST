@@ -27,7 +27,7 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         List<Group9BaoTriDto> BAOTRI_Group9SearchAll();
         IDictionary<string, object> BAOTRI_Group9App(int id, string checkerId);
         string GetCurrentUserName();
-        Task BAOTRI_Group9SendNotification(string userName, string maThongBao, string maXe, DateTime? ngayBaoTri, string NoiBaoTri);
+        Task BAOTRI_Group9SendNotification(string ma, string maThongBao, string maXe, DateTime? ngayBaoTri, string NoiBaoTri);
 
     }
     public class Group9BaoTriAppService : BaseService, IGroup9BaoTriAppService
@@ -85,13 +85,13 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
             return procedureHelper.GetData<dynamic>("BAOTRI_Group9Update", input).FirstOrDefault();
         }
 
-        public async Task BAOTRI_Group9SendNotification(string userName, string maThongBao, string maXe, DateTime? ngayBaoTri = null, string noiBaoTri = "chưa xác định")
+        public async Task BAOTRI_Group9SendNotification(string ma, string maThongBao, string maXe, DateTime? ngayBaoTri = null, string noiBaoTri = "chưa xác định")
         {
             if (ngayBaoTri == null)
             {
                 ngayBaoTri = DateTime.UtcNow;
             }
-            var user = userRepository.GetAll().Where(x => x.UserName == userName).FirstOrDefault();
+            var user = userRepository.GetAll().Where(x => x.UserName == ma).FirstOrDefault();
             await notificationPublisher.PublishAsync(
                 "Thông báo bảo trì xe (" + maThongBao + ")",
                 new MessageNotificationData("[YÊU CẦU BẢO TRÌ] Mã xe: " + maXe + ";Ngày: " + ngayBaoTri?.ToString("MM-dd-yyyy") + ";   Nơi bảo trì:" + noiBaoTri),
