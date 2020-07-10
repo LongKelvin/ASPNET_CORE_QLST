@@ -1,28 +1,19 @@
-import {
-    environment
-} from './../../../../../environments/environment.prod';
-import {
-    Component,
-    ViewChild,
-    OnInit,
-    AfterViewInit,
-    Injector
-} from '@angular/core';
-import {
-    AppComponentBase
-} from '@shared/common/app-component-base';
-import {
-    Table
-} from "primeng/components/table/table";
-import {
-    Paginator
-} from "primeng/primeng";
+import { environment } from './../../../../../environments/environment.prod';
+import { Component, ViewChild, OnInit, AfterViewInit, Injector } from '@angular/core';
+import { AppComponentBase } from '@shared/common/app-component-base';
+import { Table } from "primeng/components/table/table";
+import { Paginator } from "primeng/primeng";
 import {
     Group9HoatDongTaiXeServiceProxy,
     Group9HoatDongTaiXeDto,
-    
+    Group4LichTrinhServiceProxy,
+    Group4LichTrinhDto,
+    Group4TuyenChayServiceProxy, Group4TuyenChayDto
+
 } from "@shared/service-proxies/service-proxies";
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+
 
 @Component({
     selector: 'app-driver-schedule-add-group9',
@@ -33,18 +24,25 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
 
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
+    //value: Date;
 
-    constructor(injector: Injector, private group9: Group9HoatDongTaiXeServiceProxy) {
+    constructor(injector: Injector,public router: Router, private group9: Group9HoatDongTaiXeServiceProxy,
+        private group4LichTrinhProxy: Group4LichTrinhServiceProxy, 
+        private group4_TuyenChayProxy: Group4TuyenChayServiceProxy
+        ) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
+        this.getMaLichTrinh();
+       
+        
     }
 
     //variable
 
     currentUserName: string;
     SCHEDULE_ID: number;
-    START_DATE: number;
-    END_DATE: number;
+    START_DATE: Date;
+    END_DATE: Date;
     KM_ACTUAL: number;
     KM_ESTIMATE: number;
     FUEL_ACTUAL: number;
@@ -52,15 +50,24 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     Save_Dialog: boolean;
     Cancel_Dialog: boolean;
 
-    listScheduleID: Group9HoatDongTaiXeDto[];
+    
     hoatDongTaiXeInput: Group9HoatDongTaiXeDto = new Group9HoatDongTaiXeDto();
-    //selectedLoaiXe: Group4LoaiXeDto;
 
+    listScheduleID: Group4LichTrinhDto[];
+    lichTrinhinput: Group4LichTrinhDto = new Group4LichTrinhDto();
+    selectedDropdownLichTrinh: Group4LichTrinhDto;
 
+    maTuyenChay: number;
+    tuyenChayInput: Group4TuyenChayDto = new Group4TuyenChayDto();
+    listTuyenChay: Group4TuyenChayDto[];
+
+    listResult: Group4LichTrinhDto[];
+
+   
 
     getMaLichTrinh(): void {
-        this.group9.hOATDONGTAIXE_Group9SearchAll().subscribe((result) => {
-            this.listScheduleID = result;
+        this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhinput).subscribe((result) => {
+            this.listScheduleID= result;
         });
     }
 
@@ -82,19 +89,58 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     }
 
     Cancel_Confirm() {
-        this.KM_ACTUAL = null;
-        this.KM_ESTIMATE = null;
-        this.SCHEDULE_ID = null;
-        this.FUEL_ACTUAL = null;
-        this.START_DATE = null;
-        this.END_DATE = null;
-      
+        this.Cancel_Dialog = true;
     }
 
+    ClearAllInputValue() {
+        if (this.KM_ACTUAL == null &&
+            this.KM_ESTIMATE == null && this.SCHEDULE_ID == null
+            && this.FUEL_ACTUAL == null) {
+            this.ReturnToHomePage();
+        }
+        else {
+            this.KM_ACTUAL = null;
+            this.KM_ESTIMATE = null;
+            this.SCHEDULE_ID = null;
+            this.FUEL_ACTUAL = null;
+            this.START_DATE = null;
+            this.END_DATE = null;
+        }
+
+    }
+
+    transformDate(date) {
+     
+  }
+
+    
+    ReturnToHomePage() {
+        this.router.navigate(['/app/admin/driver-schedule']);
+    }
+
+    onOptionsSelected(event){
+        this.lichTrinhinput.ma = this.SCHEDULE_ID;
+        this.group4LichTrinhProxy.lICTRINH_Group4SearchById(this.SCHEDULE_ID).subscribe((result) => {
+            this.selectedDropdownLichTrinh= result;
+            this.START_DATE = this.selectedDropdownLichTrinh.lichTrinh_NgayDi.toDate();
+            this.END_DATE = this.selectedDropdownLichTrinh.lichTrinh_NgayDen.toDate();
+            var km = this.selectedDropdownLichTrinh.tuyenchay_SoKm;
+            this.KM_ESTIMATE = +km;
+        });
+        this.tuyenChayInput.ma = this.maTuyenChay;
+        // this.group4_TuyenChayProxy.tUYENCHAY_Group4Search(this.tuyenChayInput).subscribe((result) =>{
+        //     this.listTuyenChay = result;
+        //     var km = this.listTuyenChay[0].tuyenChay_SoKm.toString;
+        //     var km_number = +km;
+        //     this.KM_ESTIMATE = km_number;
+        // });
+    }
     getValue() {
         this.hoatDongTaiXeInput.hoatDongTaiXe_KmThucTe = this.KM_ACTUAL;
-        this.hoatDongTaiXeInput.hoatDongTaiXe_KmUocTinh = 5;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_KmUocTinh = this.KM_ESTIMATE;
         this.hoatDongTaiXeInput.hoatDongTaiXe_MaLichTrinh = this.SCHEDULE_ID;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NgayBatDau =moment(this.START_DATE);
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NgayKetThuc = moment(this.END_DATE);
 
         var dateObj_NgayTao = new Date(Date.now());
         var momentObj_NgayTao = moment(dateObj_NgayTao);
@@ -103,8 +149,6 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
         this.hoatDongTaiXeInput.hoatDongTaiXe_NguoiTao = this.currentUserName;
         this.hoatDongTaiXeInput.hoatDongTaiXe_NhienLieu = this.FUEL_ACTUAL;
 
-       
-
     }
 
     checkvalue(): boolean {
@@ -112,60 +156,25 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             this.notify.error("Bạn chưa chọn mã lịch trình", "ERROR", environment.opt);
             return false;
         }
-        if (this.KM_ACTUAL == null  ) {
+        if (this.KM_ACTUAL == null) {
             this.notify.error("Bạn chưa nhập số km thực tế", "ERROR", environment.opt);
             return false;
         }
-        if (this.KM_ACTUAL <1  ) {
+        if (this.KM_ACTUAL < 1) {
             this.notify.error("Số km không hợp lệ", "ERROR", environment.opt);
             return false;
         }
-        if (this.START_DATE == null) {
-            this.notify.error("Bạn chưa nhập ngày bắt đầu", "ERROR", environment.opt);
-            return false;
-        }
-        
-        if (this.END_DATE == null) {
-            this.notify.error("Bạn chưa nhập ngày kết thúc", "ERROR", environment.opt);
-            return false;
-        }
+
         return true;
     }
 
-    selectDropDown() {
-      //  this.SCHEDULE_ID = this.selectedLoaiXe.loaiXe_Hang;
-        
+    ngOnInit() {
+        this.getMaLichTrinh();
+        //this.onOptionsSelected(event);
     }
-
-
-    ngOnInit() {}
 
     ngAfterViewInit(): void {
-
+       
     }
-
-
-
-    numberOnly(event): boolean {
-        const charCode = (event.which) ? event.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-
-    }
-
-    filterScheduleId() {}
-    clearOption() {}
-    validateFilterInput() {}
-    onKeyUp(event) {
-        if (event.keyCode === 13) {
-
-        }
-    }
-
-
-
-
 }
 

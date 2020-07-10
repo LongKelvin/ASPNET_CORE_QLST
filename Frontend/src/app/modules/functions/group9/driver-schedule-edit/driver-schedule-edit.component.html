@@ -1,13 +1,13 @@
 <div [@routerTransition]>
-    <form class="m-content" #roleForm="ngForm" novalidate (ngSubmit)="luuconfirm()" autocomplete="off">
+    <form class="m-content" #roleForm="ngForm" novalidate (ngSubmit)="Save_Confirm()" autocomplete="off">
         <div class="m-portlet m-portlet__header m-portlet-mobile">
             <div class="m-portlet__nav">
                 <ul>
                     <li>
-                        <a style="cursor: pointer;" (click)="huyconfirm()"><i class="fa fa-times"></i> Hủy</a>
+                        <a style="cursor: pointer;" (click)="Cancel_Confirm()"><i class="fa fa-times"></i> Hủy</a>
                     </li>
                     <li>
-                        <a style="cursor: pointer;" (click)="luuconfirm()"><i class="fa fa-check"></i> Lưu</a>
+                        <a style="cursor: pointer;" (click)="Save_Confirm()"><i class="fa fa-check"></i> Lưu</a>
                     </li>
                 </ul>
             </div>
@@ -23,7 +23,7 @@
                         <a routerLink="/app/admin/driver-schedule">Quản lý hoạt động tài xế</a>
                     </span>
                     <span style="cursor: pointer;" class="m-section__sub m-section__sub--separator">
-                        Thêm lịch trình tài xế
+                        Chỉnh sửa hoạt động tài xế
                     </span>
                 </div>
             </div>
@@ -39,11 +39,8 @@
 
                             <label for="maLichTrinh">Mã Lịch Trình của xe</label>
                             <div class="form-group">
-                                <p-autoComplete id="maLichTrinh" [(ngModel)]="SCHEDULE_ID" [suggestions]="SCHEDULE_ID"
-                                    (completeMethod)="filterScheduleId($event)" (onClear)="clearOption()"
-                                    (onSelect)="validateFilterInput()" (onKeyUp)="onKeyUp($event)" [dropdown]="true"
-                                    field="name" placeholder="Mã Lịch Trình" name="maLichTrinh">
-                                </p-autoComplete>
+                                <input id="maLichTrinh" name="input_maLichTrinh" 
+                                readonly type="text" size="30" pInputText [(ngModel)]="SCHEDULE_ID">
                             </div>
 
                         </div>
@@ -64,30 +61,35 @@
                         </div>
 
                         <div class="row m--margin-bottom-10">
-
-                            <div class="col-xl-3">
+                            <div class="col-md-8 col-xl-3">
                                 <div class="form-group">
-                                    <label class="ng-tns-c10-9" for="ngayBatDau">Ngày Bắt Đầu </label>
-                                    <div class="input-group">
-                                        <input class="form-control ng-pristine ng-valid ng-touched text-uppercase"
-                                            id="ngayBatDau" name="ngayBatDau" type="date" ng-reflect-name="ngayBatDau"
-                                            [(ngModel)]="START_DATE" require>
-
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="ngayBatDau">Ngày đi</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input id="input_ngayBatDau" name="input_ngayBatDau" readonly type="text" size="30" pInputText
+                                                    [(ngModel)]="START_DATE">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
+                        
                             <div class="col-xl-3">
                                 <div class="form-group">
-                                    <label class="ng-tns-c10-9" for="ngayKetThuc">Ngày Kết Thúc </label>
-                                    <div class="input-group">
-                                        <input class="form-control ng-pristine ng-valid ng-touched text-uppercase"
-                                            id="ngayKetThuc" name="ngayKetThuc" type="date"
-                                            ng-reflect-name="ngayKetThuc" [(ngModel)]="END_DATE" require>
-
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="ngayketThuc">Ngày Đến</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input id="input_ngayKetThuc" name="input_ngayKetThuc" readonly type="text" size="30" pInputText
+                                                    [(ngModel)]="END_DATE">
+                                            </div>
+                                        </div>
                                     </div>
+                        
                                 </div>
                             </div>
+                        
                         </div>
 
                         <div class="col-xl-6">
@@ -104,7 +106,7 @@
                                         <label class="ng-tns-c10-9" for="kmthucte">Số km thực tế</label>
                                         <div class="input-group">
                                             <input class="input-width" id="kmthucte" name="kmthucte"
-                                                [(ngModel)]="kmthucte" type="number" pInputText />
+                                                [(ngModel)]="KM_ACTUAL" type="number" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +118,7 @@
                                         <label class="ng-tns-c10-9" for="kmthucte">Số km ước tính</label>
                                         <div class="input-group">
                                             <input class="input-width" readonly id="kmuoctinh" name="kmuoctinh"
-                                                [(ngModel)]="kmuoctinh" type="number" pInputText />
+                                                [(ngModel)]="KM_ESTIMATE" type="number" pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +131,7 @@
                                             (lít)</label>
                                         <div class="input-group">
                                             <input class="input-width" readonly id="nhienlieutieuthu"
-                                                name="nhienlieutieuthu" [(ngModel)]="nhienlieutieuthu" type="number"
+                                                name="nhienlieutieuthu" [(ngModel)]="FUEL_ACTUAL" type="number"
                                                 pInputText />
                                         </div>
                                     </div>
@@ -149,12 +151,25 @@
     </form>
 </div>
 <!--dialog xác nhận Lưu dữ liệu-->
-<p-dialog styleClass="dialog-width" header="Lưu" [(visible)]="luudialog" [style]="{width: '1000vw'}"
+<p-dialog styleClass="dialog-width" header="Lưu" [(visible)]="Save_Dialog" [style]="{width: '2000vw'}"
     [baseZIndex]="10000">
     Lưu toàn bộ dữ liệu ?
     <p-footer>
-        <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton (click)="luudialog=false;"
-            label="Thêm"></button>
-        <button type="button" pButton (click)="luudialog=false" label="Hủy" class="ui-button-secondary"></button>
+        <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton
+            (click)="Save_Dialog=false;update()" label="Yes"></button>
+        <button type="button" pButton (click)="Save_Dialog=false;" label="No" class="ui-button-secondary"></button>
+    </p-footer>
+
+
+</p-dialog>
+
+<!--dialog xác nhận Huy-->
+<p-dialog styleClass="dialog-width" header="Lưu" [(visible)]="Cancel_Dialog" [style]="{width: '2000vw'}"
+    [baseZIndex]="10000">
+    Bạn muốn huỷ bỏ tiến trình ?
+    <p-footer>
+        <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton
+            (click)="Cancel_Dialog=false;ClearAllInputValue()" label="Yes"></button>
+        <button type="button" pButton (click)="Cancel_Dialog=false" label="No" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>

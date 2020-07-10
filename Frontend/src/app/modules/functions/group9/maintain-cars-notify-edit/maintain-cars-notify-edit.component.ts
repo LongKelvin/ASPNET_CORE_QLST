@@ -14,7 +14,6 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
 
     constructor(injector: Injector, private group9BaoTriService: Group9BaoTriServiceProxy) {
         super(injector);
-
         
         this.group9BaoTriService.getCurrentUserName().subscribe(response=>{
           this.currentUserName = response;
@@ -27,6 +26,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
           })
     }
 
+    currentUserName:string;
     maxe: number;
     mataixe: number;
     tinhtrang: string;
@@ -38,7 +38,6 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     thanhtien: number;
     noibaotri: string;
     ghichu: string;
-    currentUserName: string
 
     luudialog: boolean;
 
@@ -57,15 +56,32 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.tinhtrang;
-        this.group9BaoTriInput.baoTri_NgayDuyet = moment(this.ngaybaotri);
+        //this.group9BaoTriInput.baoTri_NgayBaoTri = moment(this.ngaybaotri);
         this.group9BaoTriInput.baoTri_NgayTao = this.ngaytao;
-        // this.group9BaoTriInput.baoTri_NgayXuatXuong = this.ngayxuatxuong;
-        // this.group9BaoTriInput.baoTri_NguoiTao = this.currentUserName;
-        // this.group9BaoTriInput.baoTri_TrangThai = this.trangthai;
-        // this.group9BaoTriInput.baoTri_ThanhTien = this.thanhtien;
-        // this.group9BaoTriInput.baoTri_NoiBaoTri = this.noibaotri;
+        this.group9BaoTriInput.baoTri_NgayXuatXuong = this.ngayxuatxuong;
+        this.group9BaoTriInput.baoTri_NguoiTao = this.currentUserName;
+        this.group9BaoTriInput.baoTri_TrangThai = this.trangthai;
+        this.group9BaoTriInput.baoTri_ThanhTien = this.thanhtien;
+        this.group9BaoTriInput.baoTri_NoiBaoTri = this.noibaotri;
         this.group9BaoTriInput.baoTri_GhiChu = this.ghichu;
-        // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
+        this.group9BaoTriInput.baoTri_NguoiTao = this.nguoitao;
+        //console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
+    }
+
+    load(){
+        this.maxe = this.group9BaoTriInput.baoTri_MaXe;
+        this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
+        this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
+        this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayDuyet;
+        this.ngaytao =this.group9BaoTriInput.baoTri_NgayTao ;
+        this.ngayxuatxuong=this.group9BaoTriInput.baoTri_NgayXuatXuong ;
+        this.currentUserName=this.group9BaoTriInput.baoTri_NguoiTao;
+        this.trangthai=this.group9BaoTriInput.baoTri_TrangThai ;
+        this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien ;
+        this.noibaotri=this.group9BaoTriInput.baoTri_NoiBaoTri;
+        this.ghichu=this.group9BaoTriInput.baoTri_GhiChu ;
+        this.nguoitao=this.group9BaoTriInput.baoTri_NguoiTao ;
+
     }
 
     commaSeparateNumber(val){
@@ -142,17 +158,15 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         return true;
     
       }
-      load(){
-        this.maxe =this.group9BaoTriInput.baoTri_MaXe;
-        this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
-        this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
-        this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayDuyet;
-        this.group9BaoTriInput.baoTri_NgayTao;
-        this.group9BaoTriInput.baoTri_NgayXuatXuong ;
-        this.currentUserName=this.group9BaoTriInput.baoTri_NguoiTao ;
-        this.trangthai =this.group9BaoTriInput.baoTri_TrangThai ;
-        this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien;
-        this.group9BaoTriInput.baoTri_NoiBaoTri ;
-        this.ghichu=this.group9BaoTriInput.baoTri_GhiChu;
+
+      update(): void{
+        this.getValue();
+        this.group9BaoTriService.bAOTRI_Group9Update(this.group9BaoTriInput).subscribe((response) => {
+          if (response["Result"] == "1") {
+              this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
+          } else {
+              this.notify.success("Thêm xe thành công","SUCCESS", environment.opt);
+          }
+      });
       }
 }

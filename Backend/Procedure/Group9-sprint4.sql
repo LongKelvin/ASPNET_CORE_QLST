@@ -1,31 +1,30 @@
-﻿Create table HoatDongTaiXe(
-[Ma] int NOT NULL IDENTITY(1,1) primary key,
-	[HoatDongTaiXe_Ma]  varchar(20) NULL,
-[HoatDongTaiXe_MaLichTrinh] int null,
-[HoatDongTaiXe_KmThucTe] float null,
-[HoatDongTaiXe_TrangThai] varchar(1) NULL ,
-[HoatDongTaiXe_NguoiTao]  nvarchar(50) NULL ,
-[HoatDongTaiXe_NgayTao]   datetime NULL ,
-[HoatDongTaiXe_NhienLieu] float null,
-[HoatDongTaiXe_KmUocTinh] float null,
-[HoatDongTaiXe_NgayBatDau]   datetime NULL ,
-[HoatDongTaiXe_NgayKetThuc]   datetime NULL ,
-
-)
-
+﻿
+create table HoatDongTaiXe(
+	[Ma] [int] IDENTITY(1,1) NOT NULL,
+	[HoatDongTaiXe_Ma] varchar(20) NULL,
+	[HoatDongTaiXe_MaLichTrinh] varchar(20) NULL,
+	[HoatDongTaiXe_KmThucTe] [float] NULL,
+	[HoatDongTaiXe_TrangThai] [varchar](1) NULL,
+	[HoatDongTaiXe_NguoiTao] [nvarchar](50) NULL,
+	[HoatDongTaiXe_NgayTao] [datetime] NULL,
+	[HoatDongTaiXe_NhienLieu] [float] NULL,
+	[HoatDongTaiXe_KmUocTinh] [float] NULL,
+	[HoatDongTaiXe_NgayBatDau] [datetime] NULL,
+	[HoatDongTaiXe_NgayKetThuc] [datetime] NULL,
+	)
 go
 -------------------[dbo].[HOATDONGTAIXE_Insert] 6/27/2020----------------
 create proc [dbo].[HOATDONGTAIXE_Group9Insert]
 @HoatDongTaiXe_Ma varchar(20) NULL,
-@HoatDongTaiXe_MaLichTrinh int null,
+@HoatDongTaiXe_MaLichTrinh varchar(20) null,
 @HoatDongTaiXe_KmThucTe float null,
 @HoatDongTaiXe_TrangThai varchar(1) NULL ,
 @HoatDongTaiXe_NguoiTao  nvarchar(50) NULL ,
 @HoatDongTaiXe_NgayTao   datetime NULL ,
 @HoatDongTaiXe_NhienLieu float null,
 @HoatDongTaiXe_KmUocTinh float null,
-@HoatDongTaiXe_NgayBatDau float null,
-@HoatDongTaiXe_NgayKetThuc float null
+@HoatDongTaiXe_NgayBatDau [datetime] null,
+@HoatDongTaiXe_NgayKetThuc [datetime] null
 
 as
 
@@ -77,15 +76,15 @@ go
 create proc [dbo].[HOATDONGTAIXE_Group9Update]
     @Ma int = NULL,
 @HoatDongTaiXe_Ma varchar(20) NULL,
-     @HoatDongTaiXe_MaLichTrinh int null,
+     @HoatDongTaiXe_MaLichTrinh varchar(20) null,
 @HoatDongTaiXe_KmThucTe float null,
 @HoatDongTaiXe_TrangThai varchar(1) NULL ,
 @HoatDongTaiXe_NguoiTao  nvarchar(50) NULL ,
 @HoatDongTaiXe_NgayTao   datetime NULL ,
 @HoatDongTaiXe_NhienLieu float null,
 @HoatDongTaiXe_KmUocTinh float null,
-@HoatDongTaiXe_NgayBatDau float null,
-@HoatDongTaiXe_NgayKetThuc float null
+@HoatDongTaiXe_NgayBatDau datetime null,
+@HoatDongTaiXe_NgayKetThuc datetime null
 
 as
 
@@ -148,8 +147,8 @@ create proc [dbo].[HOATDONGTAIXE_Group9Search]
 @HoatDongTaiXe_NgayTao   datetime NULL ,
 @HoatDongTaiXe_NhienLieu float null,
 @HoatDongTaiXe_KmUocTinh float null,
-@HoatDongTaiXe_NgayBatDau float null,
-@HoatDongTaiXe_NgayKetThuc float null
+@HoatDongTaiXe_NgayBatDau datetime null,
+@HoatDongTaiXe_NgayKetThuc datetime null
 
 as
 begin
@@ -197,3 +196,4 @@ begin
 end
 go
 -----
+exec [HOATDONGTAIXE_Group9Tracking] null, null, null

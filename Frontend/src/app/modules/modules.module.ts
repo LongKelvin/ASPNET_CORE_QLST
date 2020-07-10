@@ -37,6 +37,7 @@ import { RoadPriceModule } from './road-price/road-price.module';
 import { MaintainCarNotifyModule} from './maintain-car-notify/maintain-car-notify.module';
 import { DriversScheduleModule} from './drivers-schedule/drivers-schedule.module'
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -65,7 +66,9 @@ import { DriversScheduleModule} from './drivers-schedule/drivers-schedule.module
         RentModule,
         RoadPriceModule,
         MaintainCarNotifyModule,
-        DriversScheduleModule
+        DriversScheduleModule,
+       
+       
     ],
     declarations: [
         DashboardComponent,

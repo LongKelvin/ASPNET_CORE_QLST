@@ -93,7 +93,9 @@
                 <div class="form-group">
                   <div class="col-md-8">
                     <label class="ng-tns-c10-9" >Tên loại xe *</label>   
-                    <p-dropdown [options]="listLoaiXe" [style]="{'width':'100%'}" name="dropdown" [(ngModel)]="selectedLoaiXe" placeholder="Chọn loại xe" optionLabel="loaiXe_Ten" filter="true" (onChange)="selectDropDown()" ></p-dropdown> 
+                    <p-dropdown [options]="listLoaiXe" [style]="{'width':'100%'}" name="dropdown" 
+                    [(ngModel)]="selectedLoaiXe" placeholder="Chọn loại xe" optionLabel="loaiXe_Ten" filter="true" 
+                    (onChange)="selectDropDown()" ></p-dropdown> 
                       
                     </div>
                   </div>   

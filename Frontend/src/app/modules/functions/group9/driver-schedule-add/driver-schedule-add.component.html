@@ -33,120 +33,111 @@
         <div class="m-content">
             <div class="m-portlet m-portlet-mobile">
                 <div class="m-portlet__body">
-                <form class="ng-tns-c10-9 ng-pristine ng-valid ng-touched" autocomplete="off" novalidate="">
+                    <form class="ng-tns-c10-9 ng-pristine ng-valid ng-touched" autocomplete="off" novalidate="">
+
+                        <div class="col-xl-3">
+
+                            <label for="maLichTrinh">Mã Lịch Trình của xe</label>
+                            <select class="form-control" id="maLichTrinh" name="maLichTrinh" [(ngModel)]="SCHEDULE_ID"
+                                (change)='onOptionsSelected($event)'>
+                                <option *ngFor="let item of listScheduleID" value="{{item.ma}}">{{item.ma}}
+                                </option>
+                            </select>
+
+                           
+                            
+                        </div>
+                      
+                    <div class="col-xl-6">
+                        <label class="ng-tns-c10-9">  </label>
+                    </div>
+
+                <div class="col-xl-3">
+                    <label class="ng-tns-c10-9">Thời gian hoạt động</label>
+                </div>
+                        <div class="row m--margin-bottom-10">
+                            <div class="col-md-8 col-xl-3">
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="ngayBatDau">Ngày đi</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input id="input_ngayBatDau" name="input_ngayBatDau" readonly type="text" size="30" pInputText
+                                                    [(ngModel)]="START_DATE"   >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         
                             <div class="col-xl-3">
-
-                                <label for="maLichTrinh">Mã Lịch Trình của xe</label>
                                 <div class="form-group">
-                                    <p-autoComplete id="maLichTrinh" [(ngModel)]="SCHEDULE_ID" [suggestions]="SCHEDULE_ID"
-                                        (completeMethod)="filterScheduleId($event)" (onClear)="clearOption()" (onSelect)="validateFilterInput()"
-                                        (onKeyUp)="onKeyUp($event)" [dropdown]="true" field="name" placeholder="Mã Lịch Trình"
-                                        name="maLichTrinh">
-                                    </p-autoComplete>
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="ngayketThuc">Ngày Đến</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input id="input_ngayKetThuc" name="input_ngayKetThuc" readonly type="text" size="30" pInputText
+                                                    [(ngModel)]="END_DATE">
+                                            </div>
+                                        </div>
+                                    </div>
+                        
                                 </div>
+                            </div>
+                        
+                        </div>
+                        
+                        <div class="row m--margin-bottom-10">
 
-                            </div>
-
-                            <!-- content -->
-                            <div class="col-xl-3">
-                                <label></label>
-                            </div>
-                            <div class="col-xl-3">
-                                <label></label>
-                            </div>
-                            <div class="col-xl-3">
-                               
-                                <label class="ng-tns-c10-9" >Thời gian hoạt động</label>
-                            </div>
-                            <div class="col-xl-3">
-                                <label></label>
-                            </div>
-
-                            <div class="row m--margin-bottom-10">
-                                
-                                <div class="col-xl-3">
-                                    <div class="form-group">
-                                        <label class="ng-tns-c10-9" for="ngayBatDau">Ngày Bắt Đầu </label>
+                            <div class="col-md-8 col-xl-3">
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="kmthucte">Số km thực tế</label>
                                         <div class="input-group">
-                                            <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" id="ngayBatDau"
-                                                name="ngayBatDau" type="date" ng-reflect-name="ngayBatDau" [(ngModel)]="START_DATE" require>
-                            
+                                            <input class="input-width " id="kmthucte" name="kmthucte"
+                                                [(ngModel)]="KM_ACTUAL" type="number" min="1" pInputText />
                                         </div>
                                     </div>
+
+
                                 </div>
-                            
-                                <div class="col-xl-3">
-                                    <div class="form-group">
-                                        <label class="ng-tns-c10-9" for="ngayKetThuc">Ngày Kết Thúc </label>
+                            </div>
+
+                            <div class="col-xl-3">
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="kmuoctinh">Số km ước tính</label>
                                         <div class="input-group">
-                                            <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" id="ngayKetThuc"
-                                                name="ngayKetThuc" type="date" ng-reflect-name="ngayKetThuc" [(ngModel)]="END_DATE" require>
-                            
+                                            <input class="input-width"  id="kmuoctinh" name="kmuoctinh"
+                                                [(ngModel)]="KM_ESTIMATE" type="number" pInputText />
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-xl-6">
-                                <label></label>
-                            </div>
-                            <div class="col-xl-6">
-                                <label></label>
-                            </div>
-                            <div class="row m--margin-bottom-10">
-                            
-                                <div class="col-md-8 col-xl-3">
-                                    <div class="form-group">
-                                        <div class="col-md-8">
-                                            <label class="ng-tns-c10-9" for="kmthucte">Số km thực tế</label>
-                                            <div class="input-group">
-                                                <input class="input-width "  id="kmthucte" 
-                                                name="kmthucte" [(ngModel)]="KM_ACTUAL" 
-                                                type="number"
-                                                min = "1"
-                                                pInputText />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                                <div class="col-xl-3">
-                                    <div class="form-group">
-                                        <div class="col-md-8">
-                                            <label class="ng-tns-c10-9" for="kmthucte">Số km ước tính</label>
-                                            <div class="input-group">
-                                                <input class="input-width" readonly id="kmuoctinh" 
-                                                name="kmuoctinh" [(ngModel)]="KM_ESTIMATE" 
-                                                type="number" pInputText />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-xl-3">
-                                    <div class="form-group">
-                                        <div class="col-md-8">
-                                            <label class="ng-tns-c10-9" for="nhienlieutieuthu">Nhiên liệu tiêu thụ (lít)</label>
-                                            <div class="input-group">
-                                                <input class="input-width" readonly id="nhienlieutieuthu"
-                                                 name="nhienlieutieuthu" [(ngModel)]="FUEL_ACTUAL"
-                                                    type="number" pInputText />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        
 
-                          
-                       
-                    </form>
+                                    <!-- <span style="margin-left:50px">KM: {{maTuyenChay||'none'}}</span> -->
+                                    
                     
-                </div>
-            </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3">
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label class="ng-tns-c10-9" for="nhienlieutieuthu">Nhiên liệu tiêu thụ
+                                            (lít)</label>
+                                        <div class="input-group">
+                                            <input class="input-width" read-only id="nhienlieutieuthu" name="nhienlieutieuthu"
+                                                [(ngModel)]="FUEL_ACTUAL" type="number" pInputText />
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
         </div>
 
-       
+
     </form>
 </div>
 <!--dialog xác nhận Lưu dữ liệu-->
@@ -155,9 +146,11 @@
     Lưu toàn bộ dữ liệu ?
     <p-footer>
         <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton
-            (click)="Save_Dialog=false;" label="Yes"></button>
-        <button type="button" pButton (click)="Save_Dialog=false" label="No" class="ui-button-secondary"></button>
+            (click)="Save_Dialog=false;insert()" label="Yes"></button>
+        <button type="button" pButton (click)="Save_Dialog=false;" label="No" class="ui-button-secondary"></button>
     </p-footer>
+
+
 </p-dialog>
 
 <!--dialog xác nhận Huy-->
@@ -165,8 +158,8 @@
     [baseZIndex]="10000">
     Bạn muốn huỷ bỏ tiến trình ?
     <p-footer>
-        <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton (click)="Cancel_Dialog=false;"
-            label="Yes"></button>
+        <button type="button" style="background-color: #5867DD; margin-right: 20px;" pButton
+            (click)="Cancel_Dialog=false;ClearAllInputValue()" label="Yes"></button>
         <button type="button" pButton (click)="Cancel_Dialog=false" label="No" class="ui-button-secondary"></button>
     </p-footer>
 </p-dialog>

@@ -11,13 +11,15 @@
                     </li>
                     <!-- *ngIf="isGranted('Pages.Group0.Car.Update')" -->
                     <li>
-                        <a [class.disabled]=""
-                            [routerLink]="['/app/admin/driver-schedule-edit', {id : 0}]">
+                        <a [class.disabled]="!currentId" 
+                      [routerLink]="['/app/admin/driver-schedule-edit', {id : currentId}]">
                             <i class="flaticon-edit"></i> Chỉnh sửa
                         </a>
                     </li>
+
+                  
                     <li>
-                        <span (click)="search()">
+                        <span (click)="Search()">
                             <i class="flaticon-search"></i>
                             Tìm kiếm
                         </span>
@@ -44,19 +46,28 @@
     <div class="m-content">
         <div class="m-portlet m-portlet-mobile">
             <div class="m-portlet__body">
-                <form #filterForm="ngForm" (submit)="search()">
+                <form #filterForm="ngForm" (submit)="Search()">
                     <div class="row">
 
                         <div class="col-md-3">
-                            <label for="maTaiXe">Tìm Theo Mã tài xế</label>
+                            <label for="maTaiXe"> Mã tài xế</label>
                             <div class="form-group">
-                                <p-autoComplete id="maTaiXe" [(ngModel)]="DRIVER_ID" [suggestions]="DRIVER_ID"
-                                    (completeMethod)="filterDriverId($event)" 
-                                    (onClear)="clearOption()"
-                                    (onSelect)="validateFilterInput()" 
-                                    (onKeyUp)="onKeyUp($event)" [dropdown]="true"
-                                    field="name" placeholder="Mã Tài Xế" name="maTaiXe">
-                                </p-autoComplete>
+                            <select class="form-control" id="maTaiXe" name="maTaiXe" [(ngModel)]="DRIVER_ID"
+                                (change)='onOptionsSelected($event)'>
+                                <option *ngFor="let item of empty_value" value="{{item.value}}">{{item.name}}
+                                <option *ngFor="let item of listScheduleID" value="{{item.lichTrinh_MaTaiXe}}">{{item.lichTrinh_MaTaiXe}}
+                                </option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="maTaiXe">Mã Lịch Trình</label>
+                            <div class="form-group">
+                                <select class="form-control" id="maLichTrinh" name="maTaiXe" [(ngModel)]="SCHEDULE_ID">
+                                    <option *ngFor="let item of listMaLichTrinhByTaiXe" value="{{item.ma}}">{{item.ma}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
 
@@ -90,7 +101,7 @@
 
                     </div>
 
-                    <button type="submit" hidden [disabled]="!filterForm.form.valid" (keyup.enter)="search()"></button>
+                    <button type="submit" hidden [disabled]="!filterForm.form.valid" (keyup.enter)="Search()"></button>
                 </form>
                 <div class="row align-items-center">
 
@@ -108,7 +119,10 @@
                                         Checkbox
                                     </th>
                                     <th>
-                                        Mã Tài Xế
+                                        Số Thứ Tự
+                                    </th>
+                                    <th>
+                                        Mã Hoạt Động
                                     </th>
                                     <th>
                                         Mã Lịch Trình
@@ -137,7 +151,7 @@
                                     <td>
                                         <label class="m-radio" for="Theme_Default-{{record.ma}}">
                                             <input id="Theme_Default-{{record.ma}}" name="Theme"
-                                                [(ngModel)]="DRIVER_ID" value="{{record.ma}}" type="radio">
+                                                [(ngModel)]="currentId" value="{{record.ma}}" type="radio">
                                             <span></span>
                                         </label>
                                     </td>
@@ -145,29 +159,28 @@
                                         <span>{{record['no']}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.ma}}</span>
+                                        <span>{{record.hoatDongTaiXe_Ma  }}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_Ten}}</span>
+                                        <span>{{record.hoatDongTaiXe_MaLichTrinh}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_Hang}}</span>
+                                        <span>{{record.hoatDongTaiXe_NgayBatDau | date :'dd-MM-yyyy'}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_SoLuong}}</span>
+                                        <span>{{record.hoatDongTaiXe_NgayKetThuc | date :'dd-MM-yyyy'}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_NamSX}}</span>
+                                        <span>{{record.hoatDongTaiXe_KmThucTe}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_LoaiNhienLieu === "X" ? "Xăng" : "Dầu"}}</span>
+                                        <span>{{record.hoatDongTaiXe_KmUocTinh}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_DinhMucNhienLieu}}</span>
+                                        <span>{{record.hoatDongTaiXe_NhienLieu }}</span>
                                     </td>
-                                    <td>
-                                        <span>{{record.loaiXe_NgayTao | date: 'shortDate' }}</span>
-                                    </td>
+
+                                   
                                 </tr>
                             </ng-template>
                         </p-table>
