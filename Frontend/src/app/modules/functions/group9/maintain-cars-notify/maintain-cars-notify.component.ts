@@ -52,6 +52,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
 
     MA_XE: string = "maXe";
     baotri_maxe: number
+    selectedLevel:number
 
     xe_list : Group4XeDto[];
     baotri_list : Group9BaoTriDto[];
@@ -237,8 +238,29 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
   }
   
   getValue() {
-    this.group9BaoTriInput.baoTri_MaXe = this.baotri_maxe;
+      this.group9BaoTriInput.baoTri_MaBaoTri = null;
+    this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
+    this.group9BaoTriInput.baoTri_MaBaoTri = null;
+    this.group9BaoTriInput.baoTri_TinhTrangBaoTri = null;
+    this.group9BaoTriInput.baoTri_NgayDuyet = null;
+    this.group9BaoTriInput.baoTri_NgayTao = null;
+    this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
+    this.group9BaoTriInput.baoTri_NguoiTao = null;
+    this.group9BaoTriInput.baoTri_TrangThai = null;
+    this.group9BaoTriInput.baoTri_ThanhTien = null;
+    this.group9BaoTriInput.baoTri_NoiBaoTri = null;
+    this.group9BaoTriInput.baoTri_GhiChu = null;
+    this.group9BaoTriInput.baoTri_NguoiDuyet = null;
     // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
   }
+  selectOption(id: number) {
+    //getted from event
+    console.log(id);
+    //getted from binding
+    console.log(this.selectedLevel)
+    this.notify.error("Không tìm thấy dữ liệu", this.selectedLevel.toString(), environment.opt);
 
+    this.search()
+
+  }
 }

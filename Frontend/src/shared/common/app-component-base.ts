@@ -11,7 +11,7 @@ import { AppUrlService } from '@shared/common/nav/app-url.service';
 import { AppSessionService } from '@shared/common/session/app-session.service';
 import { AppUiCustomizationService } from '@shared/common/ui/app-ui-customization.service';
 import { PrimengTableHelper } from 'shared/helpers/PrimengTableHelper';
-
+import { ActivatedRoute, Router } from "@angular/router";
 export abstract class AppComponentBase {
 
     localizationSourceName = AppConsts.localization.defaultLocalizationSourceName;
@@ -27,7 +27,8 @@ export abstract class AppComponentBase {
     primengTableHelper: PrimengTableHelper;
     ui: AppUiCustomizationService;
     appUrlService: AppUrlService;
-
+    activeRoute: ActivatedRoute;
+    router: Router;
     constructor(injector: Injector) {
         this.localization = injector.get(LocalizationService);
         this.permission = injector.get(PermissionCheckerService);
@@ -40,6 +41,8 @@ export abstract class AppComponentBase {
         this.ui = injector.get(AppUiCustomizationService);
         this.appUrlService = injector.get(AppUrlService);
         this.primengTableHelper = new PrimengTableHelper();
+        this.activeRoute = injector.get(ActivatedRoute);
+        this.router = injector.get(Router);
     }
 
     l(key: string, ...args: any[]): string {
@@ -80,6 +83,14 @@ export abstract class AppComponentBase {
 
         return false;
     }
+
+      getRouteParam(key: string): any {
+    return (this.activeRoute.params as any).value[key];
+  }
+
+  getRouteData(key: string): any {
+    return (this.activeRoute.data as any).value[key];
+  }
 
     s(key: string): string {
         return abp.setting.get(key);

@@ -14,11 +14,17 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
 
     constructor(injector: Injector, private group9BaoTriService: Group9BaoTriServiceProxy) {
         super(injector);
-        // this.carService.getCurrentUserName().subscribe(response=>{
-        //   this.currentUserName = response;
-        // })
-        console.log(this);
-        //this.group9BaoTriInput.ma = this.getRouteParam("ma");
+
+        
+        this.group9BaoTriService.getCurrentUserName().subscribe(response=>{
+          this.currentUserName = response;
+        })
+        this.group9BaoTriInput.ma = this.getRouteParam("id");
+        this.notify.error("Hello", this.group9BaoTriInput.ma.toString(), environment.opt);
+        this.group9BaoTriService.bAOTRI_Group9ById(this.group9BaoTriInput.ma).subscribe(response=>{
+            this.group9BaoTriInput = response;
+            this.load();
+          })
     }
 
     maxe: number;
@@ -32,6 +38,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     thanhtien: number;
     noibaotri: string;
     ghichu: string;
+    currentUserName: string
 
     luudialog: boolean;
 
@@ -53,7 +60,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_NgayBaoTri = moment(this.ngaybaotri);
         this.group9BaoTriInput.baoTri_NgayTao = this.ngaytao;
         this.group9BaoTriInput.baoTri_NgayXuatXuong = this.ngayxuatxuong;
-        this.group9BaoTriInput.baoTri_NguoiTao = this.nguoitao;
+        this.group9BaoTriInput.baoTri_NguoiTao = this.currentUserName;
         this.group9BaoTriInput.baoTri_TrangThai = this.trangthai;
         this.group9BaoTriInput.baoTri_ThanhTien = this.thanhtien;
         this.group9BaoTriInput.baoTri_NoiBaoTri = this.noibaotri;
@@ -134,5 +141,18 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         }
         return true;
     
+      }
+      load(){
+        this.maxe =this.group9BaoTriInput.baoTri_MaXe;
+        this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
+        this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
+        this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayBaoTri;
+        this.group9BaoTriInput.baoTri_NgayTao;
+        this.group9BaoTriInput.baoTri_NgayXuatXuong ;
+        this.currentUserName=this.group9BaoTriInput.baoTri_NguoiTao ;
+        this.trangthai =this.group9BaoTriInput.baoTri_TrangThai ;
+        this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien;
+        this.group9BaoTriInput.baoTri_NoiBaoTri ;
+        this.ghichu=this.group9BaoTriInput.baoTri_GhiChu;
       }
 }
