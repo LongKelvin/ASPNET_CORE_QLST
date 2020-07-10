@@ -63,6 +63,8 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
 
     listResult: Group4LichTrinhDto[];
 
+   
+
     getMaLichTrinh(): void {
         this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhinput).subscribe((result) => {
             this.listScheduleID= result;

@@ -12,7 +12,7 @@
                     <!-- *ngIf="isGranted('Pages.Group0.Car.Update')" -->
                     <li>
                         <a [class.disabled]=""
-                            [routerLink]="['/app/admin/driver-schedule-edit', {id : 0}]">
+                            [routerLink]="['/app/admin/driver-schedule-edit', {id : 2}]">
                             <i class="flaticon-edit"></i> Chỉnh sửa
                         </a>
                     </li>
@@ -48,16 +48,37 @@
                     <div class="row">
 
                         <div class="col-md-3">
+
+
                             <label for="maTaiXe">Tìm Theo Mã tài xế</label>
                             <div class="form-group">
                             <select class="form-control" id="maTaiXe" name="maTaiXe" [(ngModel)]="DRIVER_ID"
                                 (change)='onOptionsSelected($event)'>
-                                <option *ngFor="let item of listTaiXe" value="{{item.ma}}">{{item.ma}}
+                                <option *ngFor="let item of listScheduleID" value="{{item.ma}}">{{item.lichTrinh_NguoiTao}}
                                 </option>
                             </select>
+
+
+                            <div *ngFor="let item of listScheduleID ">
+                                Key: <b>{{item.lichTrinh_NguoiTao}}</b> and Value: <b>{{item.lichTrinh_NguoiTao}}</b>
+                            </div>
+
+
+                            <select class="form-control" id="maLichTrinh" name="maLichTrinh" [(ngModel)]="user_name"
+                                (change)='onOptionsSelected($event)'>
+                                <option *ngFor="let item of listScheduleID" value="{{item.ma}}">{{item.ma}}
+                                </option>
+                            </select>
+
+                            <p> VALUE:{{lichtrinh_ma}}</p>
+                            <p> VALUE:{{lichtrinh_ngayden}}</p>
+                            <p> VALUE:{{lichtrinh_ngaytao}}</p>
+                            
+
                             </div>
                         </div>
 
+                        
 
                         <div class="col-xl-3">
                             <div class="form-group">
@@ -109,7 +130,7 @@
                                         Số Thứ Tự
                                     </th>
                                     <th>
-                                        Mã Tài Xế
+                                        Mã Hoạt Động
                                     </th>
                                     <th>
                                         Mã Lịch Trình
@@ -141,21 +162,47 @@
                                                 [(ngModel)]="currentId" value="{{record.ma}}" type="radio">
                                             <span></span>
                                         </label>
-                                    </td>
+                                    <!-- </td>
                                     <td>
                                         <span>{{record['no']}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.hoatDongTaiXe_MaLichTrinh  }}</span>
+                                        <span>{{record.hoatDongTaiXe_Ma  }}</span>
                                     </td>
                                     <td>
                                         <span>{{record.hoatDongTaiXe_MaLichTrinh}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_NamSX}}</span>
+                                        <span>{{record.hoatDongTaiXe_NgayBatDau | date :'dd-MM-yyyy'}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.loaiXe_NamSX}}</span>
+                                        <span>{{record.hoatDongTaiXe_NgayKetThuc | date :'dd-MM-yyyy'}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{record.hoatDongTaiXe_KmThucTe}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{record.hoatDongTaiXe_KmUocTinh}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{record.hoatDongTaiXe_NhienLieu }}</span>
+                                    </td> -->
+
+                                    </td>
+                                    <td>
+                                        <span>{{record['no']}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{record.ma  }}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{record.lichTrinh_NguoiTao }}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{record.lichTrinh_NgayDen | date :'dd-MM-yyyy'}}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{record.hoatDongTaiXe_NgayKetThuc | date :'dd-MM-yyyy'}}</span>
                                     </td>
                                     <td>
                                         <span>{{record.hoatDongTaiXe_KmThucTe}}</span>

@@ -7172,7 +7172,7 @@ export class Group9BaoTriServiceProxy {
      * @ngayBaoTri (optional) 
      * @return Success
      */
-    bAOTRI_Group9SendNotification(ma: string | null | undefined, maThongBao: number | null | undefined, maXe: number | null | undefined, ngayBaoTri: moment.Moment | null | undefined): Observable<void> {
+    bAOTRI_Group9SendNotification(ma: string | null | undefined, maThongBao: string | null | undefined, maXe: string | null | undefined, ngayBaoTri: moment.Moment | null | undefined, noiBaoTri: string | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9SendNotification?";
         if (ma !== undefined)
             url_ += "ma=" + encodeURIComponent("" + ma) + "&"; 

@@ -27,8 +27,8 @@ export abstract class AppComponentBase {
     primengTableHelper: PrimengTableHelper;
     ui: AppUiCustomizationService;
     appUrlService: AppUrlService;
-      activeRoute: ActivatedRoute;
-  router: Router;
+    activeRoute: ActivatedRoute;
+    router: Router;
     constructor(injector: Injector) {
         this.localization = injector.get(LocalizationService);
         this.permission = injector.get(PermissionCheckerService);
@@ -41,6 +41,8 @@ export abstract class AppComponentBase {
         this.ui = injector.get(AppUiCustomizationService);
         this.appUrlService = injector.get(AppUrlService);
         this.primengTableHelper = new PrimengTableHelper();
+        this.activeRoute = injector.get(ActivatedRoute);
+        this.router = injector.get(Router);
     }
 
     l(key: string, ...args: any[]): string {

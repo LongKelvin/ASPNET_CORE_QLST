@@ -17,7 +17,7 @@ namespace Group4.AbpZeroTemplate.Web.Core.Services.LichTrinh.Dto
         public string LichTrinh_TrangThaiChuyen { get; set; }
         public string LichTrinh_NgayTao { get; set; }
         public string LichTrinh_NguoiTao { get; set; }
-        public string LichTrinh_TrangThai {get;set;}
+        public string LichTrinh_TrangThai { get; set; }
 
         public string TaiXe_HoTen { get; set; }
 
