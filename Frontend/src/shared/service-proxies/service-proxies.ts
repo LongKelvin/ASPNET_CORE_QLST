@@ -7170,10 +7170,9 @@ export class Group9BaoTriServiceProxy {
      * @maThongBao (optional) 
      * @maXe (optional) 
      * @ngayBaoTri (optional) 
-     * @noiBaoTri (optional) 
      * @return Success
      */
-    bAOTRI_Group9SendNotification(ma: string | null | undefined, maThongBao: string | null | undefined, maXe: string | null | undefined, ngayBaoTri: moment.Moment | null | undefined, noiBaoTri: string | null | undefined): Observable<void> {
+    bAOTRI_Group9SendNotification(ma: string | null | undefined, maThongBao: string | null | undefined, maXe: number | null | undefined, ngayBaoTri: moment.Moment | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9SendNotification?";
         if (ma !== undefined)
             url_ += "ma=" + encodeURIComponent("" + ma) + "&"; 
@@ -7183,8 +7182,6 @@ export class Group9BaoTriServiceProxy {
             url_ += "maXe=" + encodeURIComponent("" + maXe) + "&"; 
         if (ngayBaoTri !== undefined)
             url_ += "ngayBaoTri=" + encodeURIComponent(ngayBaoTri ? "" + ngayBaoTri.toJSON() : "") + "&"; 
-        if (noiBaoTri !== undefined)
-            url_ += "NoiBaoTri=" + encodeURIComponent("" + noiBaoTri) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

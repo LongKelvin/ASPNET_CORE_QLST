@@ -6,7 +6,7 @@ import * as moment from 'moment';
 
 
 @Component({
-    selector: 'app-maintain-cars-notify-add',
+    selector: 'app-maintain-cars-notify-edit',
     templateUrl: './maintain-cars-notify-edit.component.html',
     styleUrls: ['./maintain-cars-notify-edit.component.css', '../../style.less']
 })
@@ -57,7 +57,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.tinhtrang;
-        this.group9BaoTriInput.baoTri_NgayBaoTri = moment(this.ngaybaotri);
+        this.group9BaoTriInput.baoTri_NgayDuyet = moment(this.ngaybaotri);
         this.group9BaoTriInput.baoTri_NgayTao = this.ngaytao;
         // this.group9BaoTriInput.baoTri_NgayXuatXuong = this.ngayxuatxuong;
         // this.group9BaoTriInput.baoTri_NguoiTao = this.currentUserName;
@@ -146,7 +146,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.maxe =this.group9BaoTriInput.baoTri_MaXe;
         this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
         this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
-        this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayBaoTri;
+        this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayDuyet;
         this.group9BaoTriInput.baoTri_NgayTao;
         this.group9BaoTriInput.baoTri_NgayXuatXuong ;
         this.currentUserName=this.group9BaoTriInput.baoTri_NguoiTao ;

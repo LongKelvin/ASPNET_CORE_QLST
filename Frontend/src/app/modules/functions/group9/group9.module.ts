@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ModelCarAddGroup9Component } from './model-car-add-group9/model-car-add-group9.component';
 import { MaintainCarsNotifyAddComponent} from "./maintain-cars-notify-add/maintain-cars-notify-add.component"
+import { MaintainCarsNotifyEditComponent} from "./maintain-cars-notify-edit/maintain-cars-notify-edit.component"
 import { MaintainCarsNotifyComponent } from "./maintain-cars-notify/maintain-cars-notify.component"
 import { Group9ServiceProxyModule } from './group9.service-proxy.module';
 import { TableModule } from "primeng/table";
@@ -33,10 +34,10 @@ import { ButtonModule} from 'primeng/button';
     ButtonModule,
 
   ],
-  declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
+  declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyEditComponent,MaintainCarsNotifyComponent,
   DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent],  
    
-  exports:[ModelCarAddGroup9Component,MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
+  exports:[ModelCarAddGroup9Component,MaintainCarsNotifyAddComponent,MaintainCarsNotifyEditComponent,MaintainCarsNotifyComponent,
   DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent
   ]
 })
