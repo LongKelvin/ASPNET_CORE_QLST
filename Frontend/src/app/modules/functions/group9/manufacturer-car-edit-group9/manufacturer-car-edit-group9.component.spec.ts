@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManufacturerCarEditComponent } from './manufacturer-car-edit.component';
+import { ManufacturerCarEditComponentGroup9 } from './manufacturer-car-edit-group9.component';
 
 describe('ManufacturerCarEditComponent', () => {
-    let component: ManufacturerCarEditComponent;
-    let fixture: ComponentFixture<ManufacturerCarEditComponent>;
+    let component: ManufacturerCarEditComponentGroup9;
+    let fixture: ComponentFixture<ManufacturerCarEditComponentGroup9>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ManufacturerCarEditComponent]
+            declarations: [ManufacturerCarEditComponentGroup9]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ManufacturerCarEditComponent);
+        fixture = TestBed.createComponent(ManufacturerCarEditComponentGroup9);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

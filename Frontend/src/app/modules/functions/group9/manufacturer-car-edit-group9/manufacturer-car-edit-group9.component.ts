@@ -6,23 +6,29 @@ import { Paginator } from "primeng/primeng";
 
 
 @Component({
-    selector: 'app-manufacturer-car-add-group9',
-    templateUrl: './manufacturer-car-edit.component.html',
-    styleUrls: ['./manufacturer-car-edit.component.css', '../../style.less']
+    selector: 'app-manufacturer-car-edit-group9',
+    templateUrl: './manufacturer-car-edit-group9.component.html',
+    styleUrls: ['./manufacturer-car-edit-group9.component.css', '../../style.less']
 })
 
 
-export class ManufacturerCarEditComponent extends AppComponentBase implements OnInit, AfterViewInit {
+export class ManufacturerCarEditComponentGroup9 extends AppComponentBase implements OnInit, AfterViewInit {
     /**
      *
      */
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
+    
+    /**
+     *
+     */
+    constructor(injector : Injector) {
+        super(injector);
+        
+    }
   
     ngOnInit(): void {
-        throw new Error("Method not implemented.");
     }
     ngAfterViewInit(): void {
-        throw new Error("Method not implemented.");
     }
 }

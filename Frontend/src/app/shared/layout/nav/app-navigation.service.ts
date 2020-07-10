@@ -173,7 +173,7 @@ export class AppNavigationService {
       ),
       new AppMenuItem(
         "Hãng xe",
-        "Pages.Group0.Car",
+        "Pages.Group9.Hang",
         "flaticon-users",
         "/app/admin/manufacturer-car"
       ),

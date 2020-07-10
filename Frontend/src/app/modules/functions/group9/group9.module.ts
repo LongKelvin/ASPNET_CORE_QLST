@@ -16,8 +16,10 @@ import { InputTextModule} from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/primeng';
 import { DialogModule} from 'primeng/dialog';
 import { ButtonModule} from 'primeng/button';
-import {ManufacturerCarComponent} from "./manufacturer-car/manufacturer-car.component"
+import {ManufacturerCarComponentGroup9} from "./manufacturer-car-group9/manufacturer-car-group9.component"
 import { from } from 'rxjs';
+import { ManufacturerCarAddComponentGroup9 } from './manufacturer-car-add-group9/manufacturer-car-add-group9.component';
+import { ManufacturerCarEditComponentGroup9 } from './manufacturer-car-edit-group9/manufacturer-car-edit-group9.component';
 
 @NgModule({
   imports: [
@@ -36,10 +38,11 @@ import { from } from 'rxjs';
 
   ],
   declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
-  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent,ManufacturerCarComponent],  
+  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent,ManufacturerCarComponentGroup9,
+  ManufacturerCarAddComponentGroup9,ManufacturerCarEditComponentGroup9],  
    
   exports:[ModelCarAddGroup9Component,MaintainCarsNotifyAddComponent,MaintainCarsNotifyComponent,
-  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent,ManufacturerCarComponent
-  ]
+  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent,ManufacturerCarComponentGroup9, 
+  ManufacturerCarAddComponentGroup9,ManufacturerCarEditComponentGroup9]
 })
 export class Group9Module { }
