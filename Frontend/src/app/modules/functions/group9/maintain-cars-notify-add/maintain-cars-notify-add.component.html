@@ -35,7 +35,7 @@
                             <div class="col-md-3">
                                 <label for="maXe">Mã Xe</label>
                                 <div class="form-group">
-                                    <select class="form-control" id="maXe" name="maXe" [(ngModel)]="carManufacturerOpt">
+                                    <select class="form-control" id="maXe" name="maXe" [(ngModel)]="maxe">
                                         <option value>Tất cả</option>
                                         <option *ngFor="let item of xe_list" value="{{item.ma}}">{{item.xe_Ten}}</option>
                                     </select>

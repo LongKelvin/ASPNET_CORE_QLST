@@ -9,7 +9,6 @@ import {
     Group4LoaiXeServiceProxy,
     
 } from "@shared/service-proxies/service-proxies";
-import * as moment from 'moment';
 
 
 @Component({
@@ -26,7 +25,6 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
     constructor(injector: Injector, private Group4LoaiXeServiceProxy: Group4LoaiXeServiceProxy,
-        //private group4_ : Group4LichTrinhServiceProxy,
         private group4XeService: Group4XeServiceProxy,
         private group9BaoTriServiceProxy: Group9BaoTriServiceProxy,
         private group9BaoTriService: Group9BaoTriServiceProxy,) {
@@ -40,8 +38,6 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     }
 
     currentUserName: string;
-    ngayBaoTri!: moment.Moment | undefined
-    maXe : number
     ngOnInit() {
     }
     ngAfterViewInit(): void {
@@ -61,6 +57,8 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     xe_list : Group4XeDto[];
     baotri_list : Group9BaoTriDto[];
     group9BaoTriInput : Group9BaoTriDto = new Group9BaoTriDto();
+    group9BaoTriRowInput : Group9BaoTriDto = new Group9BaoTriDto();
+
 
     //Car Year
     carYearOpts: Array<object> = [{ name: "Tất cả", value: "-1" }];
@@ -195,7 +193,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     delete() {
         let self = this;
         self.message.confirm(
-            self.l('Xoá loại xe này', this.curMaBaoTri),
+            self.l('Xoá ?', this.curMaBaoTri),
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {
@@ -203,7 +201,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                         if (response["Result"] === "1") {
                             this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
                         } else {
-                            this.notify.success("Xóa loại xe thành công", "SUCCESS", environment.opt);
+                            this.notify.success("Xóa thành công", "SUCCESS", environment.opt);
                             //this.resetOptions();
                             this.curMaBaoTri = null;
                             this.search();
@@ -213,11 +211,11 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             }
         );
     }
-
-    approve(){
+    approve()
+    {
         let self = this;
         self.message.confirm(
-            self.l('Xoá loại xe này', this.curMaBaoTri),
+            self.l('Duyệt ?', this.curMaBaoTri),
             this.l('AreYouSure'),
             isConfirmed => {
                 if (isConfirmed) {
@@ -225,15 +223,37 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                         if (response["Result"] === "1") {
                             this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
                         } else {
-                            this.notify.success("Duyệt thông báo thành công, thông báo đang được gửi đi", "SUCCESS", environment.opt);
+                            this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
                             //this.resetOptions();
-                            this.send();
+                            this.curMaBaoTri = null;
                         }
                     });
                 }
             }
         );
     }
+
+    send(){
+        let self = this;
+        self.message.confirm(
+            self.l('Gửi ?', this.curMaBaoTri),
+            this.l('AreYouSure'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.group9BaoTriService.bAOTRI_Group9SendNotification(this.currentUserName, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet).subscribe((response) => {
+                        if (response["Result"] === "1") {
+                            this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                        } else {
+                            this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
+                            //this.resetOptions();
+                            this.curMaBaoTri = null;
+                        }
+                    });
+                }
+            }
+        );
+    }
+
     search() {
         // show loading trong gridview
         this.getValue();
@@ -253,16 +273,6 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             });
     }
 
-    send(){
-        this.group9BaoTriService.bAOTRI_Group9SendNotification(this.currentUserName, this.curMaBaoTri, this.maXe, this.ngayBaoTri).subscribe((response) => {
-            if (response["Result"] === "1") {
-                this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-            } else {
-                this.notify.success("Duyệt thông báo thành công, thông báo đang được gửi đi", "SUCCESS", environment.opt);
-                //this.resetOptions();
-            }
-        });
-    }
     
     getListThongBao(){
         this.group9BaoTriService.bAOTRI_Group9Search({} as any).subscribe(response=>{
@@ -270,7 +280,11 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
         });
     
   }
-  
+  get(){
+    this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response=>{
+        this.group9BaoTriRowInput = response;
+    });
+  }
   getValue() {
       this.group9BaoTriInput.baoTri_MaBaoTri = null;
     this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
@@ -292,7 +306,6 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     console.log(id);
     //getted from binding
     console.log(this.selectedLevel)
-    this.notify.error("Không tìm thấy dữ liệu", this.selectedLevel.toString(), environment.opt);
 
     this.search()
 

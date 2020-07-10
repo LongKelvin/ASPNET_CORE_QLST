@@ -28,10 +28,16 @@
                             <i class="fa fa-trash"></i> Xóa
                         </span>
                     </li>
-                    
+
                     <li>
                         <span (click)="approve()" [class.disabled]="!curMaBaoTri">
                             <i class="fa fa-app"></i> Duyệt
+                        </span>
+                    </li>
+
+                    <li>
+                        <span (click)="send()" [class.disabled]="!curMaBaoTri">
+                            <i class="fa fa-send"></i> Gửi
                         </span>
                     </li>
                 </ul>
@@ -157,7 +163,7 @@
                                         <span>{{record.ma}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.baotri_MaXe}}</span>
+                                        <span>{{record.baoTri_MaXe}}</span>
                                     </td>
                                     <td>
                                         <span>{{record.baoTri_NgayBaoTri | date: 'shortDate'}}</span>

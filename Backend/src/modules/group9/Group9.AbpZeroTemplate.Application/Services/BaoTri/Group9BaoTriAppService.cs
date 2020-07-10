@@ -42,7 +42,7 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
 
         public IDictionary<string, object> BAOTRI_Group9App(int id, string checkerId)
         {
-            return procedureHelper.GetData<dynamic>("BAOTRI_App", new
+            return procedureHelper.GetData<dynamic>("BAOTRI_Group9App", new
             {
                 Id = id,
                 CheckerId = checkerId
@@ -86,6 +86,7 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         }
 
         public async Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime? ngayBaoTri = null)
+
         {
             if (ngayBaoTri == null)
             {

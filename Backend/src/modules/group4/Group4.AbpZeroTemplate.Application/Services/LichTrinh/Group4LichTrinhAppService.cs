@@ -30,7 +30,7 @@ namespace Group4.AbpZeroTemplate.Web.Core.Services.LichTrinh
         }
         public Group4LichTrinhDto LICTRINH_Group4SearchById(int ma)
         {
-            return procedureHelper.GetData<Group4LichTrinhDto>("LICHTRINH_Group4Search", new
+            return procedureHelper.GetData<Group4LichTrinhDto>("LICHTRINH_Group4SearchById", new
             {
                 Ma = ma
             }).FirstOrDefault();
