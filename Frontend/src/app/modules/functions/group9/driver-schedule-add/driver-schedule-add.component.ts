@@ -13,7 +13,7 @@ import {
 } from "@shared/service-proxies/service-proxies";
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+
 
 @Component({
     selector: 'app-driver-schedule-add-group9',
@@ -27,7 +27,7 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     //value: Date;
 
     constructor(injector: Injector,public router: Router, private group9: Group9HoatDongTaiXeServiceProxy,
-        private group4LichTrinhProxy: Group4LichTrinhServiceProxy, private formBuilder: FormBuilder, 
+        private group4LichTrinhProxy: Group4LichTrinhServiceProxy, 
         private group4_TuyenChayProxy: Group4TuyenChayServiceProxy
         ) {
         super(injector);
@@ -124,20 +124,23 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             this.selectedDropdownLichTrinh= result;
             this.START_DATE = this.selectedDropdownLichTrinh.lichTrinh_NgayDi.toDate();
             this.END_DATE = this.selectedDropdownLichTrinh.lichTrinh_NgayDen.toDate();
-            this.maTuyenChay = this.selectedDropdownLichTrinh.lichTrinh_MaTuyenChay;
+            var km = this.selectedDropdownLichTrinh.tuyenchay_SoKm;
+            this.KM_ESTIMATE = +km;
         });
         this.tuyenChayInput.ma = this.maTuyenChay;
-        this.group4_TuyenChayProxy.tUYENCHAY_Group4Search(this.tuyenChayInput).subscribe((result) =>{
-            this.listTuyenChay = result;
-            var km = this.listTuyenChay[0].tuyenChay_SoKm.toString;
-            var km_number = +km;
-            this.KM_ESTIMATE = km_number;
-        });
+        // this.group4_TuyenChayProxy.tUYENCHAY_Group4Search(this.tuyenChayInput).subscribe((result) =>{
+        //     this.listTuyenChay = result;
+        //     var km = this.listTuyenChay[0].tuyenChay_SoKm.toString;
+        //     var km_number = +km;
+        //     this.KM_ESTIMATE = km_number;
+        // });
     }
     getValue() {
         this.hoatDongTaiXeInput.hoatDongTaiXe_KmThucTe = this.KM_ACTUAL;
-        this.hoatDongTaiXeInput.hoatDongTaiXe_KmUocTinh = this.KM_ACTUAL;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_KmUocTinh = this.KM_ESTIMATE;
         this.hoatDongTaiXeInput.hoatDongTaiXe_MaLichTrinh = this.SCHEDULE_ID;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NgayBatDau =moment(this.START_DATE);
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NgayKetThuc = moment(this.END_DATE);
 
         var dateObj_NgayTao = new Date(Date.now());
         var momentObj_NgayTao = moment(dateObj_NgayTao);

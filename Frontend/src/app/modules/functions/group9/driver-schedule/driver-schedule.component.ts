@@ -16,6 +16,7 @@ import {
 
 } from "@shared/service-proxies/service-proxies";
 import { result } from 'lodash';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-driver-schedule-group9',
@@ -24,7 +25,7 @@ import { result } from 'lodash';
 })
 export class DriverScheduleComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
-    
+    empty_value: any[];
 
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
@@ -38,11 +39,10 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
         super(injector);
         this.currentUserName = this.appSession.user.userName;
         //this.GetAllMaTaiXe();
-        this.getMaLichTrinh();
-
-        this.getByID();
-
-
+        this.getMaTaiXe();
+        this.empty_value = [
+            {name:"Tất cả", value:0}
+        ]
 
     }
 
@@ -63,9 +63,6 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
     END_DATE: Date;
     user_name: string;
 
-
-    
-
     listScheduleID: Group4LichTrinhDto[];
     lichTrinhInput: Group4LichTrinhDto = new Group4LichTrinhDto();
     selectedDropdownLichTrinh: Group4LichTrinhDto;
@@ -75,93 +72,97 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
     lichtrinh_ma: number;
     lichtrinh_ngaytao: string;
     lichtrinh_ngayden: string
-  
 
-    
-    loaiXeInput: Group4LoaiXeDto =new Group4LoaiXeDto();
+
+    loaiXeInput: Group4LoaiXeDto = new Group4LoaiXeDto();
     selectedLoaiXe: Group4LichTrinhDto;
 
     hangxe: string;
     namsanxuat: string;
     dinhmucnguyenlieu: number;
-    
-    selectDropDown(){ 
-      this.hangxe=this.selectedLoaiXe.lichTrinh_NgayDen.toString();
-      this.namsanxuat=this.selectedLoaiXe.lichTrinh_NguoiTao;
-      //this.dinhmucnguyenlieu=this.selectedLoaiXe.loaiXe_DinhMucNhienLieu;
-  }
 
-    getLoaiXe(): void {
-    this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhInput).subscribe((result) => {
-            this.listScheduleID= result;
-            
-        });
-  }
+    listMaLichTrinhByTaiXe: Group4LichTrinhDto[];
+    taiXeInput: Group4LichTrinhDto = new Group4LichTrinhDto();
+    selectedLichTrinh: Group4LichTrinhDto;
+    SCHEDULE_ID: number;
 
-   
-    getMaLichTrinh(): void {
+    listScheduleID_unquiet: Group4LichTrinhDto[];
+
+    getMaTaiXe(): void {
         this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhInput).subscribe((result) => {
-            this.listScheduleID= result;
-            
+            this.listScheduleID = result;
+            this.RemoveDuplicateValue_();
         });
         
     }
 
-    getByID(){
-         this.group4LichTrinhProxy.lICTRINH_Group4SearchById(4).subscribe((result) => {
-            this.lichTrinhInput= result;
-            
-            this.lichtrinh_ma = this.lichTrinhInput.ma;
-             this.lichtrinh_ngaytao = this.lichTrinhInput.lichTrinh_NgayTao.toString();
-            this.lichtrinh_ngayden = this.lichTrinhInput.lichTrinh_NgayDen.toString();
-            //this.lichTrinhInput.lichTrinh_NgayDen
+    RemoveDuplicateValue_() {
+        let count = 0;
+        let start = false;
+
+        for (let j = 0; j < this.listScheduleID.length; j++) {
+            for (let k = 0; k < this.listScheduleID_unquiet.length; k++) {
+                if (this.listScheduleID[j].lichTrinh_MaTaiXe == this.listScheduleID_unquiet[k].lichTrinh_MaTaiXe) {
+                    start = true;
+                }
+            }
+            count++;
+            if (count == 1 && start == false) {
+                this.listScheduleID_unquiet.push(this.listScheduleID[j]);
+            }
+            start = false;
+            count = 0;
+        }
+    }
+
+    getMaLichTrinhByTaiXe() {
+        this.taiXeInput.lichTrinh_MaTaiXe = this.DRIVER_ID;
+        this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.taiXeInput).subscribe((result) => {
+            this.listMaLichTrinhByTaiXe = result;
         });
     }
-    //----------
+
+    onOptionsSelected(event) {
+        if(this.DRIVER_ID==0){
+             this.GetAll();
+        }
+        else
+            this.getMaLichTrinhByTaiXe()
+    }
 
     GetAll(): void {
-        this.lichTrinhInput.ma = 4;
-        this.primengTableHelper.showLoadingIndicator();
-        this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhInput).subscribe((result) => {
-            let no = 1;
-            result.forEach((item) => {
-                item["no"] = no++;
-            });
-           
-            this.primengTableHelper.totalRecordsCount = result.length;
-            this.primengTableHelper.records = result;
-            this.primengTableHelper.hideLoadingIndicator();
-
-
-
-        });
-    }
-
-    Search() {
         this.primengTableHelper.showLoadingIndicator();
         this.group9.hOATDONGTAIXE_Group9SearchAll().subscribe((result) => {
             let no = 1;
             result.forEach((item) => {
                 item["no"] = no++;
             });
+
+            this.primengTableHelper.totalRecordsCount = result.length;
+            this.primengTableHelper.records = result;
+            this.primengTableHelper.hideLoadingIndicator();
+
+        });
+    }
+
+    Search() {
+        this.primengTableHelper.showLoadingIndicator();
+        this.group9.hOATDONGTAIXE_Group9Tracking(this.SCHEDULE_ID,moment(this.START_DATE),moment(this.END_DATE)).subscribe((result) => {
+            let no = 1;
+            result.forEach((item) => {
+                item["no"] = no++;
+            });
             this.primengTableHelper.totalRecordsCount = result.length;
             this.primengTableHelper.records = result;
             this.primengTableHelper.hideLoadingIndicator();
         });
     }
 
-    GetAllMaTaiXe() {
-        this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.taiXeLichTrinhInput).subscribe((result) => {
-            this.listTaiXe = result;
-        });
-    }
 
-    onOptionsSelected(event) {
 
-    }
     ngOnInit() {
         this.GetAll();
-      //  this.GetAllMaTaiXe();
+
     }
 
     ngAfterViewInit(): void {

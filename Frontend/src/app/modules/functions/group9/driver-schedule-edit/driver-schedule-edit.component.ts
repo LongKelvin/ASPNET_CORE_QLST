@@ -26,8 +26,8 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     constructor(injector: Injector, private group9Proxy: Group9HoatDongTaiXeServiceProxy) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
-        //  this.hoatDongTaiXeInput.ma = this.getRouteParam("ma");
-        this.hoatDongTaiXeInput.ma = 2;
+        this.hoatDongTaiXeInput.ma = this.getRouteParam("id");
+       // this.hoatDongTaiXeInput.ma = 2;
     }
 
    
@@ -100,6 +100,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
             this.FUEL_ACTUAL = null;
             this.START_DATE = null;
             this.END_DATE = null;
+            this.ReturnToHomePage();
         }
 
     }
