@@ -9,11 +9,11 @@ import { Console } from 'console';
 
 
 @Component({
-    selector: 'app-maintain-cars-notify-add',
-    templateUrl: './maintain-cars-notify-add.component.html',
-    styleUrls: ['./maintain-cars-notify-add.component.css', '../../style.less']
+    selector: 'app-maintain-cars-notify-propose',
+    templateUrl: './maintain-cars-notify-propose.component.html',
+    styleUrls: ['./maintain-cars-notify-propose.component.css', '../../style.less']
 })
-export class MaintainCarsNotifyAddComponent extends AppComponentBase implements OnInit, AfterViewInit {
+export class MaintainCarsNotifyProposeComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
     constructor(injector: Injector, private group9BaoTriService: Group9BaoTriServiceProxy,
         private group4XeService: Group4XeServiceProxy,) {

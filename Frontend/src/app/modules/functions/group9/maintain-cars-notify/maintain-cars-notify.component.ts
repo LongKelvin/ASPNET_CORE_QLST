@@ -49,9 +49,10 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
 
 
     MA_XE: string = "maXe";
-    baotri_maxe: number
-    selectedLevel:number
-    selectedLevel2:number
+    baotri_maxe: number;
+    selectedLevel:number;
+    selectedLevel2:number;
+    maNG: string;
 
     xe_list : Group4XeDto[];
     baotri_list : Group9BaoTriDto[];
@@ -126,7 +127,6 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                             this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
                             //this.resetOptions();
                             this.send();
-                            this.curMaBaoTri = null;
                         }
                     });
                 }
@@ -136,17 +136,6 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
 
     send(){
         this.get();
-        this.group9BaoTriService.bAOTRI_Group9SendNotification(this.currentUserName, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet).subscribe((response) => {
-            if (response["Result"] === "1") {
-                this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-            } else {
-                this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
-                //this.resetOptions();
-                this.curMaBaoTri = null;
-            }
-        });
-
-    
     }
 
     search() {
@@ -158,8 +147,6 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                 let no = 1;
                 result.forEach((item) => {
                     item["no"] = no++;
-                
-
                 });
                 result.length < 1 && this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
                 this.primengTableHelper.totalRecordsCount = result.length;
@@ -180,8 +167,16 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
   get(){
     this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response=>{
         this.group9BaoTriRowInput = response;
-        if(this.group9BaoTriRowInput.baoTri_NguoiTao = null)
-            this.group9BaoTriRowInput.baoTri_NguoiTao = "admin"
+        this.maNG = this.group9BaoTriRowInput.baoTri_MaNguoiGui;
+            this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet).subscribe((response) => {
+                if (response["Result"] === "1") {
+                    this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                } else {
+                    this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
+                    //this.resetOptions();
+                    this.curMaBaoTri = null;
+                }
+            });
     });
   }
   getValue() {

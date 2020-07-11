@@ -149,6 +149,10 @@ import { DriverScheduleEditComponent } from "./drivers-schedule/driver-schedule-
             path: "maintain-cars-edit",
             component: MaintainCarsEditComponent,
           },
+          // {
+          //   path: "maintain-cars-edit",
+          //   component: MaintainCarsProposeComponent,
+          // },
           {
             path: "maintenance-car",
             component: MaintenanceCarComponent,
