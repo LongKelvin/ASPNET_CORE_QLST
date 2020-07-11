@@ -30,9 +30,10 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     maxe: number;
     mataixe: number;
     tinhtrang: string;
-    ngaybaotri: moment.Moment;
-    ngaytao: moment.Moment;
-    ngayxuatxuong: moment.Moment;
+    ngayduyet: string;
+    ngaybaotri: Date;
+    ngaytao: Date;
+    ngayxuatxuong: Date;
     nguoitao: string;
     trangthai: string;
     thanhtien: number;
@@ -56,9 +57,9 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.tinhtrang;
-        //this.group9BaoTriInput.baoTri_NgayBaoTri = moment(this.ngaybaotri);
-        this.group9BaoTriInput.baoTri_NgayTao = this.ngaytao;
-        this.group9BaoTriInput.baoTri_NgayXuatXuong = this.ngayxuatxuong;
+        this.group9BaoTriInput.baoTri_NgayDuyet = moment(this.ngayduyet);
+        this.group9BaoTriInput.baoTri_NgayTao = moment(this.ngaytao);
+        this.group9BaoTriInput.baoTri_NgayXuatXuong = moment(this.ngayxuatxuong);
         this.group9BaoTriInput.baoTri_NguoiTao = this.currentUserName;
         this.group9BaoTriInput.baoTri_TrangThai = this.trangthai;
         this.group9BaoTriInput.baoTri_ThanhTien = this.thanhtien;
@@ -72,9 +73,9 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.maxe = this.group9BaoTriInput.baoTri_MaXe;
         this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
         this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
-        this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayDuyet;
-        this.ngaytao =this.group9BaoTriInput.baoTri_NgayTao ;
-        this.ngayxuatxuong=this.group9BaoTriInput.baoTri_NgayXuatXuong ;
+        this.ngayduyet=this.group9BaoTriInput.baoTri_NgayDuyet.format("DD/MM/YYYY");
+        this.ngaytao =this.group9BaoTriInput.baoTri_NgayTao.toDate();
+        this.ngayxuatxuong=this.group9BaoTriInput.baoTri_NgayXuatXuong.toDate();
         this.currentUserName=this.group9BaoTriInput.baoTri_NguoiTao;
         this.trangthai=this.group9BaoTriInput.baoTri_TrangThai ;
         this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien ;
@@ -108,7 +109,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
             this.notify.error("Bạn chưa nhập tình trạng xe", "ERROR", environment.opt);
             return false;
         }
-        else if (this.ngaybaotri == null) {
+        else if (this.ngayduyet == null) {
             this.notify.error("Bạn chưa nhập ngày bảo trì", "ERROR", environment.opt);
             return false;
         }
@@ -140,7 +141,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     huyconfirm() {
         this.maxe = null;
         this.tinhtrang = null;
-        this.ngaybaotri = null;
+        this.ngayduyet = null;
         this.ngayxuatxuong = null;
         this.noibaotri = null;
         this.thanhtien = null;

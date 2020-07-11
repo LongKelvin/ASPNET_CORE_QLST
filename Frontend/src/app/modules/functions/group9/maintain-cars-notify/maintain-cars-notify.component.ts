@@ -33,7 +33,10 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
         this.group4XeService.xE_Group4Search({} as any).subscribe(response=>{
             this.xe_list = response;
         })
-
+        this.group9BaoTriService.bAOTRI_Group9SearchAll().subscribe(response=>{
+            this.baotri_list_id = response;
+        })
+        
         console.log(this);
     }
 
@@ -43,46 +46,24 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     ngAfterViewInit(): void {
         this.search();
     }
-    // Constants
-    CAR_TYPE_NAME: string = "carTypeName";
-    CAR_TYPE_MANUFACTURER: string = "carManufacturer";
-    CAR_FUEL: string = "carFuel";
-    CAR_YEAR: string = "carYear";
-    DEFAULT_OPT: object = { name: "Tất cả", value: "-1" };
+
 
     MA_XE: string = "maXe";
     baotri_maxe: number
     selectedLevel:number
+    selectedLevel2:number
 
     xe_list : Group4XeDto[];
     baotri_list : Group9BaoTriDto[];
+    baotri_list_id : Group9BaoTriDto[];
     group9BaoTriInput : Group9BaoTriDto = new Group9BaoTriDto();
     group9BaoTriRowInput : Group9BaoTriDto = new Group9BaoTriDto();
 
 
-    //Car Year
-    carYearOpts: Array<object> = [{ name: "Tất cả", value: "-1" }];
-    carYearSuggestions: Array<object> = [];
-    carYearOpt: object = this.DEFAULT_OPT;
+  
 
-    //Car Type Name
-    carTypeNameOpts: Array<object> = [];
-    carTypeNameSuggestions: Array<object> = [];
-    carTypeNameOpt: object = {};
-
-    //Car Manufacturer
-    carManufacturerOpts: Array<object> = [];
-    carManufacturerSuggestions: Array<object> = [];
-    carManufacturerOpt: object = {};
-
-    //Car Fuel
-    carFuelOpts: Array<object> = [
-        { name: "Tất cả", value: "-1" },
-        { name: "Xăng", value: "X" },
-        { name: "Dầu", value: "D" }
-    ];
+  
     carFuelSuggestions: Array<object> = [];
-    carFuelOpt: object = this.DEFAULT_OPT;
 
     baotri_group9_ma: Array<object> = [];
 
@@ -108,87 +89,6 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             this.search();
         }
     }
-
-    // filterCarTypeNameOpt(event) {
-    //     this.carTypeInput.loaiXe_Ten = event.query.trim();
-    //     this.carTypeNameSuggestions = this.carTypeNameOpts.filter(opt => {
-    //         return opt["value"].includes(event.query);
-    //     })
-    // }
-
-    // filterCarManufacturerOpt(event) {
-    //     this.carTypeInput.loaiXe_Hang = event.query.toLowerCase().trim();
-    //     this.carManufacturerSuggestions = this.carManufacturerOpts.filter(opt => {
-    //         return opt["value"].includes(event.query);
-    //     })
-    // }
-
-    // filterCarFuelOpt(event) {
-    //     this.carFuelSuggestions = this.carFuelOpts.filter(opt => {
-    //         return opt["name"].includes(event.query);
-    //     })
-    // }
-
-    // filterCarYearOpt(event) {
-    //     this.carTypeInput.loaiXe_NamSX = event.query;
-    //     this.carYearSuggestions = this.carYearOpts.filter(opt => {
-    //         return opt["value"].includes(event.query);
-    //     })
-    // }
-
-    // checkIndexOfOption(array, option) {
-    //     const index = array.findIndex(elm => elm["value"] === option["value"]);
-    //     if (index === -1) {
-    //         array.push(option)
-    //     }
-    // }
-
-    // resetOptions() {
-    //     this.carYearOpts = [{ name: "Tất cả", value: "-1" }]
-    // }
-
-    // clearOption(type) {
-    //     switch (type) {
-    //         case "carTypeName":
-    //             this.carTypeInput.loaiXe_Ten = "";
-    //             break;
-    //         case "carManufacturer":
-    //             this.carTypeInput.loaiXe_Hang = "";
-    //             break;
-    //         case "carFuel":
-    //             this.carFuelOpt = this.DEFAULT_OPT;
-    //             break;
-    //         case "carYear":
-    //             delete this.carTypeInput.loaiXe_NamSX;
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
-
-    // validateFilterInput(inputType) {
-    //     switch (inputType) {
-    //         case this.CAR_TYPE_NAME:
-    //             this.carTypeInput.loaiXe_Ten = this.carTypeNameOpt["value"];
-    //             break;
-    //         case this.CAR_TYPE_MANUFACTURER:
-    //             this.carTypeInput.loaiXe_Hang = this.carManufacturerOpt["value"];
-    //             break;
-    //         case this.CAR_FUEL:
-    //             this.carFuelOpt["value"] === "-1" ?
-    //                 delete this.carTypeInput.loaiXe_LoaiNhienLieu :
-    //                 this.carTypeInput.loaiXe_LoaiNhienLieu = this.carFuelOpt["value"];
-    //             break;
-    //         case this.CAR_YEAR:
-    //             this.carYearOpt["value"] === "-1" ?
-    //                 delete this.carTypeInput.loaiXe_NamSX :
-    //                 this.carTypeInput.loaiXe_NamSX = parseInt(this.carYearOpt["value"]);
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
-
 
     delete() {
         let self = this;
@@ -225,6 +125,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                         } else {
                             this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
                             //this.resetOptions();
+                            this.send();
                             this.curMaBaoTri = null;
                         }
                     });
@@ -234,24 +135,18 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     }
 
     send(){
-        let self = this;
-        self.message.confirm(
-            self.l('Gửi ?', this.curMaBaoTri),
-            this.l('AreYouSure'),
-            isConfirmed => {
-                if (isConfirmed) {
-                    this.group9BaoTriService.bAOTRI_Group9SendNotification(this.currentUserName, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet).subscribe((response) => {
-                        if (response["Result"] === "1") {
-                            this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-                        } else {
-                            this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
-                            //this.resetOptions();
-                            this.curMaBaoTri = null;
-                        }
-                    });
-                }
+        this.get();
+        this.group9BaoTriService.bAOTRI_Group9SendNotification(this.currentUserName, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet).subscribe((response) => {
+            if (response["Result"] === "1") {
+                this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+            } else {
+                this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
+                //this.resetOptions();
+                this.curMaBaoTri = null;
             }
-        );
+        });
+
+    
     }
 
     search() {
@@ -273,6 +168,8 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             });
     }
 
+
+
     
     getListThongBao(){
         this.group9BaoTriService.bAOTRI_Group9Search({} as any).subscribe(response=>{
@@ -283,9 +180,12 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
   get(){
     this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response=>{
         this.group9BaoTriRowInput = response;
+        if(this.group9BaoTriRowInput.baoTri_NguoiTao = null)
+            this.group9BaoTriRowInput.baoTri_NguoiTao = "admin"
     });
   }
   getValue() {
+      this.group9BaoTriInput.ma = this.selectedLevel2;
       this.group9BaoTriInput.baoTri_MaBaoTri = null;
     this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
     this.group9BaoTriInput.baoTri_MaBaoTri = null;
@@ -301,7 +201,16 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     this.group9BaoTriInput.baoTri_NguoiDuyet = null;
     // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
   }
-  selectOption(id: number) {
+  selectOption1(id: number) {
+    //getted from event
+    console.log(id);
+    //getted from binding
+    console.log(this.selectedLevel)
+
+    this.search()
+
+  }
+  selectOption2(id: number) {
     //getted from event
     console.log(id);
     //getted from binding

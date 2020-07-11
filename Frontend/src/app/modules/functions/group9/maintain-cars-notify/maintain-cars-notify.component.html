@@ -37,7 +37,7 @@
 
                     <li>
                         <span (click)="send()" [class.disabled]="!curMaBaoTri">
-                            <i class="fa fa-send"></i> Gửi
+                            <i class="fa fa-send"></i> Đề xuất
                         </span>
                     </li>
                 </ul>
@@ -62,40 +62,29 @@
                 <form #filterForm="ngForm" (submit)="search()">
                     <div class="row">
 
+                        
+                        <div class="col-md-3">
+                            <label for="maXe">Mã thông báo bảo trì</label>
+                            <div class="form-group">
+
+                                <select class="form-control" id="maBaotri" name="maBaotri" [(ngModel)]="selectedLevel2" (change)="selectOption2($event.target.value)">
+                                    <option value>Tất cả</option>
+                                    <option *ngFor="let item of baotri_list_id" value="{{item.ma}}">{{item.baoTri_MaBaoTri}}</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-md-3">
                             <label for="maXe">Mã Xe</label>
                             <div class="form-group">
 
-                                <select class="form-control" id="maXe" name="maXe" [(ngModel)]="selectedLevel" (change)="selectOption($event.target.value)">
+                                <select class="form-control" id="maXe" name="maXe" [(ngModel)]="selectedLevel" (change)="selectOption1($event.target.value)">
                                     <option value>Tất cả</option>
                                     <option *ngFor="let item of xe_list" value="{{item.ma}}">{{item.xe_Ten}}</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- <div class="col-md-3">
-                            <label for="ngayBaoTri">Ngày Bảo Trì</label>
-                            <div class="form-group">
-                                <p-autoComplete id="ngayBaoTri" [(ngModel)]="carTypeNameOpt"
-                                    [suggestions]="carTypeNameSuggestions"
-                                    (completeMethod)="filterCarTypeNameOpt($event)"
-                                    (onSelect)="validateFilterInput(CAR_TYPE_NAME)" field="name" [dropdown]="true"
-                                    (onClear)="clearOption(CAR_TYPE_NAME)" placeholder="Ngày Bảo Trì"
-                                    (onKeyUp)="onKeyUp($event)" name="ngayBaoTri">
-                                </p-autoComplete>
-                            </div>
-                        </div> -->
-
-                        <div class="col-xl-6">
-                            <div class="form-group">
-                                <label class="ng-tns-c10-9" for="ngayBaoTri">Ngày bảo trì </label>
-                                <div class="input-group">
-                                    <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" id="ngayxuatxuong"
-                                        name="ngaybaotri" type="date" ng-reflect-name="ngaybaotri" [(ngModel)]="carTypeNameOpt" require>
-                        
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                    
@@ -166,7 +155,7 @@
                                         <span>{{record.baoTri_MaXe}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.baoTri_NgayBaoTri | date: 'shortDate'}}</span>
+                                        <span>{{record.baoTri_NgayDuyet | date: 'shortDate'}}</span>
                                     </td>
                                     <td>
                                         <span>{{record.baoTri_NgayXuatXuong | date: 'shortDate'}}</span>

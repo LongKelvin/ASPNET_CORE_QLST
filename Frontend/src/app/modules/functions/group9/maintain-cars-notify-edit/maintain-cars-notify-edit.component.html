@@ -7,7 +7,9 @@
                     <a (click)="update()"><i class="fa fa-save"></i> Lưu</a>
                 </li>
                 <li>
-                  <a ><i class="fa fa-check"></i>Hủy</a>
+                    <span class="m-section__sub m-section__sub--separator active">
+                        <a routerLink="/app/admin/maintain-cars-notify">Hủy</a>
+                      </span>
                 </li>
               </ul>
         </div>
@@ -56,12 +58,9 @@
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <label class="ng-tns-c10-9" for="ModelCarName">Ngày bảo trì *</label>
-                                    <div class="input-group">
-                                        <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" 
-                                        id="ngayxuatxuong" name="ngaybaotri" 
-                                        type="date" ng-reflect-name="ngaybaotri"               
-                                        [(ngModel)]="ngaybaotri" require>
-                                        
+                                      <div class="input-group">
+                                        <input class="form-control ng-pristine ng-valid ng-touched text-capitalize" id="ngaybaotri" 
+                                        name="ngaybaotri" type="text" ng-reflect-name="carTypeText" [(ngModel)]="ngayduyet" required>
                                       </div>
                                 </div>
                             </div>
