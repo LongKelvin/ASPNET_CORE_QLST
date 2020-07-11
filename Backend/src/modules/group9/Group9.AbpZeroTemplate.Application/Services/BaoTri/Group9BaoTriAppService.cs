@@ -28,6 +28,13 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         IDictionary<string, object> BAOTRI_Group9App(int id, string checkerId);
         string GetCurrentUserName();
         Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime? ngayBaoTri);
+        List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalPropose(string maNguoiTao);
+        List<Group9BaoTriDto> BAOTRI_Group9SearchAllPersonal(string maNguoiTao);
+        List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalApproved(string maNguoiTao);
+        List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalDone(string maNguoiTao);
+        List<Group9XeDto> BAOTRI_Group9ShouldMaintain();
+        List<Group9XeDto> BAOTRI_Group9UrgentMaintain();
+
 
     }
     public class Group9BaoTriAppService : BaseService, IGroup9BaoTriAppService
@@ -99,6 +106,40 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
                 severity: NotificationSeverity.Success,
                 userIds: new[] { user.ToUserIdentifier() }
                 );
+        }
+
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalPropose(string maNguoiTao)
+        {
+            return procedureHelper.GetData<Group9BaoTriDto>("BAOTRI_Group9SearchPersonalPropose"
+                , new { BaoTri_MaNguoiTao = maNguoiTao });
+        }
+
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchAllPersonal(string maNguoiTao)
+        {
+            return procedureHelper.GetData<Group9BaoTriDto>("BAOTRI_Group9SearchAllPersonal"
+                          , new { BaoTri_MaNguoiTao = maNguoiTao });
+        }
+
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalApproved(string maNguoiTao)
+        {
+            return procedureHelper.GetData<Group9BaoTriDto>("BAOTRI_Group9SearchPersonalApproved"
+                          , new { BaoTri_MaNguoiTao = maNguoiTao });
+        }
+
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalDone(string maNguoiTao)
+        {
+            return procedureHelper.GetData<Group9BaoTriDto>("BAOTRI_Group9SearchPersonalDone"
+                          , new { BaoTri_MaNguoiTao = maNguoiTao });
+        }
+
+        public List<Group9XeDto> BAOTRI_Group9ShouldMaintain()
+        {
+            return procedureHelper.GetData<Group9XeDto>("BAOTRI_Group9ShouldMaintain", new { });
+        }
+
+        public List<Group9XeDto> BAOTRI_Group9UrgentMaintain()
+        {
+            return procedureHelper.GetData<Group9XeDto>("BAOTRI_Group9ShouldMaintain", new { });
         }
     }
 }

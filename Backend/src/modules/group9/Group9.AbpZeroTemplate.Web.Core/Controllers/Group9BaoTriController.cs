@@ -54,7 +54,6 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
             return Group9BaoTriAppService.BAOTRI_Group9ById(id);
         }
         [HttpPost]
-
         public List<Group9BaoTriDto> BAOTRI_Group9SearchAll()
         {
             return Group9BaoTriAppService.BAOTRI_Group9SearchAll();
@@ -66,11 +65,46 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
             return Group9BaoTriAppService.BAOTRI_Group9App(id, checkerId);
         }
 
-        [HttpGet]
+        [HttpPost]
         public string GetCurrentUserName()
         {
             return Group9BaoTriAppService.GetCurrentUserName();
         }
+        [HttpPost]
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalPropose(string maNguoiTao)
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9SearchPersonalPropose(maNguoiTao);
 
+        }
+        [HttpPost]
+
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchAllPersonal(string maNguoiTao)
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9SearchAllPersonal(maNguoiTao);
+
+        }
+        [HttpPost]
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalApproved(string maNguoiTao)
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9SearchPersonalApproved(maNguoiTao);
+
+        }
+        [HttpPost]
+        public List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalDone(string maNguoiTao)
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9SearchPersonalDone(maNguoiTao);
+
+        }
+        [HttpPost]
+        public List<Group9XeDto> BAOTRI_Group9ShouldMaintain()
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9ShouldMaintain();
+
+        }
+        [HttpPost]
+        public List<Group9XeDto> BAOTRI_Group9UrgentMaintain()
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9UrgentMaintain();
+        }
     }
 }
