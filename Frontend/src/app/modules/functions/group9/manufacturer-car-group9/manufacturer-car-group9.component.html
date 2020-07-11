@@ -5,12 +5,17 @@
           <ul >
             <li *ngIf="isGranted('Pages.Group9.Hang.Add')"><a routerLink="/app/admin/manufacturer-car-add"><i class="flaticon-add"></i>
               Thêm mới</a></li>
-            <li *ngIf="isGranted('Pages.Group9.Hang.Update')" ><a  [routerLink]="['/app/admin/manufacturer-car-edit']"><i class="flaticon-edit"></i> Chỉnh
+            <li *ngIf="isGranted('Pages.Group9.Hang.Update')" ><a [class.disabled]="!currentId"  
+                [routerLink]="['/app/admin/manufacturer-car-edit', {id : currentId}]"><i class="flaticon-edit"></i> Chỉnh
               sửa</a></li>
-            <li *ngIf="isGranted('Pages.Group9.Hang.View')"><a  [routerLink]="['/app/admin/manufacturer-car-detail']"><i class="flaticon-visible"></i> Xem chi tiết</a></li>
         
-            <li *ngIf="isGranted('Pages.Group9.Hang.Delete')" style="cursor: pointer;" ><a ><i
+            <!-- <li *ngIf="isGranted('Pages.Group9.Hang.Delete')" style="cursor: pointer;" ><a ><i
               class="flaticon-close"></i>Xóa</a>
+            </li> -->
+            <li>
+                <span (click)="delete()" [class.disabled]="!currentId">
+                    <i class="fa fa-trash"></i> Xóa
+                </span>
             </li>
             <li style="cursor: pointer;"><a ><i class="flaticon-search"></i> Tìm kiếm</a></li>
           </ul>
@@ -36,11 +41,13 @@
                 <div class="col-xl-6">
                     <div class="form-group">
                         <label class="ng-tns-c10-9" for="ModelCarName">Mã hãng xe</label>
-                        <div class="input-group">
-                            <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" 
-                            id="ngayxuatxuong" name="ngaybaotri" 
-                            ng-reflect-name="mahangxe"               
-                            require>
+                        <div class="form-group">
+                        <select class="form-control" id="maHang" name="maHang" [(ngModel)]="selectedMaHang"
+                            (change)='onOptionsSelected_MaHang($event)'>
+                            <option *ngFor="let item of empty_value" value="{{item.value}}">{{item.name}}
+                            <option *ngFor="let item of listHangXe" value="{{item.hang_MaHang}}">{{item.hang_MaHang}}
+                            </option>
+                        </select>
                         </div>
                     </div>
                 </div>
@@ -48,10 +55,13 @@
                 <div class="col-xl-6">
                     <div class="form-group">
                         <label class="ng-tns-c10-9" for="ngayBaoTri">Tên hãng xe</label>
-                        <div class="input-group">
-                            <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" id="ModelCarName" name="ModelCarName"
-                            type="text" ng-reflect-name="carNameText" require>
-                                
+                        <div class="form-group">
+                            <select class="form-control" id="tenHang" name="tenHang" [(ngModel)]="selectedTenHang"
+                                (change)='onOptionsSelected_TenHang($event)'>
+                                <option *ngFor="let item of empty_value" value="{{item.value}}">{{item.name}}
+                                <option *ngFor="let item of listHangXe" value="{{item.hang_TenHang}}">{{item.hang_TenHang}}
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -75,7 +85,7 @@
                                 Checkbox
                             </th>
                             <th>
-                                Mã
+                                Số Thứ Tự
                             </th>
                             <th>
                                 Mã hãng xe
@@ -83,6 +93,28 @@
                             <th>
                                 Tên hãng xe
                             </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-record="$implicit">
+                        <tr>
+                            <td>
+                                <label class="m-radio" for="Theme_Default-{{record.ma}}">
+                                    <input id="Theme_Default-{{record.ma}}" name="Theme" [(ngModel)]="currentId" value="{{record.ma}}"
+                                        type="radio">
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <span>{{record['no']}}</span>
+                            </td>
+                            <td>
+                                <span>{{record.hang_MaHang  }}</span>
+                            </td>
+                            <td>
+                                <span>{{record.hang_TenHang}}</span>
+                            </td>
+                           
+                    
                         </tr>
                     </ng-template>
                 </p-table>
