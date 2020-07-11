@@ -1,0 +1,96 @@
+<div [@routerTransition]>
+    <form class="m-content" #roleForm="ngForm" novalidate autocomplete="off">
+      <div class="m-portlet m-portlet__header m-portlet-mobile">
+        <div class="m-portlet__nav">
+          <ul >
+            <li *ngIf="isGranted('Pages.Group9.Hang.Add')"><a routerLink="/app/admin/manufacturer-car-add"><i class="flaticon-add"></i>
+              Thêm mới</a></li>
+            <li *ngIf="isGranted('Pages.Group9.Hang.Update')" ><a  [routerLink]="['/app/admin/manufacturer-car-edit']"><i class="flaticon-edit"></i> Chỉnh
+              sửa</a></li>
+            <li *ngIf="isGranted('Pages.Group9.Hang.View')"><a  [routerLink]="['/app/admin/manufacturer-car-detail']"><i class="flaticon-visible"></i> Xem chi tiết</a></li>
+        
+            <li *ngIf="isGranted('Pages.Group9.Hang.Delete')" style="cursor: pointer;" ><a ><i
+              class="flaticon-close"></i>Xóa</a>
+            </li>
+            <li style="cursor: pointer;"><a ><i class="flaticon-search"></i> Tìm kiếm</a></li>
+          </ul>
+        </div>
+</div>
+
+<div class="m-subheader pd-0">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto col-xs-6">
+            <span class="m-section__sub m-section__sub--separator">
+                {{l("Trang chủ")}}
+            </span>
+            <span class="m-section__sub m-section__sub--separator active">
+                <a routerLink="/app/admin/car-maintenance">{{l("Quản lí hãng xe")}}</a>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="m-portlet m-portlet-mobile">
+    <div class="m-portlet__body">
+        <form #filterForm="ngForm">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label class="ng-tns-c10-9" for="ModelCarName">Mã hãng xe</label>
+                        <div class="input-group">
+                            <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" 
+                            id="ngayxuatxuong" name="ngaybaotri" 
+                            ng-reflect-name="mahangxe"               
+                            require>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="form-group">
+                        <label class="ng-tns-c10-9" for="ngayBaoTri">Tên hãng xe</label>
+                        <div class="input-group">
+                            <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" id="ModelCarName" name="ModelCarName"
+                            type="text" ng-reflect-name="carNameText" require>
+                                
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button type="submit" hidden [disabled]="!filterForm.form.valid"></button>
+        </form>
+        <div class="row align-items-center">
+            
+            <!--<Primeng-TurboTable-Start>-->
+            <div class="primeng-datatable-container">
+                
+                <p-table #dataTable [value]="primengTableHelper.records"
+                    [paginator]="primengTableHelper.totalRecordsCount === 0 ? false : true"
+                    [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                    totalRecords="totalRecords" pageLinks="3">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>
+                                Checkbox
+                            </th>
+                            <th>
+                                Mã
+                            </th>
+                            <th>
+                                Mã hãng xe
+                            </th>
+                            <th>
+                                Tên hãng xe
+                            </th>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                    {{l('NoData')}}
+                </div>
+            </div>
+            <!--<Primeng-TurboTable-End>-->
+        </div>
+    </div>
+</div>

@@ -18,6 +18,9 @@ import { DropdownModule } from 'primeng/primeng';
 import { DialogModule} from 'primeng/dialog';
 import { ButtonModule} from 'primeng/button';
 import { CalendarModule} from 'primeng/calendar';
+import { ManufacturerCarComponentGroup9} from "./manufacturer-car-group9/manufacturer-car-group9.component"
+import { ManufacturerCarAddComponentGroup9 } from './manufacturer-car-add-group9/manufacturer-car-add-group9.component';
+import { ManufacturerCarEditComponentGroup9 } from './manufacturer-car-edit-group9/manufacturer-car-edit-group9.component';
 
 @NgModule({
   imports: [
@@ -37,11 +40,13 @@ import { CalendarModule} from 'primeng/calendar';
     
   ],
   declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent, MaintainCarsNotifyEditComponent, MaintainCarsNotifyComponent,
-  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent],  
+  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent,ManufacturerCarComponentGroup9, 
+  ManufacturerCarAddComponentGroup9,ManufacturerCarEditComponentGroup9],  
    
   exports:[ModelCarAddGroup9Component,MaintainCarsNotifyAddComponent,MaintainCarsNotifyEditComponent,MaintainCarsNotifyComponent,
-  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent
-  ]
+  DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent,ManufacturerCarComponentGroup9,
+  ManufacturerCarAddComponentGroup9,ManufacturerCarEditComponentGroup9]
+  
 
 })
 
