@@ -50,7 +50,7 @@ begin try
     (   
 		@BaoTri_MaBaoTri,
 		@BaoTri_NoiBaoTri     ,
-		@BaoTri_NgayBaotri,
+		GETDATE(),
 		@BaoTri_NgayXuatXuong  ,
 		@BaoTri_ThanhTien       ,
 		'C',
@@ -138,7 +138,7 @@ as
 begin
 select *
 from BaoTri
-where Ma = @Ma and BaoTri_TrangThai = 'N'
+where Ma = @Ma and BaoTri_TrangThai = 'N' or BaoTri_TrangThai = 'A'
 end
 go
 -------------------[dbo].[Group9BaoTri_SearchAll] 6/17/2020----------------
@@ -297,3 +297,4 @@ end
 go
 
 exec [BAOTRI_Group9UrgentMaintain]
+select * from baotri

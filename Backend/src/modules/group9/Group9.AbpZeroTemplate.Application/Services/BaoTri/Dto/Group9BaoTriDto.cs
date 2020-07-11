@@ -8,6 +8,7 @@ namespace Group9.AbpZeroTemplate.Application.Share.Group9.Dto
         public int? Ma { get; set; }
         public string BaoTri_MaBaoTri { get; set; }
         public string BaoTri_NoiBaoTri { get; set; }
+        public DateTime? BaoTri_NgayBaotri { get; set; }
         public DateTime? BaoTri_NgayXuatXuong { get; set; }
         public long? BaoTri_ThanhTien { get; set; }
         public string BaoTri_TinhTrangBaoTri { get; set; }
