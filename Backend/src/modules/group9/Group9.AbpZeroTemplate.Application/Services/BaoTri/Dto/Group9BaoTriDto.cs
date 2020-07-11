@@ -13,6 +13,7 @@ namespace Group9.AbpZeroTemplate.Application.Share.Group9.Dto
         public string BaoTri_TinhTrangBaoTri { get; set; }
         public int? BaoTri_MaXe { get; set; }
         public int? BaoTri_MaTaiXe { get; set; }
+        public string BaoTri_MaNguoiGui { get; set; }
         public string BaoTri_NguoiTao { get; set; }
         public DateTime? BaoTri_NgayTao { get; set; }
         public string BaoTri_NguoiDuyet { get; set; }

@@ -22,11 +22,6 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
             this.Group9BaoTriAppService = Group9BaoTriAppService;
         }
 
-        [HttpPost]
-        public async Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime ngayBaoTri)
-        {
-            await Group9BaoTriAppService.BAOTRI_Group9SendNotification(ma, maThongBao, maXe, ngayBaoTri);
-        }
 
         [HttpPost]
         public IDictionary<string, object> BAOTRI_Group9Insert([FromBody] Group9BaoTriDto input)
@@ -101,6 +96,13 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
             return Group9BaoTriAppService.BAOTRI_Group9ShouldMaintain();
 
         }
+
+        [HttpPost]
+        public async Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime ngayBaoTri)
+        {
+            await Group9BaoTriAppService.BAOTRI_Group9SendNotification(ma, maThongBao, maXe, ngayBaoTri);
+        }
+
         [HttpPost]
         public List<Group9XeDto> BAOTRI_Group9UrgentMaintain()
         {
