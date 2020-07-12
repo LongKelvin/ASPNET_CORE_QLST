@@ -32,8 +32,10 @@ export class MaintainCarsNotifyProposeComponent extends AppComponentBase impleme
     mataixe: number;
     ghichu: string;
     nguoigui: string;
-
+    selectedLevel:number;
+    selectedLevel2:number;
     luudialog: boolean;
+    curMaBaoTri: number;
 
     filterInput: Group9BaoTriDto = new Group9BaoTriDto();
     records: Group9BaoTriDto[] = [];
@@ -132,6 +134,37 @@ export class MaintainCarsNotifyProposeComponent extends AppComponentBase impleme
 
     ngOnInit() {
     }
-
+    search() {
+        // show loading trong gridview
+        this.primengTableHelper.showLoadingIndicator();
+        this.group9BaoTriService.bAOTRI_Group9Search(this.group9BaoTriInput)
+            .subscribe((result) => {
+                let no = 1;
+                result.forEach((item) => {
+                    item["no"] = no++;
+                });
+                result.length < 1 && this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                this.primengTableHelper.totalRecordsCount = result.length;
+                this.primengTableHelper.records = result;
+                this.primengTableHelper.hideLoadingIndicator();
+            });
+    }
+    selectOption1(id: number) {
+        //getted from event
+        console.log(id);
+        //getted from binding
+        console.log(this.selectedLevel)
     
+        this.search()
+    
+      }
+      selectOption2(id: number) {
+        //getted from event
+        console.log(id);
+        //getted from binding
+        console.log(this.selectedLevel)
+    
+        this.search()
+    
+      }
 }
