@@ -19977,14 +19977,19 @@ export interface IGroup9BaoTriDto {
 }
 
 export class Group9XeDto implements IGroup9XeDto {
+    ma!: number | undefined;
     xe_MaLoaiXe!: number | undefined;
     xe_Ten!: string | undefined;
     xe_BienSo!: string | undefined;
     xe_Gia!: number | undefined;
     xe_Mau!: string | undefined;
+    xe_NgayTao!: moment.Moment | undefined;
     xe_NguoiTao!: string | undefined;
-    soLuong!: number | undefined;
-    xe_NgayBaoTri!: moment.Moment | undefined;
+    loaiXe_Ten!: string | undefined;
+    loaiXe_Hang!: string | undefined;
+    loaiXe_DinhMucNhienLieu!: number | undefined;
+    loaiXe_LoaiNhienLieu!: string | undefined;
+    loaiXe_NamSX!: number | undefined;
 
     constructor(data?: IGroup9XeDto) {
         if (data) {
@@ -19997,14 +20002,19 @@ export class Group9XeDto implements IGroup9XeDto {
 
     init(data?: any) {
         if (data) {
+            this.ma = data["ma"];
             this.xe_MaLoaiXe = data["xe_MaLoaiXe"];
             this.xe_Ten = data["xe_Ten"];
             this.xe_BienSo = data["xe_BienSo"];
             this.xe_Gia = data["xe_Gia"];
             this.xe_Mau = data["xe_Mau"];
+            this.xe_NgayTao = data["xe_NgayTao"] ? moment(data["xe_NgayTao"].toString()) : <any>undefined;
             this.xe_NguoiTao = data["xe_NguoiTao"];
-            this.soLuong = data["soLuong"];
-            this.xe_NgayBaoTri = data["xe_NgayBaoTri"] ? moment(data["xe_NgayBaoTri"].toString()) : <any>undefined;
+            this.loaiXe_Ten = data["loaiXe_Ten"];
+            this.loaiXe_Hang = data["loaiXe_Hang"];
+            this.loaiXe_DinhMucNhienLieu = data["loaiXe_DinhMucNhienLieu"];
+            this.loaiXe_LoaiNhienLieu = data["loaiXe_LoaiNhienLieu"];
+            this.loaiXe_NamSX = data["loaiXe_NamSX"];
         }
     }
 
@@ -20017,27 +20027,37 @@ export class Group9XeDto implements IGroup9XeDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["ma"] = this.ma;
         data["xe_MaLoaiXe"] = this.xe_MaLoaiXe;
         data["xe_Ten"] = this.xe_Ten;
         data["xe_BienSo"] = this.xe_BienSo;
         data["xe_Gia"] = this.xe_Gia;
         data["xe_Mau"] = this.xe_Mau;
+        data["xe_NgayTao"] = this.xe_NgayTao ? this.xe_NgayTao.toISOString() : <any>undefined;
         data["xe_NguoiTao"] = this.xe_NguoiTao;
-        data["soLuong"] = this.soLuong;
-        data["xe_NgayBaoTri"] = this.xe_NgayBaoTri ? this.xe_NgayBaoTri.toISOString() : <any>undefined;
+        data["loaiXe_Ten"] = this.loaiXe_Ten;
+        data["loaiXe_Hang"] = this.loaiXe_Hang;
+        data["loaiXe_DinhMucNhienLieu"] = this.loaiXe_DinhMucNhienLieu;
+        data["loaiXe_LoaiNhienLieu"] = this.loaiXe_LoaiNhienLieu;
+        data["loaiXe_NamSX"] = this.loaiXe_NamSX;
         return data; 
     }
 }
 
 export interface IGroup9XeDto {
+    ma: number | undefined;
     xe_MaLoaiXe: number | undefined;
     xe_Ten: string | undefined;
     xe_BienSo: string | undefined;
     xe_Gia: number | undefined;
     xe_Mau: string | undefined;
+    xe_NgayTao: moment.Moment | undefined;
     xe_NguoiTao: string | undefined;
-    soLuong: number | undefined;
-    xe_NgayBaoTri: moment.Moment | undefined;
+    loaiXe_Ten: string | undefined;
+    loaiXe_Hang: string | undefined;
+    loaiXe_DinhMucNhienLieu: number | undefined;
+    loaiXe_LoaiNhienLieu: string | undefined;
+    loaiXe_NamSX: number | undefined;
 }
 
 export class Group9HangDto implements IGroup9HangDto {

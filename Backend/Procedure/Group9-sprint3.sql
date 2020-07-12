@@ -111,7 +111,7 @@ begin try
 		  ,[BaoTri_NgayBaotri] = @BaoTri_NgayBaotri
 		  ,[BaoTri_NgayXuatXuong] = @BaoTri_NgayXuatXuong
 		  ,[BaoTri_ThanhTien] = @BaoTri_ThanhTien 
-		  ,[BaoTri_TinhTrangBaoTri] = 'C'
+		  ,[BaoTri_TinhTrangBaoTri] = 'D'
 		  ,[BaoTri_MaXe] = @BaoTri_MaXe
 		  ,[BaoTri_MaTaiXe] = @BaoTri_MaTaiXe
 		  ,[BaoTri_MaNguoiGui] = @BaoTri_MaNguoiGui
@@ -219,9 +219,30 @@ create or alter Proc [dbo].[BAOTRI_Group9App]
 as
 begin transaction
 begin try
-	update BaoTri 
-	set BaoTri_TrangThai = 'A', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
-	where Ma = @Id
+begin
+	if(exists(select * from BaoTri where Ma = @id and BaoTri_NgayXuatXuong = null))
+	begin
+		update Xe 
+		set Xe_TrangThai = 'B'
+		from BaoTri, Xe
+		where BaoTri.Ma = @Id and BaoTri.BaoTri_MaXe = Xe.Ma
+
+		update BaoTri 
+		set BaoTri_TrangThai = 'A', BaoTri_TinhTrangBaoTri = 'C', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
+		where Ma = @Id
+	end
+	else
+	begin
+		update Xe 
+		set Xe_TrangThai = 'N'
+		from BaoTri, Xe
+		where BaoTri.Ma = @Id and BaoTri.BaoTri_MaXe = Xe.Ma
+
+		update BaoTri 
+		set BaoTri_TrangThai = 'A', BaoTri_TinhTrangBaoTri = 'C', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
+		where Ma = @Id
+	end
+end
 commit transaction
 	select '0' as Result, N'' as ErrorDesc, @id as Ma
 end try
@@ -274,6 +295,46 @@ where BaoTri_Nguoitao = @BaoTri_MaNguoiTao and BaoTri_TrangThai = 'A' and BaoTri
 end
 go
 
+
+-------------------[dbo].[Group9BaoTri_SearchPersonalAll] 6/17/2020----------------
+
+
+create or alter proc [dbo].[BAOTRI_Group9SearchPersonalProposeAll]
+as
+begin
+select *
+from BaoTri
+where BaoTri_TrangThai = 'N'
+end
+go
+
+create or alter proc [dbo].[BAOTRI_Group9SearchAllPersonalAll]
+as
+begin
+select *
+from BaoTri
+where BaoTri_TrangThai != 'X'
+end
+go
+
+create or alter proc [dbo].[BAOTRI_Group9SearchPersonalApprovedAll]
+as
+begin
+select *
+from BaoTri
+where BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'D'
+end
+go
+
+create or alter proc [dbo].[BAOTRI_Group9SearchPersonalDoneAll]
+as
+begin
+select *
+from BaoTri
+where BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'C'
+end
+go
+
 -------------------[dbo].[Group9BaoTri_SearchPersonalKiemSat] 6/17/2020----------------
 
 create or alter proc [dbo].[BAOTRI_Group9ShouldMaintain]
@@ -282,7 +343,11 @@ as
 begin
 select *
 from Xe
-where Xe_TrangThai = 'N' and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KyHan - 30 and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KyHan
+where Xe_TrangThai = 'N'
+	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KyHan - 30
+	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KyHan
+	and Xe.Xe_TrangThai != 'B'
+	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'C'))))
 end
 go
 
@@ -292,9 +357,14 @@ as
 begin
 select *
 from Xe
-where Xe_TrangThai = 'N' and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KyHan
+where Xe_TrangThai = 'N' 
+	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KyHan
+	and Xe.Xe_TrangThai != 'B'
+	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'C'))))
 end
 go
 
 exec [BAOTRI_Group9UrgentMaintain]
+exec [BAOTRI_Group9ShouldMaintain]
+
 select * from baotri

@@ -139,7 +139,7 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
 
         public List<Group9XeDto> BAOTRI_Group9UrgentMaintain()
         {
-            return procedureHelper.GetData<Group9XeDto>("BAOTRI_Group9ShouldMaintain", new { });
+            return procedureHelper.GetData<Group9XeDto>("BAOTRI_Group9UrgentMaintain", new { });
         }
     }
 }
