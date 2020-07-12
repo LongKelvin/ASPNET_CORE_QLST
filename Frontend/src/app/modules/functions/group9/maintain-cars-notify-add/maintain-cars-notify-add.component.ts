@@ -6,6 +6,7 @@ import { Table } from "primeng/components/table/table";
 import { Paginator, SelectItem } from "primeng/primeng";
 import * as moment from 'moment';
 import { Console } from 'console';
+import { now } from 'jquery';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
         })
 
         this.kyhan_list = [
+            { content: "Tất cả", value: 0 },
             { content: "Xe sắp tới hạn bảo trì", value: 1 },
             { content: "Xe đã quá hạn bảo trì", value: 2 }
         ];
@@ -93,7 +95,8 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
 
     add() {
         this.getValue();
-      
+      if(this.selectedLevel2 == 2)
+      this.group9BaoTriInput.baoTri_NgayBaotri = moment();
 
         this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
             if (response["Result"] == "1") {
@@ -151,17 +154,9 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
       ma: string;
       kyhan_list : KyHan[];
     
-    selectedLevel:number;
-    selectedLevel2:number;
-    selectOption1(id: number) {
-        //getted from event
-        console.log(id);
-        //getted from binding
-        console.log(this.selectedLevel)
-    
-        this.search()
-    
-      }
+
+      selectedLevel2:number;
+  
       selectOption2(id: number) {
         //getted from event
         console.log(id);

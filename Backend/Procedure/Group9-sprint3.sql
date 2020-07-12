@@ -28,7 +28,12 @@ else
 
 begin transaction
 begin try
-
+if (@BaoTri_NgayBaoTri = null)
+begin
+	update Xe
+	set @BaoTri_NgayBaotri = DATEADD(year, 1, Xe.Xe_NgayBaoTri)
+	where Xe.Ma = @BaoTri_MaXe
+end
 	INSERT INTO [dbo].[BaoTri]
     ( 
 		[Baotri_MaBaoTri] ,
@@ -95,7 +100,7 @@ create or alter proc [dbo].[BAOTRI_Group9Update]
 
 as
 
-if(not exists(select * from BaoTri where Ma = @Ma and BaoTri_TrangThai = 'A'and BaoTri_TinhTrangBaoTri = 'C'))
+if(not exists(select * from BaoTri where Ma = @Ma and BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'C'))
 begin
 	select '1' as Result, N'Dữ liệu không tồn tại trong hệ thống' as ErrorDesc
 	RETURN
@@ -347,3 +352,4 @@ exec [BAOTRI_Group9ShouldMaintain]
 exec BAOTRI_Group9MaintainAll
 
 select * from baotri
+

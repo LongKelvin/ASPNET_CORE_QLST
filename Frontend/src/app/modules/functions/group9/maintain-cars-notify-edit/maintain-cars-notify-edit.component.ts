@@ -36,7 +36,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     ngayxuatxuong: Date;
     nguoitao: string;
     trangthai: string;
-    thanhtien: number;
+    thanhtien: string;
     noibaotri: string;
     ghichu: string;
 
@@ -62,7 +62,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_NgayXuatXuong = moment(this.ngayxuatxuong);
         this.group9BaoTriInput.baoTri_NguoiTao = this.currentUserName;
         this.group9BaoTriInput.baoTri_TrangThai = this.trangthai;
-        this.group9BaoTriInput.baoTri_ThanhTien = this.thanhtien;
+        this.group9BaoTriInput.baoTri_ThanhTien = parseInt(this.thanhtien.split(',').join(""));
         this.group9BaoTriInput.baoTri_NoiBaoTri = this.noibaotri;
         this.group9BaoTriInput.baoTri_GhiChu = this.ghichu;
         this.group9BaoTriInput.baoTri_NguoiTao = this.nguoitao;
@@ -78,7 +78,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.ngayxuatxuong=this.group9BaoTriInput.baoTri_NgayXuatXuong.toDate();
         this.currentUserName=this.group9BaoTriInput.baoTri_NguoiTao;
         this.trangthai=this.group9BaoTriInput.baoTri_TrangThai ;
-        this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien ;
+        this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien.toString() ;
         this.noibaotri=this.group9BaoTriInput.baoTri_NoiBaoTri;
         this.ghichu=this.group9BaoTriInput.baoTri_GhiChu ;
         this.nguoitao=this.group9BaoTriInput.baoTri_NguoiTao ;
@@ -100,37 +100,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
 
   
 
-    checkvalue(): boolean {
-        if (this.maxe == null) {
-            this.notify.error("Bạn chưa nhập mã xe", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.tinhtrang == null || this.tinhtrang == '') {
-            this.notify.error("Bạn chưa nhập tình trạng xe", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.ngayduyet == null) {
-            this.notify.error("Bạn chưa nhập ngày bảo trì", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.ngayxuatxuong == null) {
-            this.notify.error("Bạn chưa nhập ngày xuất xưởng", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.noibaotri == null || this.noibaotri == '') {
-            this.notify.error("Bạn chưa nhập nơi bảo trì", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.ghichu == null || this.ghichu == '') {
-            this.notify.error("Bạn chưa nhập ghi chú", "ERROR", environment.opt);
-            return false;
-        }
-        else if (this.nguoitao == null || this.nguoitao == '') {
-            this.notify.error("Bạn chưa nhập người tạo", "ERROR", environment.opt);
-            return false;
-        }
-        return true;
-    }
+    
 
     luuconfirm() {
         if (this.checkvalue() == true) {
@@ -161,6 +131,8 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
       }
 
       update(): void{
+        if(!this.checkvalue())
+        return;
         this.getValue();
         this.group9BaoTriService.bAOTRI_Group9Update(this.group9BaoTriInput).subscribe((response) => {
           if (response["Result"] == "1") {
@@ -170,4 +142,23 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
           }
       });
       }
+      checkvalue(): boolean{
+      
+      
+         if(this.ngayxuatxuong==null){
+          this.notify.error("Ngày xuất xưởng", "ERROR", environment.opt);
+          return false;
+        }
+        else if(this.noibaotri==null || this.noibaotri ==""){
+            this.notify.error("Nơi bảo trì", "ERROR", environment.opt);
+            return false;
+          }
+        else if(this.thanhtien==null|| this.thanhtien ==""){
+            this.notify.error("Thành tiền", "ERROR", environment.opt);
+            return false;
+          }
+      
+        return true;
+      }
+
 }

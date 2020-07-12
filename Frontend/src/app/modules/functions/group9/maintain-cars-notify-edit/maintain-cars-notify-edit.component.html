@@ -40,21 +40,12 @@
                                         <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" 
                                         id="ModelCarName" name="ModelCarName" 
                                         type="text" ng-reflect-name="carNameText"               
-                                        [(ngModel)]="maxe" require>
+                                        [(ngModel)]="maxe" required>
                                         
                                       </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <div class="form-group">
-                                    <label class="ng-tns-c10-9" for="CarManufacturer">Tình Trạng *</label>
-                                    <div class="input-group">
-                                        <input class="form-control ng-pristine ng-valid ng-touched text-capitalize" id="CarManufacturer" 
-                                        name="CarManufacturer" type="text" ng-reflect-name="carTypeText" [(ngModel)]="tinhtrang" required>
-                                      </div>
-                                </div>
-                            </div>
-
+     
                             <div class="col-xl-6">
                                 <div class="form-group">
                                     <label class="ng-tns-c10-9" for="ModelCarName">Ngày bảo trì *</label>
@@ -76,12 +67,12 @@
 
                             <div class="col-xl-6">
                                 <div class="form-group">
-                                    <label class="ng-tns-c10-9" for="ModelCarName">Nơi bảo trì</label>
+                                    <label class="ng-tns-c10-9" for="ModelCarName">Nơi bảo trì *</label>
                                     <div class="input-group">
                                         <input class="form-control ng-pristine ng-valid ng-touched text-uppercase" 
                                         id="noibaotri" name="noibaotri" 
                                         type="text" ng-reflect-name="noibaotri"               
-                                        [(ngModel)]="noibaotri" require>
+                                        [(ngModel)]="noibaotri" required>
                                         
                                       </div>
                                 </div>
@@ -112,15 +103,7 @@
                                       </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <div class="form-group">
-                                    <label class="ng-tns-c10-9" for="CarManufacturer">Người tạo</label>
-                                    <div class="input-group">
-                                        <input class="form-control ng-pristine ng-valid ng-touched text-capitalize" id="CarManufacturer" 
-                                        name="CarManufacturer" type="text" ng-reflect-name="carTypeText" [(ngModel)]="nguoitao" required>
-                                      </div>
-                                </div>
-                            </div>
+                      
                         </div>
                     </div>
                 </form>

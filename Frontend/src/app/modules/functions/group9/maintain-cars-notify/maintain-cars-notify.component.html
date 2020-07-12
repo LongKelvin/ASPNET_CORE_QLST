@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li>
-                        <span (click)="search()">
+                        <span (click)="searchAll()">
                             <i class="flaticon-search"></i>
                             Tìm kiếm
                         </span>
@@ -70,7 +70,7 @@
                             <label for="maXe">Mã thông báo bảo trì</label>
                             <div class="form-group">
 
-                                <select class="form-control" id="maBaotri" name="maBaotri" [(ngModel)]="selectedLevel2" (change)="selectOption2($event.target.value)">
+                                <select class="form-control" id="maBaotri" name="maBaotri" [(ngModel)]="selectedLevel2" (change)="selectOption($event.target.value)">
                                     <option value>Tất cả</option>
                                     <option *ngFor="let item of baotri_list_id" value="{{item.ma}}">{{item.baoTri_MaBaoTri}}</option>
                                 </select>
@@ -81,13 +81,30 @@
                             <label for="maXe">Mã Xe</label>
                             <div class="form-group">
 
-                                <select class="form-control" id="maXe" name="maXe" [(ngModel)]="selectedLevel" (change)="selectOption1($event.target.value)">
+                                <select class="form-control" id="maXe" name="maXe" [(ngModel)]="selectedLevel" (change)="selectOption($event.target.value)">
                                     <option value>Tất cả</option>
                                     <option *ngFor="let item of xe_list" value="{{item.ma}}">{{item.xe_Ten}}</option>
                                 </select>
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <label for="maXe">Trạng thái</label>
+                            <div class="form-group">
+                                <select class="form-control" id="trangthai" name="trangthai" [(ngModel)]="selectedLevel3" (change)="selectOption($event.target.value)">
+                                    <option *ngFor="let item of trangthai_list" value="{{item.value}}">{{item.content}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="maXe">Tình trạng</label>
+                            <div class="form-group">
+                                <select class="form-control" id="tinhtrang" name="tinhtrang" [(ngModel)]="selectedLevel4" (change)="selectOption($event.target.value)">
+                                    <option *ngFor="let item of tinhtrang_list" value="{{item.value}}">{{item.content}}</option>
+                                </select>
+                            </div>
+                        </div>
 
                     </div>
                    
@@ -158,7 +175,7 @@
                                         <span>{{record.baoTri_MaXe}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.baoTri_NgayDuyet | date: 'shortDate'}}</span>
+                                        <span>{{record.baoTri_NgayBaotri | date: 'shortDate'}}</span>
                                     </td>
                                     <td>
                                         <span>{{record.baoTri_NgayXuatXuong | date: 'shortDate'}}</span>
