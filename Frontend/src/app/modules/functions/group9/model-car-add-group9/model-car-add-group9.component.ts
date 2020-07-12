@@ -81,16 +81,8 @@ export class ModelCarAddGroup9Component extends AppComponentBase implements Afte
       this.notify.error("Năm phải lớn hơn 1950", "ERROR", environment.opt);
       return false;
     }
-    else if(this.dinhmucnguyenlieu==null){
-      this.notify.error("Bạn chưa nhập định mức nhiên liệu", "ERROR", environment.opt);
-      return false;
-    }
     else if(this.dinhmucnguyenlieu<=0){
       this.notify.error("Định mức nhiên liệu phải lớn hơn 0", "ERROR", environment.opt);
-      return false;
-    }
-    else if(this.loainhienlieu == "" || this.loainhienlieu == null){
-      this.notify.error("Bạn chưa chọn loại nhiên liệu", "ERROR", environment.opt);
       return false;
     }
     return true;

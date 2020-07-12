@@ -12,7 +12,6 @@ import * as ApiServiceProxies from "../../../../shared/service-proxies/service-p
         ApiServiceProxies.Group4TuyenChayServiceProxy,
         ApiServiceProxies.Group2TaiXeServiceProxy,
         ApiServiceProxies.Group4LoaiXeServiceProxy,
-        ApiServiceProxies.Group9HangServiceProxy,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AbpHttpInterceptor,
