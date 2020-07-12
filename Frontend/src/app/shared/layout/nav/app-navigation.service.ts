@@ -169,6 +169,13 @@ export class AppNavigationService {
         "Pages.Administration.Users",
         "flaticon-users",
         "/app/admin/users"
+        
+      ),
+      new AppMenuItem(
+        "Quản lý hãng xe",
+        "Pages.Group9.Hang",
+        "flaticon-users",
+        "/app/admin/manufacturer-car"
       ),
     ]);
   }
