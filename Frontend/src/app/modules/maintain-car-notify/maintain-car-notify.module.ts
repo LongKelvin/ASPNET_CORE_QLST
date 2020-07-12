@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaintainCarNotifyAddComponent } from './maintain-car-notify-add/maintain-car-notify-add.component';
 import { MaintainCarNotifyEditComponent } from './maintain-car-notify-edit/maintain-car-notify-edit.component';
+import { MaintainCarNotifyProposeComponent } from './maintain-car-notify-propose/maintain-car-notify-propose.component';
 import { ModulesRoutingModule } from '../modules-routing.module';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +20,6 @@ import { MaintainCarNotifyComponent } from './maintain-car-notify/maintain-car-n
     CheckboxModule,
     FunctionsModule
   ],
-  declarations: [MaintainCarNotifyAddComponent, MaintainCarNotifyEditComponent, MaintainCarNotifyComponent]
+  declarations: [MaintainCarNotifyAddComponent, MaintainCarNotifyEditComponent,MaintainCarNotifyProposeComponent, MaintainCarNotifyComponent]
 })
 export class MaintainCarNotifyModule { }
