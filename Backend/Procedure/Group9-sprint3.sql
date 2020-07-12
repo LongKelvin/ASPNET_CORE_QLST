@@ -228,7 +228,7 @@ begin
 		where BaoTri.Ma = @Id and BaoTri.BaoTri_MaXe = Xe.Ma
 
 		update BaoTri 
-		set BaoTri_TrangThai = 'A', BaoTri_TinhTrangBaoTri = 'C', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
+		set BaoTri_TrangThai = 'A', BaoTri_TinhTrangBaoTri = 'D', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
 		where Ma = @Id
 	end
 	else
@@ -296,45 +296,6 @@ end
 go
 
 
--------------------[dbo].[Group9BaoTri_SearchPersonalAll] 6/17/2020----------------
-
-
-create or alter proc [dbo].[BAOTRI_Group9SearchPersonalProposeAll]
-as
-begin
-select *
-from BaoTri
-where BaoTri_TrangThai = 'N'
-end
-go
-
-create or alter proc [dbo].[BAOTRI_Group9SearchAllPersonalAll]
-as
-begin
-select *
-from BaoTri
-where BaoTri_TrangThai != 'X'
-end
-go
-
-create or alter proc [dbo].[BAOTRI_Group9SearchPersonalApprovedAll]
-as
-begin
-select *
-from BaoTri
-where BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'D'
-end
-go
-
-create or alter proc [dbo].[BAOTRI_Group9SearchPersonalDoneAll]
-as
-begin
-select *
-from BaoTri
-where BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'C'
-end
-go
-
 -------------------[dbo].[Group9BaoTri_SearchPersonalKiemSat] 6/17/2020----------------
 
 create or alter proc [dbo].[BAOTRI_Group9ShouldMaintain]
@@ -364,7 +325,25 @@ where Xe_TrangThai = 'N'
 end
 go
 
+create or alter proc [dbo].[BAOTRI_Group9MaintainAll]
+
+as
+begin
+select *
+from Xe
+where Xe_TrangThai = 'N' 
+	and (DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KyHan
+	and Xe.Xe_TrangThai != 'B'
+	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'C')))))
+	or(DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KyHan - 30
+	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KyHan
+	and Xe.Xe_TrangThai != 'B'
+	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'C')))))
+end
+go
+
 exec [BAOTRI_Group9UrgentMaintain]
 exec [BAOTRI_Group9ShouldMaintain]
+exec BAOTRI_Group9MaintainAll
 
 select * from baotri
