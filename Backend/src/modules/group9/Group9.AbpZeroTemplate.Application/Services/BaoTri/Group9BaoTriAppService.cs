@@ -34,7 +34,8 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalDone(string maNguoiTao);
         List<Group9XeDto> BAOTRI_Group9ShouldMaintain();
         List<Group9XeDto> BAOTRI_Group9UrgentMaintain();
-
+        List<Group9XeDto> BAOTRI_Group9MaintainAll();
+        List<Group9XeDto> BAOTRI_Group9SearchXeStateNoMaintain();
 
     }
     public class Group9BaoTriAppService : BaseService, IGroup9BaoTriAppService
@@ -140,6 +141,16 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         public List<Group9XeDto> BAOTRI_Group9UrgentMaintain()
         {
             return procedureHelper.GetData<Group9XeDto>("BAOTRI_Group9UrgentMaintain", new { });
+        }
+
+        public List<Group9XeDto> BAOTRI_Group9MaintainAll()
+        {
+            return procedureHelper.GetData<Group9XeDto>("BAOTRI_Group9MaintainAll", new { });
+        }
+
+        public List<Group9XeDto> BAOTRI_Group9SearchXeStateNoMaintain()
+        {
+            return procedureHelper.GetData<Group9XeDto>("BAOTRI_Group9SearchXeStateNoMaintain", new { });
         }
     }
 }

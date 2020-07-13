@@ -126,16 +126,12 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             }
         );
     }
-    tempBaotri : Group9BaoTriDto = new Group9BaoTriDto();
     approve()
     {
         this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe((response) => {
             if (response["Result"] === "1") {
             } else {
-                this.tempBaotri = response;
-            }
-        });
-        if(this.tempBaotri.baoTri_NguoiTao == this.currentUserName)
+                if(response.baoTri_NguoiTao === this.currentUserName)
         {
             this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
              return;
@@ -160,10 +156,15 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                 }
             }
         );
+            }
+        });
+        
     }
 
     send(){
+
         this.get();
+        this.searchAll();
     }
 
     search() {
@@ -193,9 +194,11 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     
   }
   get(){
+    
     this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response=>{
         this.group9BaoTriRowInput = response;
         this.maNG = this.group9BaoTriRowInput.baoTri_MaNguoiGui;
+        
             this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet).subscribe((response) => {
                 if (response["Result"] === "1") {
                     this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);

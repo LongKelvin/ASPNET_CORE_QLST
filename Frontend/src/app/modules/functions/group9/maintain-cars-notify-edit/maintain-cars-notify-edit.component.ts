@@ -70,7 +70,10 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     }
 
     load(){
+
         this.maxe = this.group9BaoTriInput.baoTri_MaXe;
+        this.notify.error(this.maxe.toString(), "ERROR", environment.opt);
+
         this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
         this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
         this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayBaotri.format("DD/MM/YYYY");
@@ -134,7 +137,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriService.bAOTRI_Group9ById(this.group9BaoTriInput.ma).subscribe((response) => {
           if (response["Result"] === "1") {
           } else {
-              if(response.baoTri_MaNguoiGui != this.currentUserName)
+              if(response.baoTri_MaNguoiGui !== this.currentUserName)
               {
                   this.notify.error("Chỉ có người mang đi bảo trì mới được phép cập nhật", "ERROR", environment.opt);
                    return ;
@@ -167,6 +170,10 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
             this.notify.error("Thành tiền", "ERROR", environment.opt);
             return false;
           }
+        else if (moment(this.ngaybaotri, 'YYYY-MM-DD') > moment(this.ngayxuatxuong, 'YYYY-MM-DD')){
+          this.notify.error("Ngày xuất xưởng không được trước ngày bảo trì", "ERROR", environment.opt);
+            return false;
+        }
       
         return true;
       }

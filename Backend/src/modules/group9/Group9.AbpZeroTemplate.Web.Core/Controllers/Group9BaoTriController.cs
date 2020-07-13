@@ -55,7 +55,7 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
         }
 
         [HttpPost]
-        public IDictionary<string, object> BAOTRI_Group9App(int id, string checkerId)
+        public IDictionary<string, object> BAOTRI_Group9App([FromBody] int id, string checkerId)
         {
             return Group9BaoTriAppService.BAOTRI_Group9App(id, checkerId);
         }
@@ -98,7 +98,7 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
         }
 
         [HttpPost]
-        public async Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime ngayBaoTri)
+        public async Task BAOTRI_Group9SendNotification([FromBody] string ma, string maThongBao, int maXe, DateTime ngayBaoTri)
         {
             await Group9BaoTriAppService.BAOTRI_Group9SendNotification(ma, maThongBao, maXe, ngayBaoTri);
         }
@@ -107,6 +107,19 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
         public List<Group9XeDto> BAOTRI_Group9UrgentMaintain()
         {
             return Group9BaoTriAppService.BAOTRI_Group9UrgentMaintain();
+        }
+
+        [HttpPost]
+        public List<Group9XeDto> BAOTRI_Group9MaintainAll()
+        {
+             return Group9BaoTriAppService.BAOTRI_Group9MaintainAll();
+
+        }
+        [HttpPost]
+        public List<Group9XeDto> BAOTRI_Group9SearchXeStateNoMaintain()
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9SearchXeStateNoMaintain();
+
         }
     }
 }
