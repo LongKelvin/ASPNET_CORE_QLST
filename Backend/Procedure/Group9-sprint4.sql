@@ -152,8 +152,10 @@ go
 -------------------[dbo].[HOATDONGTAIXE_Search] 6/27/2020----------------
 create or alter proc [dbo].[HOATDONGTAIXE_Group9Search] 
     @Ma int = NULL,
+	@HoatDongTaiXe_Ma varchar(20) NULL,
      @HoatDongTaiXe_MaLichTrinh int null,
 	 @HoatDongTaiXe_MaXe int null,
+	 	 @HoatDongTaiXe_MaTaiXe int null,
 @HoatDongTaiXe_KmThucTe float null,
 @HoatDongTaiXe_TrangThai varchar(1) NULL ,
 @HoatDongTaiXe_NguoiTao  nvarchar(50) NULL ,
@@ -167,16 +169,18 @@ as
 begin
 	select * from HoatDongTaiXe
 	where (@Ma is null or Ma = @Ma)
+	and (@HoatDongTaiXe_Ma is null or HoatDongTaiXe_Ma= @HoatDongTaiXe_Ma)
 	and (@HoatDongTaiXe_MaLichTrinh is null or HoatDongTaiXe_MaLichTrinh= @HoatDongTaiXe_MaLichTrinh)
 	and (@HoatDongTaiXe_MaXe is null or HoatDongTaiXe_MaXe= @HoatDongTaiXe_MaXe)
+	and (@HoatDongTaiXe_MaTaiXe is null or HoatDongTaiXe_MaTaiXe= @HoatDongTaiXe_MaTaiXe)
 	and (@HoatDongTaiXe_KmThucTe is null or HoatDongTaiXe_KmThucTe = @HoatDongTaiXe_KmThucTe)
-	and (@HoatDongTaiXe_TrangThai = 'N')
+	and (HoatDongTaiXe_TrangThai  = 'N')
 	and (@HoatDongTaiXe_NguoiTao  is null or HoatDongTaiXe_NguoiTao = @HoatDongTaiXe_NguoiTao)
 	and (@HoatDongTaiXe_NgayTao is null or HoatDongTaiXe_NgayTao = @HoatDongTaiXe_NgayTao)
 	and (@HoatDongTaiXe_NhienLieu is null or HoatDongTaiXe_NhienLieu = @HoatDongTaiXe_NhienLieu)
 	and (@HoatDongTaiXe_KmUocTinh is null or HoatDongTaiXe_KmUocTinh = @HoatDongTaiXe_KmUocTinh)
-	and (@HoatDongTaiXe_NgayBatDau is null or HoatDongTaiXe_NgayBatDau = @HoatDongTaiXe_NgayBatDau)
-	and (@HoatDongTaiXe_NgayKetThuc is null or HoatDongTaiXe_NgayKetThuc = @HoatDongTaiXe_NgayKetThuc)
+	and (@HoatDongTaiXe_NgayBatDau is null or HoatDongTaiXe_NgayBatDau >= @HoatDongTaiXe_NgayBatDau)
+	and (@HoatDongTaiXe_NgayKetThuc is null or HoatDongTaiXe_NgayKetThuc <= @HoatDongTaiXe_NgayKetThuc)
 
 end
 go
@@ -197,6 +201,7 @@ end catch
 go
 -------------------[dbo].[HOATDONGTAIXE_Tracking] 6/27/2020----------------
 create or alter proc [dbo].[HOATDONGTAIXE_Group9Tracking]
+@MaTaiXe int = NULL,
 @MaLichTrinh int = NULL,
 @HoatDongTaiXe_TuNgay   datetime NULL ,
 @HoatDongTaiXe_DenNgay   datetime NULL 
@@ -204,6 +209,7 @@ as
 begin
 	select * from HoatDongTaiXe
 	where (@MaLichTrinh is null or HoatDongTaiXe_MaLichTrinh = @MaLichTrinh)
+		and (@MaTaiXe is null or HoatDongTaiXe_MaTaiXe = @MaTaiXe)
 	and (@HoatDongTaiXe_TuNgay is null or HoatDongTaiXe_NgayBatDau >= @HoatDongTaiXe_TuNgay)
 	and (@HoatDongTaiXe_DenNgay is null or HoatDongTaiXe_NgayKetThuc <= @HoatDongTaiXe_DenNgay)
 
@@ -240,6 +246,7 @@ create or alter proc [dbo].[HOATDONGTAIXE_Group9SearchLichTrinh]
 @LichTrinh_NgayTao datetime = NULL,
 @LichTrinh_NguoiTao nvarchar(max) NULL,
 @LichTrinh_TrangThai varchar(1) NULL
+
 as
 begin
 	select * 
@@ -257,7 +264,23 @@ begin
 end
 go
 
+create or alter proc [dbo].[HOATDONGTAIXE_Group9SearchAllTaiXe]
+as
+begin
+	select distinct TaiXe.Ma, TaiXe.TaiXe_Hoten, TaiXe.TaiXe_HangBangLai, TaiXe.TaiXe_TenNguoiDung
+	from TaiXe, LichTrinh, HoatDongTaiXe
+	where not(TaiXe.Ma = LichTrinh.LichTrinh_MaTaiXe  
+	and HoatDongTaiXe.HoatDongTaiXe_MaLichTrinh = LichTrinh.Ma)
+	end
+go
+
+exec [dbo].[HOATDONGTAIXE_Group9SearchAllMaTaiXe]
+
+select * from HoatDongTaiXe
 -----
 exec [HOATDONGTAIXE_Group9Tracking] null, null, null
 exec HOATDONGTAIXE_Group9SearchAllLichTrinh
 exec HOATDONGTAIXE_Group9InsertLichTrinh '2019-01-01 00:00:00.000', '2019-01-01 00:00:00.000', null, null, 'C', '2019-01-01 00:00:00.000', 'admin', 'N'
+exec [dbo].[HOATDONGTAIXE_Group9Search] null, null, 8, null, 2, null, null, null, null, null, null, null, null
+
+exec [HOATDONGTAIXE_Group9SearchLichTrinh] 7, '2019-01-01 00:00:00.000, null,null, null, null,null,null, null
