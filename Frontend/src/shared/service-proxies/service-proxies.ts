@@ -7528,13 +7528,14 @@ export class Group9BaoTriServiceProxy {
      */
     bAOTRI_Group9App(id: number | null | undefined, checkerId: string | null | undefined): Observable<{ [key: string] : any; }> {
         let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9App?";
-        if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         if (checkerId !== undefined)
             url_ += "checkerId=" + encodeURIComponent("" + checkerId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(id);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -7938,8 +7939,6 @@ export class Group9BaoTriServiceProxy {
      */
     bAOTRI_Group9SendNotification(ma: string | null | undefined, maThongBao: string | null | undefined, maXe: number | null | undefined, ngayBaoTri: moment.Moment | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9SendNotification?";
-        if (ma !== undefined)
-            url_ += "ma=" + encodeURIComponent("" + ma) + "&"; 
         if (maThongBao !== undefined)
             url_ += "maThongBao=" + encodeURIComponent("" + maThongBao) + "&"; 
         if (maXe !== undefined)
@@ -7948,7 +7947,10 @@ export class Group9BaoTriServiceProxy {
             url_ += "ngayBaoTri=" + encodeURIComponent(ngayBaoTri ? "" + ngayBaoTri.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(ma);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -8020,6 +8022,118 @@ export class Group9BaoTriServiceProxy {
     }
 
     protected processBAOTRI_Group9UrgentMaintain(response: HttpResponseBase): Observable<Group9XeDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Group9XeDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9XeDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    bAOTRI_Group9MaintainAll(): Observable<Group9XeDto[]> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9MaintainAll";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processBAOTRI_Group9MaintainAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processBAOTRI_Group9MaintainAll(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9XeDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9XeDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processBAOTRI_Group9MaintainAll(response: HttpResponseBase): Observable<Group9XeDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Group9XeDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9XeDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    bAOTRI_Group9SearchXeStateNoMaintain(): Observable<Group9XeDto[]> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9SearchXeStateNoMaintain";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processBAOTRI_Group9SearchXeStateNoMaintain(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processBAOTRI_Group9SearchXeStateNoMaintain(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9XeDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9XeDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processBAOTRI_Group9SearchXeStateNoMaintain(response: HttpResponseBase): Observable<Group9XeDto[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -8789,15 +8903,16 @@ export class Group9HoatDongTaiXeServiceProxy {
      */
     hOATDONGTAIXE_Group9Tracking(ma: number | null | undefined, tuNgay: moment.Moment | null | undefined, denNgay: moment.Moment | null | undefined): Observable<Group9HoatDongTaiXeDto[]> {
         let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9Tracking?";
-        if (ma !== undefined)
-            url_ += "ma=" + encodeURIComponent("" + ma) + "&"; 
         if (tuNgay !== undefined)
             url_ += "tuNgay=" + encodeURIComponent(tuNgay ? "" + tuNgay.toJSON() : "") + "&"; 
         if (denNgay !== undefined)
             url_ += "denNgay=" + encodeURIComponent(denNgay ? "" + denNgay.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(ma);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -8844,6 +8959,177 @@ export class Group9HoatDongTaiXeServiceProxy {
             }));
         }
         return _observableOf<Group9HoatDongTaiXeDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9SearchAllLichTrinh(): Observable<Group9LichTrinhDto[]> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9SearchAllLichTrinh";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9SearchAllLichTrinh(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9SearchAllLichTrinh(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9LichTrinhDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9LichTrinhDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9SearchAllLichTrinh(response: HttpResponseBase): Observable<Group9LichTrinhDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Group9LichTrinhDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9LichTrinhDto[]>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9SearchByIdLichTrinh(id: number | null | undefined): Observable<Group9LichTrinhDto> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9SearchByIdLichTrinh?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9SearchByIdLichTrinh(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9SearchByIdLichTrinh(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9LichTrinhDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9LichTrinhDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9SearchByIdLichTrinh(response: HttpResponseBase): Observable<Group9LichTrinhDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? Group9LichTrinhDto.fromJS(resultData200) : new Group9LichTrinhDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9LichTrinhDto>(<any>null);
+    }
+
+    /**
+     * @input (optional) 
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9SearchLichTrinh(input: Group9LichTrinhDto | null | undefined): Observable<Group9LichTrinhDto[]> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9SearchLichTrinh";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9SearchLichTrinh(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9SearchLichTrinh(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9LichTrinhDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9LichTrinhDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9SearchLichTrinh(response: HttpResponseBase): Observable<Group9LichTrinhDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Group9LichTrinhDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9LichTrinhDto[]>(<any>null);
     }
 }
 
@@ -20108,6 +20394,7 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
     ma!: number | undefined;
     hoatDongTaiXe_Ma!: string | undefined;
     hoatDongTaiXe_MaLichTrinh!: number | undefined;
+    hoatDongTaiXe_MaTaiXe!: number | undefined;
     hoatDongTaiXe_KmThucTe!: number | undefined;
     hoatDongTaiXe_TrangThai!: string | undefined;
     hoatDongTaiXe_NguoiTao!: string | undefined;
@@ -20131,6 +20418,7 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
             this.ma = data["ma"];
             this.hoatDongTaiXe_Ma = data["hoatDongTaiXe_Ma"];
             this.hoatDongTaiXe_MaLichTrinh = data["hoatDongTaiXe_MaLichTrinh"];
+            this.hoatDongTaiXe_MaTaiXe = data["hoatDongTaiXe_MaTaiXe"];
             this.hoatDongTaiXe_KmThucTe = data["hoatDongTaiXe_KmThucTe"];
             this.hoatDongTaiXe_TrangThai = data["hoatDongTaiXe_TrangThai"];
             this.hoatDongTaiXe_NguoiTao = data["hoatDongTaiXe_NguoiTao"];
@@ -20154,6 +20442,7 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
         data["ma"] = this.ma;
         data["hoatDongTaiXe_Ma"] = this.hoatDongTaiXe_Ma;
         data["hoatDongTaiXe_MaLichTrinh"] = this.hoatDongTaiXe_MaLichTrinh;
+        data["hoatDongTaiXe_MaTaiXe"] = this.hoatDongTaiXe_MaTaiXe;
         data["hoatDongTaiXe_KmThucTe"] = this.hoatDongTaiXe_KmThucTe;
         data["hoatDongTaiXe_TrangThai"] = this.hoatDongTaiXe_TrangThai;
         data["hoatDongTaiXe_NguoiTao"] = this.hoatDongTaiXe_NguoiTao;
@@ -20170,6 +20459,7 @@ export interface IGroup9HoatDongTaiXeDto {
     ma: number | undefined;
     hoatDongTaiXe_Ma: string | undefined;
     hoatDongTaiXe_MaLichTrinh: number | undefined;
+    hoatDongTaiXe_MaTaiXe: number | undefined;
     hoatDongTaiXe_KmThucTe: number | undefined;
     hoatDongTaiXe_TrangThai: string | undefined;
     hoatDongTaiXe_NguoiTao: string | undefined;
@@ -20178,6 +20468,90 @@ export interface IGroup9HoatDongTaiXeDto {
     hoatDongTaiXe_KmUocTinh: number | undefined;
     hoatDongTaiXe_NgayBatDau: moment.Moment | undefined;
     hoatDongTaiXe_NgayKetThuc: moment.Moment | undefined;
+}
+
+export class Group9LichTrinhDto implements IGroup9LichTrinhDto {
+    ma!: number | undefined;
+    lichTrinh_NgayDi!: moment.Moment | undefined;
+    lichTrinh_NgayDen!: moment.Moment | undefined;
+    lichTrinh_MaTuyenChay!: number | undefined;
+    lichTrinh_MaTaiXe!: number | undefined;
+    lichTrinh_TrangThaiChuyen!: string | undefined;
+    lichTrinh_NgayTao!: string | undefined;
+    lichTrinh_NguoiTao!: string | undefined;
+    lichTrinh_TrangThai!: string | undefined;
+    taiXe_HoTen!: string | undefined;
+    tuyenChay_DiemDi!: string | undefined;
+    tuyenChay_DiemDen!: string | undefined;
+    tuyenchay_SoKm!: string | undefined;
+
+    constructor(data?: IGroup9LichTrinhDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.ma = data["ma"];
+            this.lichTrinh_NgayDi = data["lichTrinh_NgayDi"] ? moment(data["lichTrinh_NgayDi"].toString()) : <any>undefined;
+            this.lichTrinh_NgayDen = data["lichTrinh_NgayDen"] ? moment(data["lichTrinh_NgayDen"].toString()) : <any>undefined;
+            this.lichTrinh_MaTuyenChay = data["lichTrinh_MaTuyenChay"];
+            this.lichTrinh_MaTaiXe = data["lichTrinh_MaTaiXe"];
+            this.lichTrinh_TrangThaiChuyen = data["lichTrinh_TrangThaiChuyen"];
+            this.lichTrinh_NgayTao = data["lichTrinh_NgayTao"];
+            this.lichTrinh_NguoiTao = data["lichTrinh_NguoiTao"];
+            this.lichTrinh_TrangThai = data["lichTrinh_TrangThai"];
+            this.taiXe_HoTen = data["taiXe_HoTen"];
+            this.tuyenChay_DiemDi = data["tuyenChay_DiemDi"];
+            this.tuyenChay_DiemDen = data["tuyenChay_DiemDen"];
+            this.tuyenchay_SoKm = data["tuyenchay_SoKm"];
+        }
+    }
+
+    static fromJS(data: any): Group9LichTrinhDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new Group9LichTrinhDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ma"] = this.ma;
+        data["lichTrinh_NgayDi"] = this.lichTrinh_NgayDi ? this.lichTrinh_NgayDi.toISOString() : <any>undefined;
+        data["lichTrinh_NgayDen"] = this.lichTrinh_NgayDen ? this.lichTrinh_NgayDen.toISOString() : <any>undefined;
+        data["lichTrinh_MaTuyenChay"] = this.lichTrinh_MaTuyenChay;
+        data["lichTrinh_MaTaiXe"] = this.lichTrinh_MaTaiXe;
+        data["lichTrinh_TrangThaiChuyen"] = this.lichTrinh_TrangThaiChuyen;
+        data["lichTrinh_NgayTao"] = this.lichTrinh_NgayTao;
+        data["lichTrinh_NguoiTao"] = this.lichTrinh_NguoiTao;
+        data["lichTrinh_TrangThai"] = this.lichTrinh_TrangThai;
+        data["taiXe_HoTen"] = this.taiXe_HoTen;
+        data["tuyenChay_DiemDi"] = this.tuyenChay_DiemDi;
+        data["tuyenChay_DiemDen"] = this.tuyenChay_DiemDen;
+        data["tuyenchay_SoKm"] = this.tuyenchay_SoKm;
+        return data; 
+    }
+}
+
+export interface IGroup9LichTrinhDto {
+    ma: number | undefined;
+    lichTrinh_NgayDi: moment.Moment | undefined;
+    lichTrinh_NgayDen: moment.Moment | undefined;
+    lichTrinh_MaTuyenChay: number | undefined;
+    lichTrinh_MaTaiXe: number | undefined;
+    lichTrinh_TrangThaiChuyen: string | undefined;
+    lichTrinh_NgayTao: string | undefined;
+    lichTrinh_NguoiTao: string | undefined;
+    lichTrinh_TrangThai: string | undefined;
+    taiXe_HoTen: string | undefined;
+    tuyenChay_DiemDi: string | undefined;
+    tuyenChay_DiemDen: string | undefined;
+    tuyenchay_SoKm: string | undefined;
 }
 
 export class Group9LoaiXeDto implements IGroup9LoaiXeDto {

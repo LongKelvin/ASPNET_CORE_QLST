@@ -104,7 +104,7 @@ create or alter proc [dbo].[BAOTRI_Group9Update]
 
 as
 
-if(not exists(select * from BaoTri where Ma = @Ma and BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'C'))
+if(not exists(select * from BaoTri where Ma = @Ma and BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'D' and BaoTri_NgayXuatXuong is null))
 begin
 	select '1' as Result, N'Dữ liệu không tồn tại trong hệ thống' as ErrorDesc
 	RETURN
@@ -212,7 +212,9 @@ begin
 end
 begin transaction
 begin try
-	update BaoTri set BaoTri_TrangThai = 'X' where Ma = @Ma
+	update BaoTri 
+	set BaoTri_TrangThai = 'X'
+	where Ma = @Ma
 commit transaction
 	select '0' as Result, N'' as ErrorDesc, @Ma as Ma
 end try
@@ -235,10 +237,14 @@ begin
 		update Xe 
 		set Xe_TrangThai = 'B'
 		from BaoTri, Xe
-		where BaoTri.Ma = @Id and BaoTri.BaoTri_MaXe = Xe.Ma
+		where BaoTri.Ma = @Id 
+		and BaoTri.BaoTri_MaXe = Xe.Ma
 
 		update BaoTri 
-		set BaoTri_TrangThai = 'N', BaoTri_TinhTrangBaoTri = 'D', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
+		set BaoTri_TrangThai = 'N'
+		, BaoTri_TinhTrangBaoTri = 'D'
+		, Baotri_NguoiDuyet = @CheckerId
+		, BaoTri_NgayDuyet = GetDate()
 		where Ma = @Id
 	end
 	else
@@ -291,7 +297,9 @@ as
 begin
 select *
 from BaoTri
-where BaoTri_Nguoitao = @BaoTri_MaNguoiTao and BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'D'
+where BaoTri_Nguoitao = @BaoTri_MaNguoiTao 
+and BaoTri_TrangThai = 'A' 
+and BaoTri_TinhTrangBaoTri = 'D'
 end
 go
 
@@ -301,7 +309,9 @@ as
 begin
 select *
 from BaoTri
-where BaoTri_Nguoitao = @BaoTri_MaNguoiTao and BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'C'
+where BaoTri_Nguoitao = @BaoTri_MaNguoiTao 
+and BaoTri_TrangThai = 'A' 
+and BaoTri_TinhTrangBaoTri = 'C'
 end
 go
 
@@ -318,7 +328,9 @@ where Xe_TrangThai = 'N'
 	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KyHan - 30
 	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KyHan
 	and Xe.Xe_TrangThai != 'B'
-	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'C'))))
+	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe 
+	and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' 
+	and BaoTri_TinhTrangBaoTri = 'C'))))
 end
 go
 
@@ -331,7 +343,9 @@ from Xe
 where Xe_TrangThai = 'N' 
 	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KyHan
 	and Xe.Xe_TrangThai != 'B'
-	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'C'))))
+	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe 
+	and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' 
+	and BaoTri_TinhTrangBaoTri = 'C'))))
 end
 go
 
@@ -344,13 +358,30 @@ from Xe
 where Xe_TrangThai = 'N' 
 	and (DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KyHan
 	and Xe.Xe_TrangThai != 'B'
-	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'C')))))
+	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe 
+	and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N'
+	and BaoTri_TinhTrangBaoTri = 'C')))))
 	or(DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KyHan - 30
 	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KyHan
 	and Xe.Xe_TrangThai != 'B'
-	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'C')))))
+	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe 
+	and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' 
+	and BaoTri_TinhTrangBaoTri = 'C')))))
 end
 go
+
+create or alter proc [dbo].[BAOTRI_Group9SearchXeStateNoMaintain]
+
+as
+begin
+select *
+from Xe
+where Xe_TrangThai != 'B' 
+	and Xe_TrangThai != 'X'
+end
+go
+
+
 
 exec [BAOTRI_Group9UrgentMaintain]
 exec [BAOTRI_Group9ShouldMaintain]
