@@ -63,6 +63,7 @@ import { DriverScheduleEditComponent } from "./drivers-schedule/driver-schedule-
 import { ManufacturerCarComponent } from "./manufacturer-car/manufacturer-car/manufacturer-car.component";
 import { ManufacturerCarAddComponent } from "./manufacturer-car/manufacturer-car-add/manufacturer-car-add.component";
 import { ManufacturerCarEditComponent } from "./manufacturer-car/manufacturer-car-edit/manufacturer-car-edit.component";
+import { MaintainCarNotifyProposeComponent } from  "./maintain-car-notify/maintain-car-notify-propose/maintain-car-notify-propose.component"
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -152,10 +153,10 @@ import { ManufacturerCarEditComponent } from "./manufacturer-car/manufacturer-ca
             path: "maintain-cars-edit",
             component: MaintainCarsEditComponent,
           },
-          // {
-          //   path: "maintain-cars-edit",
-          //   component: MaintainCarsProposeComponent,
-          // },
+          {
+            path: "maintain-cars-notify-propose",
+            component: MaintainCarNotifyProposeComponent,
+          },
           {
             path: "maintenance-car",
             component: MaintenanceCarComponent,
