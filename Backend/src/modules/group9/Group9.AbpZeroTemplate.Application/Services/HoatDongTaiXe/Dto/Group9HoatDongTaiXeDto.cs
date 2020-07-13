@@ -8,6 +8,7 @@ namespace Group9.AbpZeroTemplate.Application.Share.Group9.Dto
 		public int? Ma { get; set; }
 		public string HoatDongTaiXe_Ma { get; set; }
 		public int? HoatDongTaiXe_MaLichTrinh { get; set; }
+		public int? HoatDongTaiXe_MaTaiXe { get; set; }
 		public double HoatDongTaiXe_KmThucTe { get; set; }
 		public string HoatDongTaiXe_TrangThai { get; set; }
 		public string HoatDongTaiXe_NguoiTao { get; set; }

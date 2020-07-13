@@ -55,9 +55,27 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
             return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9SearchAll();
         }
         [HttpPost]
-        public List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int ma, DateTime tuNgay, DateTime denNgay)
+        public List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking([FromBody] int ma, DateTime tuNgay, DateTime denNgay)
         {
             return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9Tracking(ma, tuNgay, denNgay);
+
+        }
+
+        [HttpPost]
+        public List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchAllLichTrinh()
+        {
+            return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9SearchAllLichTrinh();
+        }
+        [HttpPost]
+        public Group9LichTrinhDto HOATDONGTAIXE_Group9SearchByIdLichTrinh(int id)
+        {
+            return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9SearchByIdLichTrinh(id);
+
+        }
+        [HttpPost]
+        public List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchLichTrinh([FromBody] Group9LichTrinhDto input)
+        {
+            return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9SearchLichTrinh(input);
 
         }
     }
