@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule, CalendarModule } from 'primeng/primeng';
 import { FunctionsModule } from '../functions/functions.module';
 import { MaintainCarNotifyComponent } from './maintain-car-notify/maintain-car-notify.component';
+import { MaintainCarNotifyProposeComponent } from './maintain-car-notify-propose/maintain-car-notify-propose.component'
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { MaintainCarNotifyComponent } from './maintain-car-notify/maintain-car-n
     CheckboxModule,
     FunctionsModule
   ],
-  declarations: [MaintainCarNotifyAddComponent, MaintainCarNotifyEditComponent, MaintainCarNotifyComponent]
+  declarations: [MaintainCarNotifyAddComponent, MaintainCarNotifyEditComponent, 
+    MaintainCarNotifyComponent,MaintainCarNotifyProposeComponent]
 })
 export class MaintainCarNotifyModule { }

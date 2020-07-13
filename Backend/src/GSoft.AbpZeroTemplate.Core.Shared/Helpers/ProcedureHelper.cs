@@ -19,7 +19,7 @@ namespace GSoft.AbpZeroTemplate.Helpers
         private readonly string connectionString;
         public ProcedureHelper()
         {
-            connectionString = "Server=LAPTOP-TKIUQEKQ\\MSSQLSERVER02; Database=DbPratice; Trusted_Connection=True;";
+            connectionString = "Server=KI-BACKTRACK\\MSSQLSERVER01; Database=DbPratice; Trusted_Connection=True;";
 
         }
              List<ProcedureParamInfo> GetParamInfos(IDbConnection conn, string procedureName)

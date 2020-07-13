@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ModelCarAddGroup9Component } from './model-car-add-group9/model-car-add-group9.component';
 import { MaintainCarsNotifyAddComponent} from "./maintain-cars-notify-add/maintain-cars-notify-add.component"
 import { MaintainCarsNotifyEditComponent} from "./maintain-cars-notify-edit/maintain-cars-notify-edit.component"
-import { MaintainCarsNotifyProposeComponent } from "./maintain-cars-notify-propose/maintain-cars-notify-propose.component"
+import { MaintainCarNotifyProposeComponent } from "./maintain-car-notify-propose/maintain-car-notify-propose.component"
 import { MaintainCarsNotifyComponent } from "./maintain-cars-notify/maintain-cars-notify.component"
 import { Group9ServiceProxyModule } from './group9.service-proxy.module';
 import { TableModule } from "primeng/table";
@@ -43,11 +43,11 @@ import { ManufacturerCarEditComponentGroup9 } from './manufacturer-car-edit-grou
 
   declarations: [ModelCarAddGroup9Component, MaintainCarsNotifyAddComponent, MaintainCarsNotifyEditComponent, MaintainCarsNotifyComponent,
   DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent,ManufacturerCarComponentGroup9, 
-  ManufacturerCarAddComponentGroup9,ManufacturerCarEditComponentGroup9],  
+  ManufacturerCarAddComponentGroup9,ManufacturerCarEditComponentGroup9,MaintainCarNotifyProposeComponent],  
    
   exports:[ModelCarAddGroup9Component,MaintainCarsNotifyAddComponent,MaintainCarsNotifyEditComponent,MaintainCarsNotifyComponent,
   DriverScheduleEditComponent,DriverScheduleComponent,DriverScheduleAddComponent,ManufacturerCarComponentGroup9,
-  ManufacturerCarAddComponentGroup9,ManufacturerCarEditComponentGroup9]
+  ManufacturerCarAddComponentGroup9,ManufacturerCarEditComponentGroup9,MaintainCarNotifyProposeComponent]
   
 
 })
