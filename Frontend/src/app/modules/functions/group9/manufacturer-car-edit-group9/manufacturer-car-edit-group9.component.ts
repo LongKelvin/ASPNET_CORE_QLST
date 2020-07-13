@@ -49,34 +49,12 @@ export class ManufacturerCarEditComponentGroup9 extends AppComponentBase impleme
 
     Save_Confirm() {
         if (this.checkvalue() == true) {
-            //this.Save_Dialog = true;
-            let self = this;
-            self.message.confirm(
-            self.l('Bạn muốn lưu toàn bộ dữ liệu ?'),
-            this.l('Lưu dữ liệu'),
-            isConfirmed => {
-                if (isConfirmed) {
-                    this.update();
-                }
-            }
-           
-        );
+            this.Save_Dialog = true;
         }
     }
 
     Cancel_Confirm() {
-        //this.Cancel_Dialog = true;
-        let self = this;
-        self.message.confirm(
-            self.l('Bạn muốn huỷ bỏ tiến trình ?'),
-            this.l('Thoát'),
-            isConfirmed => {
-                if (isConfirmed) {
-                    this.ClearAllInputValue();
-                }
-            }
-           
-        );
+        this.Cancel_Dialog = true;
     }
 
     ClearAllInputValue() {

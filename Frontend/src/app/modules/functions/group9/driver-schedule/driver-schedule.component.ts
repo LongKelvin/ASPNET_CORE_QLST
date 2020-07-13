@@ -88,7 +88,6 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
 
     listScheduleID_unquiet: Group4LichTrinhDto[];
 
-   
     getMaTaiXe(): void {
         this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhInput).subscribe((result) => {
             this.listScheduleID = result;

@@ -100,11 +100,6 @@ export class ManufacturerCarComponentGroup9 extends AppComponentBase implements 
     }
 
     delete() {
-        let currentID = this.currentId;
-        if(currentID==null){
-            this.message.error("Vui lòng chọn hãng xe để xoá", "Lỗi");
-        }
-        else {
         let self = this;
         self.message.confirm(
             self.l('Bạn chắc chắn muốn xoá hãng xe này', this.currentId),
@@ -124,7 +119,7 @@ export class ManufacturerCarComponentGroup9 extends AppComponentBase implements 
             }
            
         );
-        }
+         this.currentId = null;
     }
     ngOnInit(): void {
         this.GetAll();
