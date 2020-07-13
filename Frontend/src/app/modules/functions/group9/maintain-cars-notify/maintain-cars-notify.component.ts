@@ -126,14 +126,28 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             }
         );
     }
+    tempBaotri : Group9BaoTriDto = new Group9BaoTriDto();
     approve()
     {
+        this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe((response) => {
+            if (response["Result"] === "1") {
+            } else {
+                this.tempBaotri = response;
+            }
+        });
+        if(this.tempBaotri.baoTri_NguoiTao == this.currentUserName)
+        {
+            this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
+             return;
+        }
         let self = this;
         self.message.confirm(
             self.l('Duyệt ?', this.curMaBaoTri),
             this.l('AreYouSure'),
             isConfirmed => {
-                if (isConfirmed) {
+                if (isConfirmed) {                           
+
+                  
                     this.group9BaoTriService.bAOTRI_Group9App(this.curMaBaoTri, this.currentUserName).subscribe((response) => {
                         if (response["Result"] === "1") {
                             this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
@@ -249,6 +263,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
       });
 
   }
+
 
 }
 

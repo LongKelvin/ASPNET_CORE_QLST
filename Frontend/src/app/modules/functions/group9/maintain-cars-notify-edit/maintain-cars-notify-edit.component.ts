@@ -19,9 +19,8 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
           this.currentUserName = response;
         })
         this.group9BaoTriInput.ma = this.getRouteParam("id");
-        this.notify.error("Hello", this.group9BaoTriInput.ma.toString(), environment.opt);
         this.group9BaoTriService.bAOTRI_Group9ById(this.group9BaoTriInput.ma).subscribe(response=>{
-            this.group9BaoTriInput = response;
+            this.group9BaoTriInput = response;            
             this.load();
           })
     }
@@ -31,7 +30,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     mataixe: number;
     tinhtrang: string;
     ngayduyet: string;
-    ngaybaotri: Date;
+    ngaybaotri: string;
     ngaytao: Date;
     ngayxuatxuong: Date;
     nguoitao: string;
@@ -57,6 +56,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.tinhtrang;
+        this.group9BaoTriInput.baoTri_NgayBaotri= moment(this.ngaybaotri, 'YYYY-MM-DD');
         this.group9BaoTriInput.baoTri_NgayDuyet = moment(this.ngayduyet);
         this.group9BaoTriInput.baoTri_NgayTao = moment(this.ngaytao);
         this.group9BaoTriInput.baoTri_NgayXuatXuong = moment(this.ngayxuatxuong);
@@ -73,7 +73,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.maxe = this.group9BaoTriInput.baoTri_MaXe;
         this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
         this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
-        this.ngayduyet=this.group9BaoTriInput.baoTri_NgayDuyet.format("DD/MM/YYYY");
+        this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayBaotri.format("DD/MM/YYYY");
         this.ngaytao =this.group9BaoTriInput.baoTri_NgayTao.toDate();
         this.ngayxuatxuong=this.group9BaoTriInput.baoTri_NgayXuatXuong.toDate();
         this.currentUserName=this.group9BaoTriInput.baoTri_NguoiTao;
@@ -131,16 +131,26 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
       }
 
       update(): void{
-        if(!this.checkvalue())
-        return;
-        this.getValue();
-        this.group9BaoTriService.bAOTRI_Group9Update(this.group9BaoTriInput).subscribe((response) => {
-          if (response["Result"] == "1") {
-              this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
+        this.group9BaoTriService.bAOTRI_Group9ById(this.group9BaoTriInput.ma).subscribe((response) => {
+          if (response["Result"] === "1") {
           } else {
-              this.notify.success("Sửa xe thành công","SUCCESS", environment.opt);
+              if(response.baoTri_MaNguoiGui != this.currentUserName)
+              {
+                  this.notify.error("Chỉ có người mang đi bảo trì mới được phép cập nhật", "ERROR", environment.opt);
+                   return ;
+              }        if(!this.checkvalue())
+                return;
+                this.getValue();
+                this.group9BaoTriService.bAOTRI_Group9Update(this.group9BaoTriInput).subscribe((response) => {
+                  if (response["Result"] == "1") {
+                      this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
+                  } else {
+                      this.notify.success("Sửa xe thành công","SUCCESS", environment.opt);
+                  }
+              });
           }
       });
+  
       }
       checkvalue(): boolean{
       
