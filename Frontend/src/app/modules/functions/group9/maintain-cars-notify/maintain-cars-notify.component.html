@@ -40,7 +40,7 @@
                         <a routerLink="/app/admin/maintain-cars-notify-add">
                             <i class="flaticon-add"
                              class="fa fa-send"></i> Đề xuất
-                         </a>>
+                         </a>
                         </span>
                     </li>
                 </ul>
@@ -83,7 +83,7 @@
 
                                 <select class="form-control" id="maXe" name="maXe" [(ngModel)]="selectedLevel" (change)="selectOption($event.target.value)">
                                     <option value>Tất cả</option>
-                                    <option *ngFor="let item of xe_list" value="{{item.ma}}">{{item.xe_Ten}}</option>
+                                    <option *ngFor="let item of xe_list" value="{{item.ma}}">{{item.ma}}</option>
                                 </select>
                             </div>
                         </div>

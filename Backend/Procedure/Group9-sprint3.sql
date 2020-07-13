@@ -197,6 +197,7 @@ begin
 	and (@BaoTri_TrangThai is null or BaoTri_TrangThai = @BaoTri_TrangThai)
 	and (@BaoTri_GhiChu is null or BaoTri_GhiChu = @BaoTri_GhiChu)
 	and (BaoTri_TrangThai = 'N' or BaoTri_TrangThai = 'A')
+	and not(BaoTri_NgayXuatXuong is not null and BaoTri_TrangThai = 'A')
 
 end
 go
@@ -229,7 +230,7 @@ as
 begin transaction
 begin try
 begin
-	if(exists(select * from BaoTri where Ma = @id and BaoTri_NgayXuatXuong = null))
+	if(exists(select * from BaoTri where Ma = @id and BaoTri_NgayXuatXuong is null))
 	begin
 		update Xe 
 		set Xe_TrangThai = 'B'
@@ -237,7 +238,7 @@ begin
 		where BaoTri.Ma = @Id and BaoTri.BaoTri_MaXe = Xe.Ma
 
 		update BaoTri 
-		set BaoTri_TrangThai = 'A', BaoTri_TinhTrangBaoTri = 'D', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
+		set BaoTri_TrangThai = 'N', BaoTri_TinhTrangBaoTri = 'D', Baotri_NguoiDuyet = @CheckerId, BaoTri_NgayDuyet = GetDate()
 		where Ma = @Id
 	end
 	else
