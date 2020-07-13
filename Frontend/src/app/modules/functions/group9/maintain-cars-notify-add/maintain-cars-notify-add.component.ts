@@ -27,7 +27,6 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
         })
 
         this.kyhan_list = [
-            { content: "Tất cả", value: 0 },
             { content: "Xe sắp tới hạn bảo trì", value: 1 },
             { content: "Xe đã quá hạn bảo trì", value: 2 }
         ];
@@ -96,19 +95,27 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     add() {
         this.getValue();
       if(this.selectedLevel2 == 2)
-      this.group9BaoTriInput.baoTri_NgayBaotri = moment();
-
+        this.group9BaoTriInput.baoTri_NgayBaotri = moment();
+        else 
+        this.group9BaoTriInput.baoTri_NgayBaotri= null;
         this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
             if (response["Result"] == "1") {
                 this.notify.error("Thêm đề xuất thất bại", "ERROR", environment.opt);
                 this.huyconfirm();
             } else {
-                this.notify.info("Thêm đề xuất thành công", "SUCCESS", environment.opt);
+                this.notify.success("Thêm đề xuất thành công", "SUCCESS", environment.opt);
+                this.notify.error("Kết quả", response.baoTri_NgayBaotri, environment.opt);
                 this.curMaBaoTri = null;
-
+                this.group9BaoTriInput.baoTri_NgayBaotri= null;
+                if(this.selectedLevel2 == 1){
+                    this.searchDenHan();
+                }
+                else{
+                    this.searchQuaHan();
+                }
             }
         });
-        this.notify.info("Thêm tỳhgfhgfgfhgfhg", "SUCCESS", environment.opt);
+    
     }
 
     insert(): void{
@@ -143,6 +150,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     huyconfirm() {
         this.maxe = null;
         this.ghichu = null;
+        this.group9BaoTriInput.baoTri_NgayBaotri = null;
     }
 
     ngOnInit() {

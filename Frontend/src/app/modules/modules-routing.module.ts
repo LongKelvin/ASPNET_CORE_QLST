@@ -57,7 +57,6 @@ import { RoadPriceEditComponent } from "./road-price/road-price-edit/road-price-
 import { MaintainCarNotifyComponent } from "./maintain-car-notify/maintain-car-notify/maintain-car-notify.component";
 import { MaintainCarNotifyAddComponent } from "./maintain-car-notify/maintain-car-notify-add/maintain-car-notify-add.component"
 import { MaintainCarNotifyEditComponent } from "./maintain-car-notify/maintain-car-notify-edit/maintain-car-notify-edit.component"
-import { MaintainCarNotifyProposeComponent } from "./maintain-car-notify/maintain-car-notify-propose/maintain-car-notify-propose.component"
 import { DriverScheduleComponent } from "./drivers-schedule/driver-schedule/driver-schedule.component"
 import { DriverScheduleAddComponent } from "./drivers-schedule/driver-schedule-add/driver-schedule-add.component"
 import { DriverScheduleEditComponent } from "./drivers-schedule/driver-schedule-edit/driver-schedule-edit.component"
@@ -318,9 +317,6 @@ import { ManufacturerCarEditComponent } from "./manufacturer-car/manufacturer-ca
           },
           {
             path: 'maintain-cars-notify-edit', component: MaintainCarNotifyEditComponent
-          },
-          {
-            path: 'maintain-cars-notify-propose', component: MaintainCarNotifyProposeComponent
           },
           {
             path: 'car-maintenance-notify-edit', component: MaintainCarNotifyComponent

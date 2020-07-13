@@ -72,7 +72,7 @@
 
                                 <select class="form-control" id="maBaotri" name="maBaotri" [(ngModel)]="selectedLevel2" (change)="selectOption($event.target.value)">
                                     <option value>Tất cả</option>
-                                    <option *ngFor="let item of baotri_list_id" value="{{item.ma}}">{{item.baoTri_MaBaoTri}}</option>
+                                    <option *ngFor="let item of baotri_list_id" value="{{item.ma}}">{{item.ma}}</option>
                                 </select>
                             </div>
                         </div>
