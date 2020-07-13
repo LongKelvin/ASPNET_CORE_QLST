@@ -28,12 +28,6 @@ else
 
 begin transaction
 begin try
-if (@BaoTri_NgayBaoTri = null)
-begin
-	update Xe
-	set @BaoTri_NgayBaotri = DATEADD(year, 1, Xe.Xe_NgayBaoTri)
-	where Xe.Ma = @BaoTri_MaXe
-end
 	INSERT INTO [dbo].[BaoTri]
     ( 
 		[Baotri_MaBaoTri] ,
@@ -55,7 +49,7 @@ end
     (   
 		@BaoTri_MaBaoTri,
 		@BaoTri_NoiBaoTri     ,
-		GETDATE(),
+		@BaoTri_NgayBaotri,
 		@BaoTri_NgayXuatXuong  ,
 		@BaoTri_ThanhTien       ,
 		'C',
@@ -68,7 +62,17 @@ end
 		@BaoTri_NgayDuyet      ,
 		'N'    ,
 		@BaoTri_GhiChu)
+
 	declare @Ma int = SCOPE_IDENTITY()
+	if(@BaoTri_NgayBaotri is null)
+	begin
+	update baotri
+	set BaoTri_NgayBaoTri = DATEADD(DAY, Xe.Xe_KyHan, Xe.Xe_NgayBaoTri)
+	from BaoTri, Xe
+	where Xe.Ma = @BaoTri_MaXe and BaoTri.Ma = @Ma 
+	end
+	
+
 commit transaction
 	select '0' as Result, N'' as ErrorDesc, @Ma as Ma
 end try
@@ -239,7 +243,7 @@ begin
 	else
 	begin
 		update Xe 
-		set Xe_TrangThai = 'N'
+		set Xe_TrangThai = 'N', Xe.Xe_NgayBaoTri = BaoTri.BaoTri_NgayBaoTri
 		from BaoTri, Xe
 		where BaoTri.Ma = @Id and BaoTri.BaoTri_MaXe = Xe.Ma
 
