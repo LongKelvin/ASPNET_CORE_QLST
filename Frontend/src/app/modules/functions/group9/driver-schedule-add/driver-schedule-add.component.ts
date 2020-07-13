@@ -63,13 +63,16 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
 
     listResult: Group4LichTrinhDto[];
 
-   
+    start_date_ : string;
+    end_date_ : string;
+
 
     getMaLichTrinh(): void {
-        this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhinput).subscribe((result) => {
+        this.group4LichTrinhProxy.lICHTRINH_Group4Search({}as any).subscribe((result) => {
             this.listScheduleID= result;
         });
     }
+    
 
     insert(): void {
         this.getValue();
@@ -82,15 +85,21 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
         });
     }
 
-    Save_Confirm() {
-        if (this.checkvalue() == true) {
-            this.Save_Dialog = true;
-        }
+ 
+    Cancel_Confirm() {
+        //this.Cancel_Dialog = true;
+        let self = this;
+            self.message.confirm(
+            self.l('Bạn muốn huỷ bỏ tiến trình ?'),
+            this.l('Thoát !!'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.ClearAllInputValue();
+                }
+            }
+             );
     }
 
-    Cancel_Confirm() {
-        this.Cancel_Dialog = true;
-    }
 
     ClearAllInputValue() {
         if (this.KM_ACTUAL == null &&
@@ -105,6 +114,7 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             this.FUEL_ACTUAL = null;
             this.START_DATE = null;
             this.END_DATE = null;
+            this.ReturnToHomePage();
         }
 
     }
@@ -126,6 +136,8 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             this.END_DATE = this.selectedDropdownLichTrinh.lichTrinh_NgayDen.toDate();
             var km = this.selectedDropdownLichTrinh.tuyenchay_SoKm;
             this.KM_ESTIMATE = +km;
+            this.start_date_ =  this.selectedDropdownLichTrinh.lichTrinh_NgayDi.format('DD/MM/YYYY').toString();
+            this.end_date_ =  this.selectedDropdownLichTrinh.lichTrinh_NgayDen.format('DD/MM/YYYY').toString();
         });
         this.tuyenChayInput.ma = this.maTuyenChay;
         // this.group4_TuyenChayProxy.tUYENCHAY_Group4Search(this.tuyenChayInput).subscribe((result) =>{
@@ -168,6 +180,21 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
         return true;
     }
 
+     Save_Confirm() {
+         if (this.checkvalue() == true){
+            let self = this;
+            self.message.confirm(
+            self.l('Bạn muốn lưu toàn bộ dữ liệu ?'),
+            this.l('Lưu dữ liệu!!'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.insert();
+                }
+            }
+           
+        );
+         }
+    }
     ngOnInit() {
         this.getMaLichTrinh();
         //this.onOptionsSelected(event);

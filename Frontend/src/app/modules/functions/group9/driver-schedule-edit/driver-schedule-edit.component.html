@@ -40,7 +40,7 @@
                             <label for="maLichTrinh">Mã Lịch Trình của xe</label>
                             <div class="form-group">
                                 <input id="maLichTrinh" name="input_maLichTrinh" 
-                                readonly type="text" size="30" pInputText [(ngModel)]="SCHEDULE_ID">
+                                readonly type="text" size="30" pInputText [(ngModel)]="SCHEDULE_ID" >
                             </div>
 
                         </div>
@@ -67,14 +67,15 @@
                                         <label class="ng-tns-c10-9" for="ngayBatDau">Ngày đi</label>
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <input id="input_ngayBatDau" name="input_ngayBatDau" readonly type="text" size="30" pInputText
-                                                    [(ngModel)]="START_DATE">
+                                                <input class="form-control ng-pristine ng-valid ng-touched text-capitalize" id="ngaybaotri" name="ngaybaotri"
+                                                    type="text" ng-reflect-name="carTypeText" [(ngModel)]="START_DATE" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        
+
+                          
                             <div class="col-xl-3">
                                 <div class="form-group">
                                     <div class="col-md-8">
