@@ -51,16 +51,17 @@
                                                   </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-xl-6">
-                                            <div class="form-group">
-                                                <label class="ng-tns-c10-9" for="CarManufacturer">Hãng *</label>
-                                                <div class="input-group">
-                                                    <input class="form-control ng-pristine ng-valid ng-touched text-capitalize" id="CarManufacturer" 
-                                                    name="CarManufacturer" type="text" ng-reflect-name="carTypeText" [(ngModel)]="hangxe" required>
-                                                  </div>
-                                            </div>
+                                        <div class="col-md-6">
+                                          <label for="maXe">Hãng</label>
+                                          <div class="form-group">
+                
+                                              <select class="form-control" id="maXe" name="maXe" [(ngModel)]="selectedLevel">
+                                                  <option *ngFor="let item of hang_list" value="{{item.hang_TenHang}}">{{item.hang_TenHang}}</option>
+                                              </select>
+                                          </div>
                                         </div>
+    
+                                       
                                     </div>
 
                                     <div class="row m--margin-bottom-10">

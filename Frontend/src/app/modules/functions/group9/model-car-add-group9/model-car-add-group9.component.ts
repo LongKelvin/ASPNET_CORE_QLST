@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { Group9LoaiXeServiceProxy, Group9LoaiXeDto } from '@shared/service-proxies/service-proxies';
+import { Group9LoaiXeServiceProxy, Group9LoaiXeDto,Group9HangServiceProxy, Group9HangDto } from '@shared/service-proxies/service-proxies';
 import { environment } from 'environments/environment';
 import { Table } from "primeng/components/table/table";
 import { Paginator, SelectItem } from "primeng/primeng";
@@ -13,12 +13,17 @@ import { Paginator, SelectItem } from "primeng/primeng";
 })
 export class ModelCarAddGroup9Component extends AppComponentBase implements AfterViewInit {
 
-  constructor(injector: Injector, private group9LoaiXeService: Group9LoaiXeServiceProxy) {
+  constructor(injector: Injector,
+     private group9LoaiXeService: Group9LoaiXeServiceProxy,
+      private group9HangService: Group9HangServiceProxy) {
     super(injector);
     // this.carService.getCurrentUserName().subscribe(response=>{
     //   this.currentUserName = response;
     // })
-    console.log(this);
+    this.group9HangService.hang_Group9Search({} as any).subscribe(response=>{
+      this.hang_list = response;
+      })
+      console.log(this);
   }
 
   hangxe: string;
@@ -31,9 +36,11 @@ export class ModelCarAddGroup9Component extends AppComponentBase implements Afte
 
   filterInput: Group9LoaiXeDto = new Group9LoaiXeDto();
   records: Group9LoaiXeDto[] = [];
+  hang_list: Group9HangDto[] = [];
   group9LoaiXeInput: Group9LoaiXeDto = new Group9LoaiXeDto();
   currentId: number;
   saving = false;
+  selectedLevel : string;
 
 
   ngAfterViewInit(): void {
@@ -44,7 +51,7 @@ export class ModelCarAddGroup9Component extends AppComponentBase implements Afte
  
   getValue(){
     this.group9LoaiXeInput.loaiXe_Ten=this.tenxe;
-    this.group9LoaiXeInput.loaiXe_Hang=this.hangxe;
+    this.group9LoaiXeInput.loaiXe_Hang=this.selectedLevel;
     this.group9LoaiXeInput.loaiXe_NamSX=this.namsanxuat;
     this.group9LoaiXeInput.loaiXe_DinhMucNhienLieu=this.dinhmucnguyenlieu;
     this.group9LoaiXeInput.loaiXe_LoaiNhienLieu=this.loainhienlieu;
@@ -69,7 +76,7 @@ export class ModelCarAddGroup9Component extends AppComponentBase implements Afte
       this.notify.error("Bạn chưa nhập tên xe", "ERROR", environment.opt);
       return false;
     }
-    else if(this.hangxe==null ||this.hangxe==''){
+    else if(this.selectedLevel==null ||this.selectedLevel==''){
       this.notify.error("Bạn chưa nhập hãng xe", "ERROR", environment.opt);
       return false;
     }
@@ -106,7 +113,7 @@ export class ModelCarAddGroup9Component extends AppComponentBase implements Afte
   huyconfirm(){
     this.tenxe=null;
     this.loainhienlieu=null;
-    this.hangxe=null;
+    this.selectedLevel=null;
     this.namsanxuat=null;
     this.dinhmucnguyenlieu=null;
 }  

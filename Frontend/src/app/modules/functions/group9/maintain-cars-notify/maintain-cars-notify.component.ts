@@ -128,32 +128,37 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     }
     approve()
     {
+        this.notify.info(this.curMaBaoTri.toString(), "ERROR", environment.opt);
+
         this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe((response) => {
             if (response["Result"] === "1") {
             } else {
+                this.notify.error(response.ma.toString(), "ERROR", environment.opt);
+                this.notify.info(this.currentUserName, "ERROR", environment.opt);
+
                 if(response.baoTri_NguoiTao === this.currentUserName)
-        {
-            this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
-             return;
-        }
-        let self = this;
-        self.message.confirm(
-            self.l('Duyệt ?', this.curMaBaoTri),
-            this.l('AreYouSure'),
-            isConfirmed => {
-                if (isConfirmed) {                           
+                {
+                    this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
+                     return;
+                }
+                 let self = this;
+                self.message.confirm(
+                self.l('Duyệt ?', this.curMaBaoTri),
+                this.l('AreYouSure'),
+                isConfirmed => {
+                    if (isConfirmed) {                           
 
                   
-                    this.group9BaoTriService.bAOTRI_Group9App(this.curMaBaoTri, this.currentUserName).subscribe((response) => {
-                        if (response["Result"] === "1") {
-                            this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-                        } else {
-                            this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
-                            //this.resetOptions();
-                            this.send();
-                        }
-                    });
-                }
+                        this.group9BaoTriService.bAOTRI_Group9App(this.curMaBaoTri, this.currentUserName).subscribe((response) => {
+                            if (response["Result"] === "1") {
+                                this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                            } else {
+                                this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
+                             //this.resetOptions();
+                                this.send();
+                            }
+                        });
+                    }
             }
         );
             }
@@ -199,7 +204,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
         this.group9BaoTriRowInput = response;
         this.maNG = this.group9BaoTriRowInput.baoTri_MaNguoiGui;
         
-            this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet).subscribe((response) => {
+            this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet, 0).subscribe((response) => {
                 if (response["Result"] === "1") {
                     this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
                 } else {

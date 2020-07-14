@@ -207,7 +207,7 @@ as
 
 if(exists(select * from BaoTri where (BaoTri_TrangThai = 'A' or BaoTri_TinhTrangBaoTri = 'D') and Ma = @Ma))
 begin
-	select '1' as Result, N'Xe đã được duyệt không được xóa' as ErrorDesc
+	select '1' as Result, N'Xe đã được duyệt hoặc đang đi bảo trì không được xóa' as ErrorDesc
 	return
 end
 begin transaction

@@ -7935,9 +7935,10 @@ export class Group9BaoTriServiceProxy {
      * @maThongBao (optional) 
      * @maXe (optional) 
      * @ngayBaoTri (optional) 
+     * @loai (optional) 
      * @return Success
      */
-    bAOTRI_Group9SendNotification(ma: string | null | undefined, maThongBao: string | null | undefined, maXe: number | null | undefined, ngayBaoTri: moment.Moment | null | undefined): Observable<void> {
+    bAOTRI_Group9SendNotification(ma: string | null | undefined, maThongBao: string | null | undefined, maXe: number | null | undefined, ngayBaoTri: moment.Moment | null | undefined, loai: number | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9SendNotification?";
         if (maThongBao !== undefined)
             url_ += "maThongBao=" + encodeURIComponent("" + maThongBao) + "&"; 
@@ -7945,6 +7946,8 @@ export class Group9BaoTriServiceProxy {
             url_ += "maXe=" + encodeURIComponent("" + maXe) + "&"; 
         if (ngayBaoTri !== undefined)
             url_ += "ngayBaoTri=" + encodeURIComponent(ngayBaoTri ? "" + ngayBaoTri.toJSON() : "") + "&"; 
+        if (loai !== undefined)
+            url_ += "loai=" + encodeURIComponent("" + loai) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(ma);
@@ -8896,72 +8899,6 @@ export class Group9HoatDongTaiXeServiceProxy {
     }
 
     /**
-     * @ma (optional) 
-     * @tuNgay (optional) 
-     * @denNgay (optional) 
-     * @return Success
-     */
-    hOATDONGTAIXE_Group9Tracking(ma: number | null | undefined, tuNgay: moment.Moment | null | undefined, denNgay: moment.Moment | null | undefined): Observable<Group9HoatDongTaiXeDto[]> {
-        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9Tracking?";
-        if (tuNgay !== undefined)
-            url_ += "tuNgay=" + encodeURIComponent(tuNgay ? "" + tuNgay.toJSON() : "") + "&"; 
-        if (denNgay !== undefined)
-            url_ += "denNgay=" + encodeURIComponent(denNgay ? "" + denNgay.toJSON() : "") + "&"; 
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(ma);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json", 
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processHOATDONGTAIXE_Group9Tracking(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processHOATDONGTAIXE_Group9Tracking(<any>response_);
-                } catch (e) {
-                    return <Observable<Group9HoatDongTaiXeDto[]>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<Group9HoatDongTaiXeDto[]>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processHOATDONGTAIXE_Group9Tracking(response: HttpResponseBase): Observable<Group9HoatDongTaiXeDto[]> {
-        const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200 && resultData200.constructor === Array) {
-                result200 = [];
-                for (let item of resultData200)
-                    result200.push(Group9HoatDongTaiXeDto.fromJS(item));
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<Group9HoatDongTaiXeDto[]>(<any>null);
-    }
-
-    /**
      * @return Success
      */
     hOATDONGTAIXE_Group9SearchAllLichTrinh(): Observable<Group9LichTrinhDto[]> {
@@ -9130,6 +9067,62 @@ export class Group9HoatDongTaiXeServiceProxy {
             }));
         }
         return _observableOf<Group9LichTrinhDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9SearchAllTaiXe(): Observable<Group9TaiXeDto[]> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9SearchAllTaiXe";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9SearchAllTaiXe(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9SearchAllTaiXe(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9TaiXeDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9TaiXeDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9SearchAllTaiXe(response: HttpResponseBase): Observable<Group9TaiXeDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Group9TaiXeDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9TaiXeDto[]>(<any>null);
     }
 }
 
@@ -20394,6 +20387,7 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
     ma!: number | undefined;
     hoatDongTaiXe_Ma!: string | undefined;
     hoatDongTaiXe_MaLichTrinh!: number | undefined;
+    hoatDongTaiXe_MaXe!: number | undefined;
     hoatDongTaiXe_MaTaiXe!: number | undefined;
     hoatDongTaiXe_KmThucTe!: number | undefined;
     hoatDongTaiXe_TrangThai!: string | undefined;
@@ -20418,6 +20412,7 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
             this.ma = data["ma"];
             this.hoatDongTaiXe_Ma = data["hoatDongTaiXe_Ma"];
             this.hoatDongTaiXe_MaLichTrinh = data["hoatDongTaiXe_MaLichTrinh"];
+            this.hoatDongTaiXe_MaXe = data["hoatDongTaiXe_MaXe"];
             this.hoatDongTaiXe_MaTaiXe = data["hoatDongTaiXe_MaTaiXe"];
             this.hoatDongTaiXe_KmThucTe = data["hoatDongTaiXe_KmThucTe"];
             this.hoatDongTaiXe_TrangThai = data["hoatDongTaiXe_TrangThai"];
@@ -20442,6 +20437,7 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
         data["ma"] = this.ma;
         data["hoatDongTaiXe_Ma"] = this.hoatDongTaiXe_Ma;
         data["hoatDongTaiXe_MaLichTrinh"] = this.hoatDongTaiXe_MaLichTrinh;
+        data["hoatDongTaiXe_MaXe"] = this.hoatDongTaiXe_MaXe;
         data["hoatDongTaiXe_MaTaiXe"] = this.hoatDongTaiXe_MaTaiXe;
         data["hoatDongTaiXe_KmThucTe"] = this.hoatDongTaiXe_KmThucTe;
         data["hoatDongTaiXe_TrangThai"] = this.hoatDongTaiXe_TrangThai;
@@ -20459,6 +20455,7 @@ export interface IGroup9HoatDongTaiXeDto {
     ma: number | undefined;
     hoatDongTaiXe_Ma: string | undefined;
     hoatDongTaiXe_MaLichTrinh: number | undefined;
+    hoatDongTaiXe_MaXe: number | undefined;
     hoatDongTaiXe_MaTaiXe: number | undefined;
     hoatDongTaiXe_KmThucTe: number | undefined;
     hoatDongTaiXe_TrangThai: string | undefined;
@@ -20552,6 +20549,54 @@ export interface IGroup9LichTrinhDto {
     tuyenChay_DiemDi: string | undefined;
     tuyenChay_DiemDen: string | undefined;
     tuyenchay_SoKm: string | undefined;
+}
+
+export class Group9TaiXeDto implements IGroup9TaiXeDto {
+    ma!: number | undefined;
+    taiXe_HoTen!: string | undefined;
+    taiXe_HangBangLai!: string | undefined;
+    taiXe_TenNguoiDung!: string | undefined;
+
+    constructor(data?: IGroup9TaiXeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.ma = data["ma"];
+            this.taiXe_HoTen = data["taiXe_HoTen"];
+            this.taiXe_HangBangLai = data["taiXe_HangBangLai"];
+            this.taiXe_TenNguoiDung = data["taiXe_TenNguoiDung"];
+        }
+    }
+
+    static fromJS(data: any): Group9TaiXeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new Group9TaiXeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ma"] = this.ma;
+        data["taiXe_HoTen"] = this.taiXe_HoTen;
+        data["taiXe_HangBangLai"] = this.taiXe_HangBangLai;
+        data["taiXe_TenNguoiDung"] = this.taiXe_TenNguoiDung;
+        return data; 
+    }
+}
+
+export interface IGroup9TaiXeDto {
+    ma: number | undefined;
+    taiXe_HoTen: string | undefined;
+    taiXe_HangBangLai: string | undefined;
+    taiXe_TenNguoiDung: string | undefined;
 }
 
 export class Group9LoaiXeDto implements IGroup9LoaiXeDto {

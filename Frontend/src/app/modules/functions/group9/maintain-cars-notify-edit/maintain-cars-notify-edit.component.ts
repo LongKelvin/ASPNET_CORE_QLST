@@ -40,6 +40,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     ghichu: string;
 
     luudialog: boolean;
+    maNG: string;
 
     filterInput: Group9BaoTriDto = new Group9BaoTriDto();
     records: Group9BaoTriDto[] = [];
@@ -60,12 +61,12 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriInput.baoTri_NgayDuyet = moment(this.ngayduyet);
         this.group9BaoTriInput.baoTri_NgayTao = moment(this.ngaytao);
         this.group9BaoTriInput.baoTri_NgayXuatXuong = moment(this.ngayxuatxuong);
-        this.group9BaoTriInput.baoTri_NguoiTao = this.currentUserName;
         this.group9BaoTriInput.baoTri_TrangThai = this.trangthai;
         this.group9BaoTriInput.baoTri_ThanhTien = parseInt(this.thanhtien.split(',').join(""));
         this.group9BaoTriInput.baoTri_NoiBaoTri = this.noibaotri;
         this.group9BaoTriInput.baoTri_GhiChu = this.ghichu;
         this.group9BaoTriInput.baoTri_NguoiTao = this.nguoitao;
+        this.group9BaoTriInput.baoTri_MaNguoiGui =  this.maNG;
         //console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
     }
 
@@ -85,7 +86,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.noibaotri=this.group9BaoTriInput.baoTri_NoiBaoTri;
         this.ghichu=this.group9BaoTriInput.baoTri_GhiChu ;
         this.nguoitao=this.group9BaoTriInput.baoTri_NguoiTao ;
-
+        this.maNG = this.group9BaoTriInput.baoTri_MaNguoiGui;
     }
 
     commaSeparateNumber(val){
@@ -114,12 +115,10 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     huyconfirm() {
         this.maxe = null;
         this.tinhtrang = null;
-        this.ngayduyet = null;
         this.ngayxuatxuong = null;
         this.noibaotri = null;
         this.thanhtien = null;
         this.ghichu = null;
-        this.nguoitao = null;
     }
 
     ngOnInit() {
@@ -149,6 +148,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
                       this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
                   } else {
                       this.notify.success("Sửa xe thành công","SUCCESS", environment.opt);
+                      this.currentId = null;
                   }
               });
           }

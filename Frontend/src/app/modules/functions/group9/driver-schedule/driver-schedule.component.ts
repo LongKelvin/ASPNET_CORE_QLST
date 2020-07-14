@@ -12,7 +12,7 @@ import {
     Group4LichTrinhDto,
     Group4TuyenChayServiceProxy, Group4TuyenChayDto,
 
-    Group4LoaiXeServiceProxy, Group4LoaiXeDto,
+    Group4LoaiXeServiceProxy, Group4LoaiXeDto, Group9LichTrinhDto, Group9TaiXeDto,
 
 } from "@shared/service-proxies/service-proxies";
 import { result } from 'lodash';
@@ -30,7 +30,7 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
 
-    constructor(injector: Injector, private group9: Group9HoatDongTaiXeServiceProxy,
+    constructor(injector: Injector, private group9HoatDongService: Group9HoatDongTaiXeServiceProxy,
         private group4LichTrinhProxy: Group4LichTrinhServiceProxy,
         private group4_TuyenChayProxy: Group4TuyenChayServiceProxy,
         private group4LOAIXE: Group4LoaiXeServiceProxy,
@@ -38,11 +38,14 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
     ) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
-        //this.GetAllMaTaiXe();
-        this.getMaTaiXe();
-        this.empty_value = [
-            {name:"Tất cả", value:0}
-        ]
+
+        this.group9HoatDongService.hOATDONGTAIXE_Group9SearchAllLichTrinh().subscribe(response=>{
+            this.lichtrinh_list = response;
+        })
+        this.group9HoatDongService.hOATDONGTAIXE_Group9SearchAllTaiXe().subscribe(response=>
+        { 
+               this.taixe_list = response;
+        })
 
     }
 
@@ -50,10 +53,12 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
     currentId: number;
 
     // Constants
+    lichtrinh_list: Group9LichTrinhDto[] ;
+    taixe_list: Group9TaiXeDto[] ;
     listHoatDongTaiXe: Group9HoatDongTaiXeDto[];
     selectedHoatDongTaiXe: Group9HoatDongTaiXeDto;
     HoatDongTaiXeInput: Group9HoatDongTaiXeDto = new Group9HoatDongTaiXeDto();
-
+    lichTrinh: Group9LichTrinhDto = new Group9LichTrinhDto();
     listTaiXe: Group4LichTrinhDto[];
     selectedTaiXe: Group4LichTrinhDto;
     taiXeLichTrinhInput: Group4LichTrinhDto = new Group4LichTrinhDto();
@@ -88,33 +93,6 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
 
     listScheduleID_unquiet: Group4LichTrinhDto[];
 
-    getMaTaiXe(): void {
-        this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhInput).subscribe((result) => {
-            this.listScheduleID = result;
-            this.RemoveDuplicateValue_();
-        });
-        
-    }
-
-    RemoveDuplicateValue_() {
-        let count = 0;
-        let start = false;
-
-        for (let j = 0; j < this.listScheduleID.length; j++) {
-            for (let k = 0; k < this.listScheduleID_unquiet.length; k++) {
-                if (this.listScheduleID[j].lichTrinh_MaTaiXe == this.listScheduleID_unquiet[k].lichTrinh_MaTaiXe) {
-                    start = true;
-                }
-            }
-            count++;
-            if (count == 1 && start == false) {
-                this.listScheduleID_unquiet.push(this.listScheduleID[j]);
-            }
-            start = false;
-            count = 0;
-        }
-    }
-
     getMaLichTrinhByTaiXe() {
         this.taiXeInput.lichTrinh_MaTaiXe = this.DRIVER_ID;
         this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.taiXeInput).subscribe((result) => {
@@ -132,7 +110,7 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
 
     GetAll(): void {
         this.primengTableHelper.showLoadingIndicator();
-        this.group9.hOATDONGTAIXE_Group9SearchAll().subscribe((result) => {
+        this.group9HoatDongService.hOATDONGTAIXE_Group9SearchAll().subscribe((result) => {
             let no = 1;
             result.forEach((item) => {
                 item["no"] = no++;
@@ -145,9 +123,10 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
         });
     }
 
-    Search() {
+    search() {
+        this.getData();
         this.primengTableHelper.showLoadingIndicator();
-        this.group9.hOATDONGTAIXE_Group9Tracking(this.SCHEDULE_ID,moment(this.START_DATE),moment(this.END_DATE)).subscribe((result) => {
+        this.group9HoatDongService.hOATDONGTAIXE_Group9Search(this.HoatDongTaiXeInput).subscribe((result) => {
             let no = 1;
             result.forEach((item) => {
                 item["no"] = no++;
@@ -157,7 +136,9 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
             this.primengTableHelper.hideLoadingIndicator();
         });
     }
-
+    selectOption(id: number) {
+        this.search()
+      }
 
 
     ngOnInit() {
@@ -169,5 +150,25 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
 
     }
 
-
+    getData(){
+        this.HoatDongTaiXeInput.ma = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_Ma = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_MaLichTrinh =this.SCHEDULE_ID;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_MaXe = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_MaTaiXe = this.DRIVER_ID;
+        if(this.START_DATE == null)
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NgayBatDau = null
+        else
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NgayBatDau = moment(this.START_DATE,  'YYYY-MM-DD');
+        if(this.END_DATE == null)
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NgayKetThuc = null
+        else
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NgayKetThuc = moment(this.END_DATE, 'YYYY-MM-DD');
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NgayTao = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NguoiTao = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NhienLieu = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_TrangThai = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_KmUocTinh = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_KmThucTe = null;
+    }
 }
