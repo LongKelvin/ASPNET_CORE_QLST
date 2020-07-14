@@ -49,8 +49,12 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
 
     Save_Dialog: boolean;
     Cancel_Dialog: boolean;
-
+    DRIVER_ID : number;
+    CAR_ID: number;
+    end_date_: string;
+    start_date_: string;
     
+
     hoatDongTaiXeInput: Group9HoatDongTaiXeDto = new Group9HoatDongTaiXeDto();
 
     listScheduleID: Group4LichTrinhDto[];
@@ -60,7 +64,6 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     maTuyenChay: number;
     tuyenChayInput: Group4TuyenChayDto = new Group4TuyenChayDto();
     listTuyenChay: Group4TuyenChayDto[];
-
     listResult: Group4LichTrinhDto[];
 
    
@@ -82,14 +85,33 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
         });
     }
 
-    Save_Confirm() {
-        if (this.checkvalue() == true) {
-            this.Save_Dialog = true;
-        }
+         Save_Confirm() {
+         if (this.checkvalue() == true){
+            let self = this;
+            self.message.confirm(
+            self.l('Bạn muốn lưu toàn bộ dữ liệu ?'),
+            this.l('Lưu dữ liệu!!'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.insert();
+                }
+            }
+           
+        );
+         }
     }
 
-    Cancel_Confirm() {
-        this.Cancel_Dialog = true;
+     Cancel_Confirm() {
+        let self = this;
+            self.message.confirm(
+            self.l('Bạn muốn huỷ bỏ tiến trình ?'),
+            this.l('Thoát !!'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.ClearAllInputValue();
+                }
+            }
+             );
     }
 
     ClearAllInputValue() {
@@ -105,13 +127,10 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             this.FUEL_ACTUAL = null;
             this.START_DATE = null;
             this.END_DATE = null;
+            this.ReturnToHomePage();
         }
 
     }
-
-    transformDate(date) {
-     
-  }
 
     
     ReturnToHomePage() {
@@ -126,14 +145,11 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             this.END_DATE = this.selectedDropdownLichTrinh.lichTrinh_NgayDen.toDate();
             var km = this.selectedDropdownLichTrinh.tuyenchay_SoKm;
             this.KM_ESTIMATE = +km;
+            this.DRIVER_ID = this.selectedDropdownLichTrinh.lichTrinh_MaTaiXe;
+            this.start_date_ = this.selectedDropdownLichTrinh.lichTrinh_NgayDi.format('DD/MM/YYYY').toString();
+            this.end_date_ = this.selectedDropdownLichTrinh.lichTrinh_NgayDen.format('DD/MM/YYYY').toString();
         });
-        this.tuyenChayInput.ma = this.maTuyenChay;
-        // this.group4_TuyenChayProxy.tUYENCHAY_Group4Search(this.tuyenChayInput).subscribe((result) =>{
-        //     this.listTuyenChay = result;
-        //     var km = this.listTuyenChay[0].tuyenChay_SoKm.toString;
-        //     var km_number = +km;
-        //     this.KM_ESTIMATE = km_number;
-        // });
+       
     }
     getValue() {
         this.hoatDongTaiXeInput.hoatDongTaiXe_KmThucTe = this.KM_ACTUAL;
@@ -141,13 +157,16 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
         this.hoatDongTaiXeInput.hoatDongTaiXe_MaLichTrinh = this.SCHEDULE_ID;
         this.hoatDongTaiXeInput.hoatDongTaiXe_NgayBatDau =moment(this.START_DATE);
         this.hoatDongTaiXeInput.hoatDongTaiXe_NgayKetThuc = moment(this.END_DATE);
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NhienLieu = this.FUEL_ACTUAL;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NguoiTao = this.currentUserName;
 
         var dateObj_NgayTao = new Date(Date.now());
         var momentObj_NgayTao = moment(dateObj_NgayTao);
         this.hoatDongTaiXeInput.hoatDongTaiXe_NgayTao = momentObj_NgayTao;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_MaTaiXe = this.DRIVER_ID;
 
-        this.hoatDongTaiXeInput.hoatDongTaiXe_NguoiTao = this.currentUserName;
-        this.hoatDongTaiXeInput.hoatDongTaiXe_NhienLieu = this.FUEL_ACTUAL;
+       
+      
 
     }
 

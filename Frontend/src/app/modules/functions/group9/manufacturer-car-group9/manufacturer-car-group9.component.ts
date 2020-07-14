@@ -101,25 +101,31 @@ export class ManufacturerCarComponentGroup9 extends AppComponentBase implements 
 
     delete() {
         let self = this;
-        self.message.confirm(
-            self.l('Bạn chắc chắn muốn xoá hãng xe này', this.currentId),
-            this.l('Xoá Hãng Xe'),
-            isConfirmed => {
-                if (isConfirmed) {
-                    this.group9HangProxy.hang_Group9Delete(this.currentId).subscribe((response) => {
-                        if (response["Result"] === "1") {
-                            this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-                        } else {
-                            this.notify.success("Xóa hãng xe thành công", "SUCCESS", environment.opt);
-                            this.currentId = null;
-                            this.GetAll();
-                        }
-                    });
+        let currentID = this.currentId;
+        if (currentID == null) {
+            this.message.error("Vui lòng chọn hãng xe để xoá", "Lỗi");
+        }
+        else {
+            self.message.confirm(
+                self.l('Bạn chắc chắn muốn xoá hãng xe này', this.currentId),
+                this.l('Xoá Hãng Xe'),
+                isConfirmed => {
+                    if (isConfirmed) {
+                        this.group9HangProxy.hang_Group9Delete(this.currentId).subscribe((response) => {
+                            if (response["Result"] === "1") {
+                                this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                            } else {
+                                this.notify.success("Xóa hãng xe thành công", "SUCCESS", environment.opt);
+                                this.currentId = null;
+                                this.GetAll();
+                            }
+                        });
+                    }
                 }
-            }
-           
-        );
-         this.currentId = null;
+
+            );
+        }
+
     }
     ngOnInit(): void {
         this.GetAll();

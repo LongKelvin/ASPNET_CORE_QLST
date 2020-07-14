@@ -96,6 +96,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
                 this.notify.info("Thêm   đề xuất thành công", "SUCCESS", environment.opt);
             }
         });
+
     }
 
     insert(): void{
