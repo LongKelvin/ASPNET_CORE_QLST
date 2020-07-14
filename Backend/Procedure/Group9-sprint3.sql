@@ -19,7 +19,7 @@ create or alter proc [dbo].[BAOTRI_Group9Insert]
 	@BaoTri_GhiChu          nvarchar(max) NULL 
 as
 
-if(exists(select * from BaoTri where Baotri_MaBaoTri = @Baotri_MaBaoTri))
+if(exists(select * from BaoTri where Baotri_MaBaoTri = @Baotri_MaBaoTri or (BaoTri_MaXe = @BaoTri_MaXe and (not(BaoTri_TrangThai = 'A' and BaoTri_TinhTrangBaoTri = 'D') or BaoTri_TrangThai != 'X'))))
 begin
 	select '1' as Result, N'Đề xuất đã tồn tại trong hệ thống' as ErrorDesc
 	return
@@ -104,7 +104,7 @@ create or alter proc [dbo].[BAOTRI_Group9Update]
 
 as
 
-if(not exists(select * from BaoTri where Ma = @Ma and BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'D' and BaoTri_NgayXuatXuong is null))
+if(not exists(select * from Xe where Ma =@BaoTri_MaXe and  Xe_TrangThai = 'B'))
 begin
 	select '1' as Result, N'Dữ liệu không tồn tại trong hệ thống' as ErrorDesc
 	RETURN
@@ -115,7 +115,6 @@ begin try
 	UPDATE [dbo].[BaoTri]
 	   SET [BaoTri_MaBaoTri] = @Baotri_MaBaoTri
 		  ,[BaoTri_NgayDuyet] = @BaoTri_NgayDuyet
-		  ,[BaoTri_NguoiDuyet] = @BaoTri_NguoiDuyet
 		  ,[BaoTri_NoiBaoTri] = @BaoTri_NoiBaoTri
 		  ,[BaoTri_NgayBaotri] = @BaoTri_NgayBaotri
 		  ,[BaoTri_NgayXuatXuong] = @BaoTri_NgayXuatXuong
@@ -123,8 +122,6 @@ begin try
 		  ,[BaoTri_TinhTrangBaoTri] = 'D'
 		  ,[BaoTri_MaXe] = @BaoTri_MaXe
 		  ,[BaoTri_MaTaiXe] = @BaoTri_MaTaiXe
-		  ,[BaoTri_MaNguoiGui] = @BaoTri_MaNguoiGui
-		  ,[BaoTri_NguoiTao] = @BaoTri_NguoiTao
 		  ,[BaoTri_NgayTao] = @BaoTri_NgayTao
 		  ,[BaoTri_TrangThai] = 'N'
 		  ,[BaoTri_GhiChu] = @BaoTri_GhiChu 
@@ -147,7 +144,7 @@ as
 begin
 select *
 from BaoTri
-where Ma = @Ma and BaoTri_TrangThai = 'N' or BaoTri_TrangThai = 'A'
+where Ma = @Ma
 end
 go
 -------------------[dbo].[Group9BaoTri_SearchAll] 6/17/2020----------------
@@ -378,10 +375,11 @@ select *
 from Xe
 where Xe_TrangThai != 'B' 
 	and Xe_TrangThai != 'X'
+	and (Ma not in(select distinct Xe.Ma from Xe, BaoTri where Xe.Ma = BaoTri.BaoTri_MaXe and BaoTri_TrangThai = 'N'))
 end
 go
 
-
+exec [BAOTRI_Group9SearchXeStateNoMaintain]
 
 exec [BAOTRI_Group9UrgentMaintain]
 exec [BAOTRI_Group9ShouldMaintain]
@@ -389,3 +387,4 @@ exec BAOTRI_Group9MaintainAll
 
 select * from baotri
 
+delete  baotri

@@ -222,7 +222,10 @@ create or alter proc [dbo].[HOATDONGTAIXE_Group9SearchAllLichTrinh]
 as
 begin
 	select * from LichTrinh
-	where LichTrinh_TrangThai = 'N' and LichTrinh_NgayDi is not null and LichTrinh_NgayDen is not null
+	where LichTrinh_TrangThai = 'N' 
+	and LichTrinh_NgayDi is not null 
+	and LichTrinh_NgayDen is not null 
+	and Ma in (select HoatDongTaiXe_MaLichTrinh from HoatDongTaiXe)
 end
 go
 
@@ -283,4 +286,4 @@ exec HOATDONGTAIXE_Group9SearchAllLichTrinh
 exec HOATDONGTAIXE_Group9InsertLichTrinh '2019-01-01 00:00:00.000', '2019-01-01 00:00:00.000', null, null, 'C', '2019-01-01 00:00:00.000', 'admin', 'N'
 exec [dbo].[HOATDONGTAIXE_Group9Search] null, null, 8, null, 2, null, null, null, null, null, null, null, null
 
-exec [HOATDONGTAIXE_Group9SearchLichTrinh] 7, '2019-01-01 00:00:00.000, null,null, null, null,null,null, null
+exec [HOATDONGTAIXE_Group9SearchLichTrinh] 7, '2018-01-01 00:00:00.000', null,null, null, null,null,null, null
