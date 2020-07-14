@@ -22,10 +22,11 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         IDictionary<string, object> HOATDONGTAIXE_Group9Delete(int id);
         List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Search(Group9HoatDongTaiXeDto input);
         List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9SearchAll();
-        List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int ma, DateTime tuNgay, DateTime denNgay);
+        List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int? maTaiXe, int? maLichTrinh, DateTime? tuNgay, DateTime? denNgay);
         List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchAllLichTrinh();
         Group9LichTrinhDto HOATDONGTAIXE_Group9SearchByIdLichTrinh(int id);
         List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchLichTrinh(Group9LichTrinhDto input);
+        List<Group9TaiXeDto> HOATDONGTAIXE_Group9SearchAllTaiXe();
     }
     public class Group9HoatDongTaiXeAppService : BaseService, IGroup9HoatDongTaiXeAppService
     {
@@ -70,6 +71,11 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
             return procedureHelper.GetData<Group9LichTrinhDto>("HOATDONGTAIXE_Group9SearchAllLichTrinh", new { });
         }
 
+        public List<Group9TaiXeDto> HOATDONGTAIXE_Group9SearchAllTaiXe()
+        {
+            return procedureHelper.GetData<Group9TaiXeDto>("HOATDONGTAIXE_Group9SearchAllTaiXe", new { });
+        }
+
         public Group9LichTrinhDto HOATDONGTAIXE_Group9SearchByIdLichTrinh(int id)
         {
             return procedureHelper.GetData<Group9LichTrinhDto>("HOATDONGTAIXE_Group9SearchByIdLichTrinh", new
@@ -84,10 +90,11 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
 
         }
 
-        public List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int ma, DateTime tuNgay, DateTime denNgay)
+        public List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int? maTaiXe, int? maLichTrinh, DateTime? tuNgay, DateTime? denNgay)
         {
             return procedureHelper.GetData<Group9HoatDongTaiXeDto>("HOATDONGTAIXE_Group9Tracking", new { 
-                MaLichTrinh = ma,
+                MaTaiXe = maTaiXe,
+                MaLichTrinh = maLichTrinh,
                 HoatDongTaiXe_TuNgay = tuNgay,
                 HoatDongTaiXe_DenNgay = denNgay
             });
@@ -97,5 +104,6 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         {
             return procedureHelper.GetData<dynamic>("HOATDONGTAIXE_Group9Update", input).FirstOrDefault();
         }
+
     }
 } 

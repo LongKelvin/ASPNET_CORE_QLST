@@ -27,7 +27,7 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         List<Group9BaoTriDto> BAOTRI_Group9SearchAll();
         IDictionary<string, object> BAOTRI_Group9App(int id, string checkerId);
         string GetCurrentUserName();
-        Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime? ngayBaoTri);
+        Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime? ngayBaoTri, int loai = 0);
         List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalPropose(string maNguoiTao);
         List<Group9BaoTriDto> BAOTRI_Group9SearchAllPersonal(string maNguoiTao);
         List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalApproved(string maNguoiTao);
@@ -93,7 +93,7 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
             return procedureHelper.GetData<dynamic>("BAOTRI_Group9Update", input).FirstOrDefault();
         }
 
-        public async Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime? ngayBaoTri = null)
+        public async Task BAOTRI_Group9SendNotification(string ma, string maThongBao, int maXe, DateTime? ngayBaoTri = null, int loai = 0)
 
         {
             if (ngayBaoTri == null)
@@ -101,12 +101,24 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
                 ngayBaoTri = DateTime.UtcNow;
             }
             var user = userRepository.GetAll().Where(x => x.UserName == ma).FirstOrDefault();
-            await notificationPublisher.PublishAsync(
-                "Thông báo bảo trì xe (" + maThongBao + ")",
-                new MessageNotificationData("[YÊU CẦU BẢO TRÌ] Mã xe: " + maXe + ";Ngày: " + ngayBaoTri?.ToString("MM-dd-yyyy")),
-                severity: NotificationSeverity.Success,
-                userIds: new[] { user.ToUserIdentifier() }
-                );
+            if (loai == 0)
+            {
+                await notificationPublisher.PublishAsync(
+                    "Thông báo bảo trì xe (" + maThongBao + ")",
+                    new MessageNotificationData("[YÊU CẦU BẢO TRÌ] Mã xe: " + maXe + ";Ngày: " + ngayBaoTri?.ToString("MM-dd-yyyy")),
+                    severity: NotificationSeverity.Success,
+                    userIds: new[] { user.ToUserIdentifier() }
+                    );
+            }
+            else
+            {
+                await notificationPublisher.PublishAsync(
+                    "Thông báo bảo trì xe (" + maThongBao + ")",
+                    new MessageNotificationData("[HOÀN TẤT BẢO TRÌ] Mã xe: " + maXe + ";Ngày: " + ngayBaoTri?.ToString("MM-dd-yyyy")),
+                    severity: NotificationSeverity.Success,
+                    userIds: new[] { user.ToUserIdentifier() }
+                    );
+            }
         }
 
         public List<Group9BaoTriDto> BAOTRI_Group9SearchPersonalPropose(string maNguoiTao)

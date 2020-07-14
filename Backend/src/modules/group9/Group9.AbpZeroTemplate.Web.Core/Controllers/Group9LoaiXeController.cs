@@ -22,11 +22,7 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
       this.Group9LoaiXeAppService = Group9LoaiXeAppService;
     }
 
-    [HttpGet]
-    public string test()
-    {
-      return Group9LoaiXeAppService.test();
-    }
+
         [HttpPost]
         public IDictionary<string, object> LOAIXE_Group9Insert([FromBody]Group9LoaiXeDto input)
         {
