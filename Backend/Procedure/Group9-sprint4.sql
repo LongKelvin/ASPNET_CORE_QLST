@@ -203,8 +203,8 @@ go
 create or alter proc [dbo].[HOATDONGTAIXE_Group9Tracking]
 @MaTaiXe int = NULL,
 @MaLichTrinh int = NULL,
-@HoatDongTaiXe_TuNgay   datetime NULL ,
-@HoatDongTaiXe_DenNgay   datetime NULL 
+@HoatDongTaiXe_TuNgay   datetime   NULL ,
+@HoatDongTaiXe_DenNgay   datetime = NULL 
 as
 begin
 	select * from HoatDongTaiXe
@@ -281,7 +281,7 @@ exec [dbo].[HOATDONGTAIXE_Group9SearchAllMaTaiXe]
 
 select * from HoatDongTaiXe
 -----
-exec [HOATDONGTAIXE_Group9Tracking] null, null, null
+exec [HOATDONGTAIXE_Group9Tracking] null, null, '2018-01-01 00:00:00.000', '2028-01-01 00:00:00.000'
 exec HOATDONGTAIXE_Group9SearchAllLichTrinh
 exec HOATDONGTAIXE_Group9InsertLichTrinh '2019-01-01 00:00:00.000', '2019-01-01 00:00:00.000', null, null, 'C', '2019-01-01 00:00:00.000', 'admin', 'N'
 exec [dbo].[HOATDONGTAIXE_Group9Search] null, null, 8, null, 2, null, null, null, null, null, null, null, null

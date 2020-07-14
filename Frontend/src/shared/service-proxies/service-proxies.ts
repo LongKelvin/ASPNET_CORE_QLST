@@ -7940,6 +7940,8 @@ export class Group9BaoTriServiceProxy {
      */
     bAOTRI_Group9SendNotification(ma: string | null | undefined, maThongBao: string | null | undefined, maXe: number | null | undefined, ngayBaoTri: moment.Moment | null | undefined, loai: number | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9SendNotification?";
+        if (ma !== undefined)
+            url_ += "ma=" + encodeURIComponent("" + ma) + "&"; 
         if (maThongBao !== undefined)
             url_ += "maThongBao=" + encodeURIComponent("" + maThongBao) + "&"; 
         if (maXe !== undefined)
@@ -7950,10 +7952,7 @@ export class Group9BaoTriServiceProxy {
             url_ += "loai=" + encodeURIComponent("" + loai) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(ma);
-
         let options_ : any = {
-            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({

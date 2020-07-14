@@ -126,7 +126,7 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
     search() {
         this.getData();
         this.primengTableHelper.showLoadingIndicator();
-        this.group9HoatDongService.hOATDONGTAIXE_Group9Search(this.HoatDongTaiXeInput).subscribe((result) => {
+        this.group9HoatDongService.hOATDONGTAIXE_Group9Tracking(this.DRIVER_ID, this.SCHEDULE_ID, moment(this.START_DATE), moment(this.END_DATE)).subscribe((result) => {
             let no = 1;
             result.forEach((item) => {
                 item["no"] = no++;
