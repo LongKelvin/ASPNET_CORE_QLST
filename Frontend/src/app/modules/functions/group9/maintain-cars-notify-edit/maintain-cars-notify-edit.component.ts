@@ -147,7 +147,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
                   if (response["Result"] == "1") {
                       this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
                   } else {
-                      this.notify.success("Sửa xe thành công","SUCCESS", environment.opt);
+                      this.notify.success("Sửa thông tin thành công","SUCCESS", environment.opt);
                       this.currentId = null;
                   }
               });

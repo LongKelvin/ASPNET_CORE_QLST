@@ -1,5 +1,5 @@
 import { environment } from './../../../../../environments/environment.prod';
-import { Component,ViewChild, OnInit,AfterViewInit,Injector} from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, Injector } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Table } from "primeng/components/table/table";
 import { Paginator } from "primeng/primeng";
@@ -7,7 +7,7 @@ import { Group9BaoTriServiceProxy, Group9BaoTriDto, Group4XeDto, Group4XeService
 import {
     Group4LoaiXeDto,
     Group4LoaiXeServiceProxy,
-    
+
 } from "@shared/service-proxies/service-proxies";
 
 
@@ -30,13 +30,13 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
         private group9BaoTriService: Group9BaoTriServiceProxy,) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
-        this.group4XeService.xE_Group4Search({} as any).subscribe(response=>{
+        this.group4XeService.xE_Group4Search({} as any).subscribe(response => {
             this.xe_list = response;
         })
-        this.group9BaoTriService.bAOTRI_Group9SearchAll().subscribe(response=>{
+        this.group9BaoTriService.bAOTRI_Group9SearchAll().subscribe(response => {
             this.baotri_list_id = response;
         })
-        
+
         this.trangthai_list = [
             { content: "Đã duyệt", value: "A" },
             { content: "Chưa duyệt", value: "N" }
@@ -56,36 +56,36 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     ngAfterViewInit(): void {
         this.search();
     }
-    trangthai_list : TrangThai[];
-    tinhtrang_list : TinhTrang[];
+    trangthai_list: TrangThai[];
+    tinhtrang_list: TinhTrang[];
 
 
     MA_XE: string = "maXe";
     baotri_maxe: number;
-    selectedLevel:number;
-    selectedLevel2:number;
-    selectedLevel3:string;
-    selectedLevel4:string;
+    selectedLevel: number;
+    selectedLevel2: number;
+    selectedLevel3: string;
+    selectedLevel4: string;
     maNG: string;
 
-    xe_list : Group4XeDto[];
-    baotri_list : Group9BaoTriDto[];
-    baotri_list_id : Group9BaoTriDto[];
-    group9BaoTriInput : Group9BaoTriDto = new Group9BaoTriDto();
-    group9BaoTriRowInput : Group9BaoTriDto = new Group9BaoTriDto();
+    xe_list: Group4XeDto[];
+    baotri_list: Group9BaoTriDto[];
+    baotri_list_id: Group9BaoTriDto[];
+    group9BaoTriInput: Group9BaoTriDto = new Group9BaoTriDto();
+    group9BaoTriRowInput: Group9BaoTriDto = new Group9BaoTriDto();
 
 
-  
 
-  
+
+
     carFuelSuggestions: Array<object> = [];
 
     baotri_group9_ma: Array<object> = [];
 
     baotri_group9_maxe: Array<object> = [];
-  
+
     baotri_group9_ngaybaotri: Array<object> = [];
-  
+
     baotri_group9_ngayxuatxuong: Array<object> = [];
 
     baotri_group9_thanhtien: Array<object> = [];
@@ -93,7 +93,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     baotri_group9_nguoitao: Array<object> = [];
 
     baotri_group9_ngaytao: Array<object> = [];
-    
+
     // Some stuff
     curMaBaoTri: number;
     baoTriInput: Group9BaoTriDto = new Group9BaoTriDto();
@@ -126,8 +126,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             }
         );
     }
-    approve()
-    {
+    approve() {
         this.notify.info(this.curMaBaoTri.toString(), "ERROR", environment.opt);
 
         this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe((response) => {
@@ -136,37 +135,36 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                 this.notify.error(response.ma.toString(), "ERROR", environment.opt);
                 this.notify.info(this.currentUserName, "ERROR", environment.opt);
 
-                if(response.baoTri_NguoiTao === this.currentUserName)
-                {
+                if (response.baoTri_NguoiTao === this.currentUserName) {
                     this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
-                     return;
+                    return;
                 }
-                 let self = this;
+                let self = this;
                 self.message.confirm(
-                self.l('Duyệt ?', this.curMaBaoTri),
-                this.l('AreYouSure'),
-                isConfirmed => {
-                    if (isConfirmed) {                           
+                    self.l('Duyệt ?', this.curMaBaoTri),
+                    this.l('AreYouSure'),
+                    isConfirmed => {
+                        if (isConfirmed) {
 
-                  
-                        this.group9BaoTriService.bAOTRI_Group9App(this.curMaBaoTri, this.currentUserName).subscribe((response) => {
-                            if (response["Result"] === "1") {
-                                this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-                            } else {
-                                this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
-                             //this.resetOptions();
-                                this.send();
-                            }
-                        });
+
+                            this.group9BaoTriService.bAOTRI_Group9App(this.curMaBaoTri, this.currentUserName).subscribe((response) => {
+                                if (response["Result"] === "1") {
+                                    this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                                } else {
+                                    this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
+                                    //this.resetOptions();
+                                    this.send();
+                                }
+                            });
+                        }
                     }
-            }
-        );
+                );
             }
         });
-        
+
     }
 
-    send(){
+    send() {
 
         this.get();
         this.searchAll();
@@ -191,19 +189,19 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
 
 
 
-    
-    getListThongBao(){
-        this.group9BaoTriService.bAOTRI_Group9Search({} as any).subscribe(response=>{
+
+    getListThongBao() {
+        this.group9BaoTriService.bAOTRI_Group9Search({} as any).subscribe(response => {
             this.baotri_list = response;
         });
-    
-  }
-  get(){
-    
-    this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response=>{
-        this.group9BaoTriRowInput = response;
-        this.maNG = this.group9BaoTriRowInput.baoTri_MaNguoiGui;
-        
+
+    }
+    get() {
+
+        this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response => {
+            this.group9BaoTriRowInput = response;
+            this.maNG = this.group9BaoTriRowInput.baoTri_MaNguoiGui;
+
             this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet, 0).subscribe((response) => {
                 if (response["Result"] === "1") {
                     this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
@@ -213,73 +211,73 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                     this.curMaBaoTri = null;
                 }
             });
-    });
-  }
-  getValue() {
-      this.group9BaoTriInput.ma = this.selectedLevel2;
-      this.group9BaoTriInput.baoTri_MaBaoTri = null;
-    this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
-    this.group9BaoTriInput.baoTri_MaBaoTri = null;
-    this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.selectedLevel4;
-    this.group9BaoTriInput.baoTri_NgayDuyet = null;
-    this.group9BaoTriInput.baoTri_NgayTao = null;
-    this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
-    this.group9BaoTriInput.baoTri_NguoiTao = null;
-    this.group9BaoTriInput.baoTri_TrangThai = this.selectedLevel3;
-    this.group9BaoTriInput.baoTri_ThanhTien = null;
-    this.group9BaoTriInput.baoTri_NoiBaoTri = null;
-    this.group9BaoTriInput.baoTri_GhiChu = null;
-    this.group9BaoTriInput.baoTri_NguoiDuyet = null;
-    // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
-  }
-  selectOption(id: number) {
-   
+        });
+    }
+    getValue() {
+        this.group9BaoTriInput.ma = this.selectedLevel2;
+        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
+        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.selectedLevel4;
+        this.group9BaoTriInput.baoTri_NgayDuyet = null;
+        this.group9BaoTriInput.baoTri_NgayTao = null;
+        this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
+        this.group9BaoTriInput.baoTri_NguoiTao = null;
+        this.group9BaoTriInput.baoTri_TrangThai = this.selectedLevel3;
+        this.group9BaoTriInput.baoTri_ThanhTien = null;
+        this.group9BaoTriInput.baoTri_NoiBaoTri = null;
+        this.group9BaoTriInput.baoTri_GhiChu = null;
+        this.group9BaoTriInput.baoTri_NguoiDuyet = null;
+        // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
+    }
+    selectOption(id: number) {
 
-    this.search()
 
-  }
-  searchAll(){
-    this.group9BaoTriInput.ma = null;
-    this.group9BaoTriInput.baoTri_MaBaoTri = null;
-  this.group9BaoTriInput.baoTri_MaXe = null;
-  this.group9BaoTriInput.baoTri_MaBaoTri = null;
-  this.group9BaoTriInput.baoTri_TinhTrangBaoTri = null;
-  this.group9BaoTriInput.baoTri_NgayDuyet = null;
-  this.group9BaoTriInput.baoTri_NgayTao = null;
-  this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
-  this.group9BaoTriInput.baoTri_NguoiTao = null;
-  this.group9BaoTriInput.baoTri_TrangThai = null;
-  this.group9BaoTriInput.baoTri_ThanhTien = null;
-  this.group9BaoTriInput.baoTri_NoiBaoTri = null;
-  this.group9BaoTriInput.baoTri_GhiChu = null;
-  this.group9BaoTriInput.baoTri_NguoiDuyet = null;
-  this.selectedLevel =null;
-  this.selectedLevel4 =null;
-  this.selectedLevel2 =null;
-  this.selectedLevel3 =null;
-  this.primengTableHelper.showLoadingIndicator();
-  this.group9BaoTriService.bAOTRI_Group9Search(this.group9BaoTriInput)
-      .subscribe((result) => {
-          let no = 1;
-          result.forEach((item) => {
-              item["no"] = no++;
-          });
-          result.length < 1 && this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-          this.primengTableHelper.totalRecordsCount = result.length;
-          this.primengTableHelper.records = result;
-          this.primengTableHelper.hideLoadingIndicator();
-      });
+        this.search()
 
-  }
+    }
+    searchAll() {
+        this.group9BaoTriInput.ma = null;
+        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_MaXe = null;
+        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_TinhTrangBaoTri = null;
+        this.group9BaoTriInput.baoTri_NgayDuyet = null;
+        this.group9BaoTriInput.baoTri_NgayTao = null;
+        this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
+        this.group9BaoTriInput.baoTri_NguoiTao = null;
+        this.group9BaoTriInput.baoTri_TrangThai = null;
+        this.group9BaoTriInput.baoTri_ThanhTien = null;
+        this.group9BaoTriInput.baoTri_NoiBaoTri = null;
+        this.group9BaoTriInput.baoTri_GhiChu = null;
+        this.group9BaoTriInput.baoTri_NguoiDuyet = null;
+        this.selectedLevel = null;
+        this.selectedLevel4 = null;
+        this.selectedLevel2 = null;
+        this.selectedLevel3 = null;
+        this.primengTableHelper.showLoadingIndicator();
+        this.group9BaoTriService.bAOTRI_Group9Search(this.group9BaoTriInput)
+            .subscribe((result) => {
+                let no = 1;
+                result.forEach((item) => {
+                    item["no"] = no++;
+                });
+                result.length < 1 && this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                this.primengTableHelper.totalRecordsCount = result.length;
+                this.primengTableHelper.records = result;
+                this.primengTableHelper.hideLoadingIndicator();
+            });
+
+    }
 
 
 }
 
-export class TinhTrang{
+export class TinhTrang {
     content: string;
     value: string;
 }
-export class TrangThai{
+export class TrangThai {
     content: string;
     value: string;
 }

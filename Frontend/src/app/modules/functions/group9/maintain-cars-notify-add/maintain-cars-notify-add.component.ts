@@ -95,7 +95,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
                 this.notify.info("Thêm đề xuất thành công", "SUCCESS", environment.opt);
             }
         });
-        this.notify.info("Thêm tỳhgfhgfgfhgfhg", "SUCCESS", environment.opt);
+        //this.notify.info("Thêm tỳhgfhgfgfhgfhg", "SUCCESS", environment.opt);
     }
 
     insert(): void{
@@ -104,7 +104,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
       if (response["Result"] == "1") {
           this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
       } else {
-          this.notify.success("Thêm xe thành công","SUCCESS", environment.opt);
+          this.notify.success("Thêm thành công","SUCCESS", environment.opt);
       }
   });
   }
