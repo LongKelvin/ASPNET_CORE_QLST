@@ -6,7 +6,7 @@ import { Paginator } from "primeng/primeng";
 import {
     Group9HoatDongTaiXeServiceProxy,
     Group9HoatDongTaiXeDto,
-    
+    Group5XeServiceProxy,
    
  
 
@@ -23,7 +23,9 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
    @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
 
-    constructor(injector: Injector, private group9Proxy: Group9HoatDongTaiXeServiceProxy) {
+    constructor(injector: Injector, 
+        private group9Proxy: Group9HoatDongTaiXeServiceProxy,
+        private group9XeService : Group5XeServiceProxy) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
         this.hoatDongTaiXeInput.ma = this.getRouteParam("id");
@@ -39,9 +41,10 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     KM_ESTIMATE: number;
     FUEL_ACTUAL: number;
     DRIVER_ID: number;
-
+    CAR_ID:number;
     Save_Dialog: boolean;
     Cancel_Dialog: boolean;
+    dinhmuc : number;
 
     
     hoatDongTaiXeInput: Group9HoatDongTaiXeDto = new Group9HoatDongTaiXeDto();
@@ -60,8 +63,11 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
         this.KM_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmThucTe;
         this.KM_ESTIMATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmUocTinh;
         this.FUEL_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_NhienLieu;
+        this.CAR_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaXe;
+        this.group9XeService.xE_Group5SearchById(this.CAR_ID).subscribe((result)=>{
+            this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
+        });
     });
-
   }
 
 
@@ -149,5 +155,8 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
 
     ngAfterViewInit(): void {
        
+    }
+    focusOutFunction(){
+        this.FUEL_ACTUAL = this.dinhmuc * this.KM_ACTUAL;
     }
 }
