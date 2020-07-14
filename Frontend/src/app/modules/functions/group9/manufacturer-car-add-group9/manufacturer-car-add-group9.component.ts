@@ -47,23 +47,38 @@ export class ManufacturerCarAddComponentGroup9 extends AppComponentBase implemen
 
     Save_Confirm() {
         if (this.checkvalue() == true) {
-            this.Save_Dialog = true;
+            let self = this;
+            self.message.confirm(
+                self.l('Bạn muốn lưu toàn bộ dữ liệu ?'),
+                this.l('Lưu dữ liệu'),
+                isConfirmed => {
+                    if (isConfirmed) {
+                        this.insert();
+                    }
+                }
+
+            );
         }
     }
 
     Cancel_Confirm() {
-        this.Cancel_Dialog = true;
+        let self = this;
+        self.message.confirm(
+            self.l('Bạn muốn huỷ bỏ tiến trình ?'),
+            this.l('Thoát'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.ClearAllInputValue();
+                }
+            }
+
+        );
     }
 
     ClearAllInputValue() {
-        if( this.Ma_Hang != null && this.Ten_Hang!=null){
-            this.Ma_Hang = null;
-            this.Ten_Hang = null;
-        }
-        else{
-            this.ReturnToHomePage();
-        }
-       
+        this.Ma_Hang = null;
+        this.Ten_Hang = null;
+        this.ReturnToHomePage();
     }
 
 

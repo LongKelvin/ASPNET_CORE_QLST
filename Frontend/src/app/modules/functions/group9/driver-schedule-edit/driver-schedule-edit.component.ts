@@ -1,14 +1,14 @@
 import { environment } from './../../../../../environments/environment.prod';
-import { Component,ViewChild, OnInit,AfterViewInit,Injector} from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, Injector } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Table } from "primeng/components/table/table";
 import { Paginator } from "primeng/primeng";
 import {
     Group9HoatDongTaiXeServiceProxy,
     Group9HoatDongTaiXeDto,
-    
-   
- 
+
+
+
 
 } from "@shared/service-proxies/service-proxies";
 import * as moment from 'moment';
@@ -20,17 +20,17 @@ import * as moment from 'moment';
 })
 export class DriverScheduleEditComponent extends AppComponentBase implements OnInit, AfterViewInit {
 
-   @ViewChild("dataTable") dataTable: Table;
+    @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
 
     constructor(injector: Injector, private group9Proxy: Group9HoatDongTaiXeServiceProxy) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
         this.hoatDongTaiXeInput.ma = this.getRouteParam("id");
-       // this.hoatDongTaiXeInput.ma = 2;
+        // this.hoatDongTaiXeInput.ma = 2;
     }
 
-   
+
     currentUserName: string;
     SCHEDULE_ID: number;
     START_DATE: Date;
@@ -43,29 +43,35 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     Save_Dialog: boolean;
     Cancel_Dialog: boolean;
 
-    
+
     hoatDongTaiXeInput: Group9HoatDongTaiXeDto = new Group9HoatDongTaiXeDto();
     listHoatDongTaiXe: Group9HoatDongTaiXeDto[];
     selectedHoatDongTaiXe: Group9HoatDongTaiXeDto;
 
-    
+    start_date_: string;
+    end_date_: string;
 
-   
+
+
+
     createValue() {
-    this.group9Proxy.hOATDONGTAIXE_Group9ById(this.hoatDongTaiXeInput.ma).subscribe((result) => {
-        this.selectedHoatDongTaiXe = result;
-        this.SCHEDULE_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaLichTrinh;
-        this.START_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.toDate();
-        this.END_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.toDate();
-        this.KM_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmThucTe;
-        this.KM_ESTIMATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmUocTinh;
-        this.FUEL_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_NhienLieu;
-    });
+        this.group9Proxy.hOATDONGTAIXE_Group9ById(this.hoatDongTaiXeInput.ma).subscribe((result) => {
+            this.selectedHoatDongTaiXe = result;
+            this.SCHEDULE_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaLichTrinh;
+            this.START_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.toDate();
+            this.END_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.toDate();
+            this.KM_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmThucTe;
+            this.KM_ESTIMATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmUocTinh;
+            this.FUEL_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_NhienLieu;
+            this.start_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.format('DD/MM/YYYY').toString();
+            this.end_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.format('DD/MM/YYYY').toString();
+            this.DRIVER_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaTaiXe;
+        });
 
-  }
+    }
 
 
-    
+
     update(): void {
         this.getValue();
         this.group9Proxy.hOATDONGTAIXE_Group9Update(this.hoatDongTaiXeInput).subscribe((response) => {
@@ -79,51 +85,69 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
 
     Save_Confirm() {
         if (this.checkvalue() == true) {
-            this.Save_Dialog = true;
+
+            let self = this;
+            self.message.confirm(
+                self.l('Bạn muốn cập nhật dữ liệu ?'),
+                this.l('Cập nhật dữ liệu'),
+                isConfirmed => {
+                    if (isConfirmed) {
+                        this.update();
+                    }
+                }
+
+            );
         }
     }
 
     Cancel_Confirm() {
-        this.Cancel_Dialog = true;
+        let self = this;
+        self.message.confirm(
+            self.l('Bạn muốn huỷ bỏ tiến trình ?'),
+            this.l('Thoát'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.ClearAllInputValue();
+                }
+            }
+
+        );
     }
 
     ClearAllInputValue() {
-        if (this.KM_ACTUAL == null &&
-            this.KM_ESTIMATE == null && this.SCHEDULE_ID == null
-            && this.FUEL_ACTUAL == null) {
-            this.ReturnToHomePage();
-        }
-        else {
-            this.KM_ACTUAL = null;
-            this.KM_ESTIMATE = null;
-            this.SCHEDULE_ID = null;
-            this.FUEL_ACTUAL = null;
-            this.START_DATE = null;
-            this.END_DATE = null;
-            this.ReturnToHomePage();
-        }
+
+        this.KM_ACTUAL = null;
+        this.KM_ESTIMATE = null;
+        this.SCHEDULE_ID = null;
+        this.FUEL_ACTUAL = null;
+        this.START_DATE = null;
+        this.END_DATE = null;
+        this.ReturnToHomePage();
+
 
     }
 
     transformDate(date) {
-     
-  }
 
-    
+    }
+
+
     ReturnToHomePage() {
         this.router.navigate(['/app/admin/driver-schedule']);
     }
 
-    onOptionsSelected(event){
-  
+    onOptionsSelected(event) {
+
     }
     getValue() {
         this.hoatDongTaiXeInput.hoatDongTaiXe_KmThucTe = this.KM_ACTUAL;
         var dateObj_NgayTao = new Date(Date.now());
         var momentObj_NgayTao = moment(dateObj_NgayTao);
         this.hoatDongTaiXeInput.hoatDongTaiXe_NgayTao = momentObj_NgayTao;
-
         this.hoatDongTaiXeInput.hoatDongTaiXe_NguoiTao = this.currentUserName;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_MaTaiXe = this.DRIVER_ID;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NgayBatDau = moment(this.START_DATE);
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NgayKetThuc = moment(this.END_DATE);
     }
 
     checkvalue(): boolean {
@@ -148,6 +172,6 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     }
 
     ngAfterViewInit(): void {
-       
+
     }
 }

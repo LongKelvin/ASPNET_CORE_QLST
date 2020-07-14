@@ -29,124 +29,124 @@
             </div>
         </div>
 
-        <!-- Content -->
+        <!-- #region -->
         <div class="m-content">
             <div class="m-portlet m-portlet-mobile">
                 <div class="m-portlet__body">
-                    <form class="ng-tns-c10-9 ng-pristine ng-valid ng-touched" autocomplete="off" novalidate="">
+                    <div class="m-form m-form--label-align-right">
+                        <form class="ng-tns-c10-9 ng-pristine ng-valid ng-touched" autocomplete="off" novalidate="">
+                            <div class="form-body">
 
-                        <div class="col-xl-3">
-
-                            <label for="maLichTrinh">Mã Lịch Trình của xe</label>
-                            <div class="form-group">
-                                <input id="maLichTrinh" name="input_maLichTrinh" 
-                                readonly type="text" size="30" pInputText [(ngModel)]="SCHEDULE_ID">
-                            </div>
-
-                        </div>
-
-                        <!-- content -->
-                        <div class="col-xl-3">
-                            <label></label>
-                        </div>
-                        <div class="col-xl-3">
-                            <label></label>
-                        </div>
-                        <div class="col-xl-3">
-
-                            <label class="ng-tns-c10-9">Thời gian hoạt động</label>
-                        </div>
-                        <div class="col-xl-3">
-                            <label></label>
-                        </div>
-
-                        <div class="row m--margin-bottom-10">
-                            <div class="col-md-8 col-xl-3">
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <label class="ng-tns-c10-9" for="ngayBatDau">Ngày đi</label>
+                                <div class="row m--margin-bottom-10">
+                                    <div class="col-xl-6">
                                         <div class="form-group">
+                                            <label class="ng-tns-c10-9" for="maLichTrinh">Mã Lich Trình *</label>
                                             <div class="input-group">
-                                                <input id="input_ngayBatDau" name="input_ngayBatDau" readonly type="text" size="30" pInputText
-                                                    [(ngModel)]="START_DATE">
+                                                <input
+                                                    class="form-control ng-pristine ng-valid ng-touched text-uppercase"
+                                                    id="malichtrinh" readonly name="malichtrinh" type="text"
+                                                    ng-reflect-name="carNameText" [(ngModel)]="SCHEDULE_ID" require>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label class="ng-tns-c10-9" for="CarManufacturer">Mã Tài Xế *</label>
+                                            <div class="input-group">
+                                                <input
+                                                    class="form-control ng-pristine ng-valid ng-touched text-capitalize"
+                                                    id="CarManufacturer" readonly name="CarManufacturer" type="text"
+                                                    ng-reflect-name="carTypeText" [(ngModel)]="DRIVER_ID" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        
-                            <div class="col-xl-3">
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <label class="ng-tns-c10-9" for="ngayketThuc">Ngày Đến</label>
+
+                                <div class="row m--margin-bottom-10">
+                                    <div class="col">
                                         <div class="form-group">
+                                            <label class="ng-tns-c10-9" for="fromdate">Ngày bắt đầu</label>
                                             <div class="input-group">
-                                                <input id="input_ngayKetThuc" name="input_ngayKetThuc" readonly type="text" size="30" pInputText
-                                                    [(ngModel)]="END_DATE">
+                                                <input
+                                                    class="form-control ng-pristine ng-valid ng-touched text-capitalize"
+                                                    id="fromdate" readonly name="fromdate" type="text" ng-reflect-name="date"
+                                                    [(ngModel)]="start_date_" required>
                                             </div>
                                         </div>
                                     </div>
-                        
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="ng-tns-c10-9" for="todate">Ngày kết thúc</label>
+                                            <div class="input-group">
+                                                <input
+                                                    class="form-control ng-pristine ng-valid ng-touched text-capitalize"
+                                                    id="todate" readonly name="todate" type="text" ng-reflect-name="todate"
+                                                    [(ngModel)]="end_date_" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-                            </div>
-                        
-                        </div>
-
-                        <div class="col-xl-6">
-                            <label></label>
-                        </div>
-                        <div class="col-xl-6">
-                            <label></label>
-                        </div>
-                        <div class="row m--margin-bottom-10">
-
-                            <div class="col-md-8 col-xl-3">
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <label class="ng-tns-c10-9" for="kmthucte">Số km thực tế</label>
-                                        <div class="input-group">
-                                            <input class="input-width" id="kmthucte" name="kmthucte"
-                                                [(ngModel)]="KM_ACTUAL" type="number" pInputText />
+                                <div class="row m--margin-bottom-10">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="ng-tns-c10-9" for="km_estimate">Số Km Ước tính</label>
+                                            <div class="input-group">
+                                                <input class="form-control ng-pristine ng-valid ng-touched"
+                                                    id="km_estimate" readonly name="km_estimate" read-only
+                                                    [(ngModel)]="KM_ESTIMATE" type="number"
+                                                    ng-reflect-name="km_estimate" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="ng-tns-c10-9" for="km_actual">Số Km Thực tế</label>
+                                            <div class="input-group">
+                                                <input class="form-control ng-pristine ng-valid ng-touched"
+                                                    id="km_actual" name="km_actual" [(ngModel)]="KM_ACTUAL"
+                                                    type="number" ng-reflect-name="km_actual" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-3">
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <label class="ng-tns-c10-9" for="kmthucte">Số km ước tính</label>
-                                        <div class="input-group">
-                                            <input class="input-width" readonly id="kmuoctinh" name="kmuoctinh"
-                                                [(ngModel)]="KM_ESTIMATE" type="number" pInputText />
+                                <div class="row m--margin-bottom-10">
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label class="ng-tns-c10-9" for="FuelNorms">Nhiên liệu tiêu thụ (lít/KM thực
+                                                tế)
+                                                *</label>
+                                            <div class="input-group">
+                                                <input class="form-control ng-pristine ng-valid ng-touched"
+                                                    id="FuelNorms" readonly name="Feul"  [(ngModel)]="FUEL_ACTUAL"
+                                                    type="number" ng-reflect-name="carTypeText" required>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-3">
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <label class="ng-tns-c10-9" for="nhienlieutieuthu">Nhiên liệu tiêu thụ
-                                            (lít)</label>
-                                        <div class="input-group">
-                                            <input class="input-width" readonly id="nhienlieutieuthu"
-                                                name="nhienlieutieuthu" [(ngModel)]="FUEL_ACTUAL" type="number"
-                                                pInputText />
+                                <!-- <div class="row m--margin-bottom-10">
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label class="ng-tns-c10-9" for="Type-of-fuel">Loại nhiên liệu *</label>
+                                            <select id="Type-of-fuel"
+                                                class="form-control ng-pristine ng-valid ng-touched" name="Type-of-fuel"
+                                                [(ngModel)]="KM_ACTUAL" ng-reflect-name="carTypeText">
+                                                <option value="X" selected="selected">Xăng</option>
+                                                <option value="D">Dầu</option>
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
-                        </div>
-
-
-
-                    </form>
-
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-
+        <!-- #endregion -->
 
     </form>
 </div>
