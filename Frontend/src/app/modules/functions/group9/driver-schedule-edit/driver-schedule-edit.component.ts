@@ -6,8 +6,10 @@ import { Paginator } from "primeng/primeng";
 import {
     Group9HoatDongTaiXeServiceProxy,
     Group9HoatDongTaiXeDto,
-    Group5XeServiceProxy,
-   
+
+
+
+
 } from "@shared/service-proxies/service-proxies";
 import * as moment from 'moment';
 
@@ -21,9 +23,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
 
-    constructor(injector: Injector, 
-        private group9Proxy: Group9HoatDongTaiXeServiceProxy,
-        private group9XeService : Group5XeServiceProxy) {
+    constructor(injector: Injector, private group9Proxy: Group9HoatDongTaiXeServiceProxy) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
         this.hoatDongTaiXeInput.ma = this.getRouteParam("id");
@@ -39,10 +39,9 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     KM_ESTIMATE: number;
     FUEL_ACTUAL: number;
     DRIVER_ID: number;
-    CAR_ID:number;
+
     Save_Dialog: boolean;
     Cancel_Dialog: boolean;
-    dinhmuc : number;
 
 
     hoatDongTaiXeInput: Group9HoatDongTaiXeDto = new Group9HoatDongTaiXeDto();
@@ -56,32 +55,18 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
 
 
     createValue() {
-    this.group9Proxy.hOATDONGTAIXE_Group9ById(this.hoatDongTaiXeInput.ma).subscribe((result) => {
-        this.selectedHoatDongTaiXe = result;
-        this.SCHEDULE_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaLichTrinh;
-        this.START_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.toDate();
-        this.END_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.toDate();
-        this.KM_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmThucTe;
-        this.KM_ESTIMATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmUocTinh;
-        this.FUEL_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_NhienLieu;
-        this.CAR_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaXe;
-        this.group9XeService.xE_Group5SearchById(this.CAR_ID).subscribe((result)=>{
-            this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
+        this.group9Proxy.hOATDONGTAIXE_Group9ById(this.hoatDongTaiXeInput.ma).subscribe((result) => {
+            this.selectedHoatDongTaiXe = result;
+            this.SCHEDULE_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaLichTrinh;
+            this.START_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.toDate();
+            this.END_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.toDate();
+            this.KM_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmThucTe;
+            this.KM_ESTIMATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmUocTinh;
+            this.FUEL_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_NhienLieu;
+            this.start_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.format('DD/MM/YYYY').toString();
+            this.end_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.format('DD/MM/YYYY').toString();
+            this.DRIVER_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaTaiXe;
         });
-    });
-  
-        // this.group9Proxy.hOATDONGTAIXE_Group9ById(this.hoatDongTaiXeInput.ma).subscribe((result) => {
-        //     this.selectedHoatDongTaiXe = result;
-        //     this.SCHEDULE_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaLichTrinh;
-        //     this.START_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.toDate();
-        //     this.END_DATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.toDate();
-        //     this.KM_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmThucTe;
-        //     this.KM_ESTIMATE = this.selectedHoatDongTaiXe.hoatDongTaiXe_KmUocTinh;
-        //     this.FUEL_ACTUAL = this.selectedHoatDongTaiXe.hoatDongTaiXe_NhienLieu;
-        //     this.start_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.format('DD/MM/YYYY').toString();
-        //     this.end_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.format('DD/MM/YYYY').toString();
-        //     this.DRIVER_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaTaiXe;
-        // });
 
     }
 
@@ -156,6 +141,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     }
     getValue() {
         this.hoatDongTaiXeInput.hoatDongTaiXe_KmThucTe = this.KM_ACTUAL;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_NhienLieu = this.FUEL_ACTUAL;
         var dateObj_NgayTao = new Date(Date.now());
         var momentObj_NgayTao = moment(dateObj_NgayTao);
         this.hoatDongTaiXeInput.hoatDongTaiXe_NgayTao = momentObj_NgayTao;
@@ -188,8 +174,5 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
 
     ngAfterViewInit(): void {
 
-    }
-    focusOutFunction(){
-        this.FUEL_ACTUAL = this.dinhmuc * this.KM_ACTUAL;
     }
 }

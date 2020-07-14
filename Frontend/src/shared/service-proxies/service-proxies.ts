@@ -20488,6 +20488,7 @@ export class Group9LichTrinhDto implements IGroup9LichTrinhDto {
     lichTrinh_NgayDen!: moment.Moment | undefined;
     lichTrinh_MaTuyenChay!: number | undefined;
     lichTrinh_MaTaiXe!: number | undefined;
+    lichTrinh_MaXe!: number | undefined;
     lichTrinh_TrangThaiChuyen!: string | undefined;
     lichTrinh_NgayTao!: string | undefined;
     lichTrinh_NguoiTao!: string | undefined;
@@ -20513,6 +20514,7 @@ export class Group9LichTrinhDto implements IGroup9LichTrinhDto {
             this.lichTrinh_NgayDen = data["lichTrinh_NgayDen"] ? moment(data["lichTrinh_NgayDen"].toString()) : <any>undefined;
             this.lichTrinh_MaTuyenChay = data["lichTrinh_MaTuyenChay"];
             this.lichTrinh_MaTaiXe = data["lichTrinh_MaTaiXe"];
+            this.lichTrinh_MaXe = data["lichTrinh_MaXe"];
             this.lichTrinh_TrangThaiChuyen = data["lichTrinh_TrangThaiChuyen"];
             this.lichTrinh_NgayTao = data["lichTrinh_NgayTao"];
             this.lichTrinh_NguoiTao = data["lichTrinh_NguoiTao"];
@@ -20538,6 +20540,7 @@ export class Group9LichTrinhDto implements IGroup9LichTrinhDto {
         data["lichTrinh_NgayDen"] = this.lichTrinh_NgayDen ? this.lichTrinh_NgayDen.toISOString() : <any>undefined;
         data["lichTrinh_MaTuyenChay"] = this.lichTrinh_MaTuyenChay;
         data["lichTrinh_MaTaiXe"] = this.lichTrinh_MaTaiXe;
+        data["lichTrinh_MaXe"] = this.lichTrinh_MaXe;
         data["lichTrinh_TrangThaiChuyen"] = this.lichTrinh_TrangThaiChuyen;
         data["lichTrinh_NgayTao"] = this.lichTrinh_NgayTao;
         data["lichTrinh_NguoiTao"] = this.lichTrinh_NguoiTao;
@@ -20556,6 +20559,7 @@ export interface IGroup9LichTrinhDto {
     lichTrinh_NgayDen: moment.Moment | undefined;
     lichTrinh_MaTuyenChay: number | undefined;
     lichTrinh_MaTaiXe: number | undefined;
+    lichTrinh_MaXe: number | undefined;
     lichTrinh_TrangThaiChuyen: string | undefined;
     lichTrinh_NgayTao: string | undefined;
     lichTrinh_NguoiTao: string | undefined;

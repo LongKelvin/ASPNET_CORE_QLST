@@ -199,7 +199,7 @@ export class ModelCarManagementGroup4Component extends AppComponentBase implemen
                         name: item.loaiXe_Hang,
                         value: item.loaiXe_Hang.toLowerCase()
                     }
-                    let newCarYear = {
+                    let newCarYear = {  
                         name: item.loaiXe_NamSX.toString(),
                         value: item.loaiXe_NamSX.toString()
                     }

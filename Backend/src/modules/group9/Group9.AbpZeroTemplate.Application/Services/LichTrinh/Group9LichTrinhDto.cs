@@ -10,6 +10,7 @@ namespace Group9.AbpZeroTemplate.Application.Share.Group9.Dto
         public DateTime? LichTrinh_NgayDen { get; set; }
         public int? LichTrinh_MaTuyenChay { get; set; }
         public int? LichTrinh_MaTaiXe { get; set; }
+        public int? LichTrinh_MaXe { get; set; }
         public string LichTrinh_TrangThaiChuyen { get; set; }
         public string LichTrinh_NgayTao { get; set; }
         public string LichTrinh_NguoiTao { get; set; }

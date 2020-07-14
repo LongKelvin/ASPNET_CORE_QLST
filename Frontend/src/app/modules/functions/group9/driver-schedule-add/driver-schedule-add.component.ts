@@ -8,7 +8,9 @@ import {
     Group9HoatDongTaiXeDto,
     Group4LichTrinhServiceProxy,
     Group4LichTrinhDto,
-    Group4TuyenChayServiceProxy, Group4TuyenChayDto
+    Group4TuyenChayServiceProxy, Group4TuyenChayDto,
+    Group9LichTrinhDto,
+    Group5XeServiceProxy,
 
 } from "@shared/service-proxies/service-proxies";
 import * as moment from 'moment';
@@ -26,9 +28,10 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     @ViewChild("paginator") paginator: Paginator;
     //value: Date;
 
-    constructor(injector: Injector,public router: Router, private group9: Group9HoatDongTaiXeServiceProxy,
+    constructor(injector: Injector,public router: Router, private group9HoatDongService: Group9HoatDongTaiXeServiceProxy,
         private group4LichTrinhProxy: Group4LichTrinhServiceProxy, 
-        private group4_TuyenChayProxy: Group4TuyenChayServiceProxy
+        private group4_TuyenChayProxy: Group4TuyenChayServiceProxy,
+        private group9XeService: Group5XeServiceProxy,
         ) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
@@ -41,6 +44,7 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
 
     currentUserName: string;
     SCHEDULE_ID: number;
+    maxe : number;
     START_DATE: Date;
     END_DATE: Date;
     KM_ACTUAL: number;
@@ -53,11 +57,12 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     CAR_ID: number;
     end_date_: string;
     start_date_: string;
-    
+    dinhmuc : number;
+
 
     hoatDongTaiXeInput: Group9HoatDongTaiXeDto = new Group9HoatDongTaiXeDto();
 
-    listScheduleID: Group4LichTrinhDto[];
+    listScheduleID: Group9LichTrinhDto[];
     lichTrinhinput: Group4LichTrinhDto = new Group4LichTrinhDto();
     selectedDropdownLichTrinh: Group4LichTrinhDto;
 
@@ -69,14 +74,14 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
    
 
     getMaLichTrinh(): void {
-        this.group4LichTrinhProxy.lICHTRINH_Group4Search(this.lichTrinhinput).subscribe((result) => {
+        this.group9HoatDongService.hOATDONGTAIXE_Group9SearchLichTrinh({}as any).subscribe((result) => {
             this.listScheduleID= result;
         });
     }
 
     insert(): void {
         this.getValue();
-        this.group9.hOATDONGTAIXE_Group9Insert(this.hoatDongTaiXeInput).subscribe((response) => {
+        this.group9HoatDongService.hOATDONGTAIXE_Group9Insert(this.hoatDongTaiXeInput).subscribe((response) => {
             if (response["Result"] == "1") {
                 this.notify.error(response["ErrorDesc"], "ERROR", environment.opt);
             } else {
@@ -117,14 +122,14 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     ClearAllInputValue() {
         if (this.KM_ACTUAL == null &&
             this.KM_ESTIMATE == null && this.SCHEDULE_ID == null
-            && this.FUEL_ACTUAL == null) {
+            && (this.FUEL_ACTUAL == null || this.FUEL_ACTUAL == 0)) {
             this.ReturnToHomePage();
         }
         else {
             this.KM_ACTUAL = null;
             this.KM_ESTIMATE = null;
             this.SCHEDULE_ID = null;
-            this.FUEL_ACTUAL = null;
+            this.FUEL_ACTUAL = 0;
             this.START_DATE = null;
             this.END_DATE = null;
             this.ReturnToHomePage();
@@ -139,15 +144,23 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
 
     onOptionsSelected(event){
         this.lichTrinhinput.ma = this.SCHEDULE_ID;
-        this.group4LichTrinhProxy.lICTRINH_Group4SearchById(this.SCHEDULE_ID).subscribe((result) => {
+        this.group9HoatDongService.hOATDONGTAIXE_Group9SearchByIdLichTrinh(this.SCHEDULE_ID).subscribe((result) => {
             this.selectedDropdownLichTrinh= result;
-            this.START_DATE = this.selectedDropdownLichTrinh.lichTrinh_NgayDi.toDate();
-            this.END_DATE = this.selectedDropdownLichTrinh.lichTrinh_NgayDen.toDate();
-            var km = this.selectedDropdownLichTrinh.tuyenchay_SoKm;
+            this.START_DATE = result.lichTrinh_NgayDi.toDate();
+            this.END_DATE = result.lichTrinh_NgayDen.toDate();
+            var km = result.tuyenchay_SoKm;
             this.KM_ESTIMATE = +km;
-            this.DRIVER_ID = this.selectedDropdownLichTrinh.lichTrinh_MaTaiXe;
-            this.start_date_ = this.selectedDropdownLichTrinh.lichTrinh_NgayDi.format('DD/MM/YYYY').toString();
-            this.end_date_ = this.selectedDropdownLichTrinh.lichTrinh_NgayDen.format('DD/MM/YYYY').toString();
+            this.DRIVER_ID = result.lichTrinh_MaTaiXe;
+            this.FUEL_ACTUAL = 0;
+
+            this.start_date_ = result.lichTrinh_NgayDi.format('DD/MM/YYYY').toString();
+            this.end_date_ = result.lichTrinh_NgayDen.format('DD/MM/YYYY').toString();
+            
+            this.group9XeService.xE_Group5SearchById(result.lichTrinh_MaXe).subscribe((result) => {
+                this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
+
+            });
+
         });
        
     }
@@ -195,5 +208,16 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     ngAfterViewInit(): void {
        
     }
+     myFunction(){
+  
+         this.notify.error(this.KM_ACTUAL.toString(), "ERROR", environment.opt);
+         this.notify.error(this.FUEL_ACTUAL.toString(), "ERROR", environment.opt);  
+         this.notify.error(this.dinhmuc.toString(), "ERROR", environment.opt);
+     }
+     onKey(event: any) { // without type info
+        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc;
+        this.myFunction();
+
+      }
 }
 

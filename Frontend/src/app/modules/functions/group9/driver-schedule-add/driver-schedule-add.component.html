@@ -44,6 +44,7 @@
                                            
                                             <select class="form-control" id="maLichTrinh" name="maLichTrinh" [(ngModel)]="SCHEDULE_ID"
                                                 (change)='onOptionsSelected($event)'>
+                                                <option value></option>
                                                 <option *ngFor="let item of listScheduleID" value="{{item.ma}}">{{item.ma}}
                                                 </option>
                                             </select>
@@ -105,7 +106,7 @@
                                         <div class="form-group">
                                             <label class="ng-tns-c10-9" for="km_actual">Số Km Thực tế</label>
                                             <div class="input-group">
-                                                <input class="form-control ng-pristine ng-valid ng-touched"
+                                                <input class="form-control ng-pristine ng-valid ng-touched" (keyup)="onKey($event)"
                                                     id="km_actual" name="km_actual" [(ngModel)]="KM_ACTUAL"
                                                     type="number" ng-reflect-name="km_actual" required>
                                             </div>
@@ -115,8 +116,7 @@
                                 <div class="row m--margin-bottom-10">
                                     <div class="col-xl-6">
                                         <div class="form-group">
-                                            <label class="ng-tns-c10-9" for="FuelNorms">Nhiên liệu tiêu thụ (lít/KM thực
-                                                tế)
+                                            <label class="ng-tns-c10-9" for="FuelNorms">Nhiên liệu tiêu thụ (lít/KM thực +tế)
                                                 *</label>
                                             <div class="input-group">
                                                 <input class="form-control ng-pristine ng-valid ng-touched"
