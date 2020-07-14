@@ -111,7 +111,7 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
     GetAll(): void {
         this.primengTableHelper.showLoadingIndicator();
         this.group9HoatDongService.hOATDONGTAIXE_Group9SearchAll().subscribe((result) => {
-            let no = 1;
+            let no = 1; 
             result.forEach((item) => {
                 item["no"] = no++;
             });

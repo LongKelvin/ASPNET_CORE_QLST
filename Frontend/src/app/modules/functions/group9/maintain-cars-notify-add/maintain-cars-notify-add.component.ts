@@ -54,7 +54,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
 
     getValue() {
         this.group9BaoTriInput.baoTri_MaBaoTri = null;
-        this.group9BaoTriInput.baoTri_MaXe = this.maxe;
+        this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = "C";
         this.group9BaoTriInput.baoTri_NoiBaoTri = null;
         this.group9BaoTriInput.baoTri_NgayDuyet = null;
@@ -92,26 +92,39 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
                 this.notify.error("Thêm đề xuất thất bại", "ERROR", environment.opt);
                 this.huyconfirm();
             } else {
-                this.notify.info("Thêm đề xuất thành công", "SUCCESS", environment.opt);
+                window.location.reload();
+                this.notify.info("Thêm   đề xuất thành công", "SUCCESS", environment.opt);
             }
         });
-        this.notify.info("Thêm tỳhgfhgfgfhgfhg", "SUCCESS", environment.opt);
     }
 
     insert(): void{
+        this.checkvalue();
     this.getValue();
-    this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
-      if (response["Result"] == "1") {
-          this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
-      } else {
-          this.notify.success("Thêm xe thành công","SUCCESS", environment.opt);
-      }
-  });
+    this.primengTableHelper.showLoadingIndicator();
+
+   
+          this.group9BaoTriService.bAOTRI_Group9SearchXeStateNoMaintain().subscribe(response=>{
+            this.xe_list = response;
+            this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
+                if (response["Result"] == "1") {
+                    this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
+                } else {
+                    this.notify.success("Thêm xe thành công","SUCCESS", environment.opt);
+
+                }});
+                this.selectedLevel = null;
+
+            this.primengTableHelper.hideLoadingIndicator();
+
+        });
+
+      
   }
 
     checkvalue(): boolean {
-        if (this.maxe == null) {
-            this.notify.error("Bạn chưa nhập mã xe", "ERROR", environment.opt);
+        if (this.selectedLevel == 0) {
+            this.notify.error("Bạn chưa chọn mã xe", "ERROR", environment.opt);
             return false;
         }
         else if (this.ghichu == null || this.ghichu == '') {

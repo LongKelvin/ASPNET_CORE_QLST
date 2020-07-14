@@ -128,13 +128,9 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     }
     approve()
     {
-        this.notify.info(this.curMaBaoTri.toString(), "ERROR", environment.opt);
-
         this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe((response) => {
             if (response["Result"] === "1") {
             } else {
-                this.notify.error(response.ma.toString(), "ERROR", environment.opt);
-                this.notify.info(this.currentUserName, "ERROR", environment.opt);
 
                 if(response.baoTri_NguoiTao === this.currentUserName)
                 {
@@ -203,7 +199,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response=>{
         this.group9BaoTriRowInput = response;
         this.maNG = this.group9BaoTriRowInput.baoTri_MaNguoiGui;
-        
+        if(response.baoTri_NgayBaotri == null){
             this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet, 0).subscribe((response) => {
                 if (response["Result"] === "1") {
                     this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
@@ -213,6 +209,18 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
                     this.curMaBaoTri = null;
                 }
             });
+        }
+        else{
+            this.group9BaoTriService.bAOTRI_Group9SendNotification(response.baoTri_NguoiTao, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet, 1).subscribe((response) => {
+                if (response["Result"] === "1") {
+                    this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                } else {
+                    this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
+                    //this.resetOptions();
+                    this.curMaBaoTri = null;
+                }
+            });
+        }
     });
   }
   getValue() {

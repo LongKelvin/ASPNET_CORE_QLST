@@ -73,14 +73,11 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     load(){
 
         this.maxe = this.group9BaoTriInput.baoTri_MaXe;
-        this.notify.error(this.maxe.toString(), "ERROR", environment.opt);
-
         this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
         this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
         this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayBaotri.format("DD/MM/YYYY");
         this.ngaytao =this.group9BaoTriInput.baoTri_NgayTao.toDate();
         this.ngayxuatxuong=this.group9BaoTriInput.baoTri_NgayXuatXuong.toDate();
-        this.currentUserName=this.group9BaoTriInput.baoTri_NguoiTao;
         this.trangthai=this.group9BaoTriInput.baoTri_TrangThai ;
         this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien.toString() ;
         this.noibaotri=this.group9BaoTriInput.baoTri_NoiBaoTri;

@@ -9124,24 +9124,24 @@ export class Group9HoatDongTaiXeServiceProxy {
         }
         return _observableOf<Group9TaiXeDto[]>(<any>null);
     }
-}
-
-@Injectable()
-export class Group9LoaiXeServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "";
-    }
 
     /**
+     * @maTaiXe (optional) 
+     * @maLichTrinh (optional) 
+     * @tuNgay (optional) 
+     * @denNgay (optional) 
      * @return Success
      */
-    test(): Observable<string> {
-        let url_ = this.baseUrl + "/api/Group9LoaiXe/test";
+    hOATDONGTAIXE_Group9Tracking(maTaiXe: number | null | undefined, maLichTrinh: number | null | undefined, tuNgay: moment.Moment | null | undefined, denNgay: moment.Moment | null | undefined): Observable<Group9HoatDongTaiXeDto[]> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9Tracking?";
+        if (maTaiXe !== undefined)
+            url_ += "maTaiXe=" + encodeURIComponent("" + maTaiXe) + "&"; 
+        if (maLichTrinh !== undefined)
+            url_ += "maLichTrinh=" + encodeURIComponent("" + maLichTrinh) + "&"; 
+        if (tuNgay !== undefined)
+            url_ += "tuNgay=" + encodeURIComponent(tuNgay ? "" + tuNgay.toJSON() : "") + "&"; 
+        if (denNgay !== undefined)
+            url_ += "denNgay=" + encodeURIComponent(denNgay ? "" + denNgay.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9153,21 +9153,21 @@ export class Group9LoaiXeServiceProxy {
             })
         };
 
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processTest(response_);
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9Tracking(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processTest(<any>response_);
+                    return this.processHOATDONGTAIXE_Group9Tracking(<any>response_);
                 } catch (e) {
-                    return <Observable<string>><any>_observableThrow(e);
+                    return <Observable<Group9HoatDongTaiXeDto[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<string>><any>_observableThrow(response_);
+                return <Observable<Group9HoatDongTaiXeDto[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processTest(response: HttpResponseBase): Observable<string> {
+    protected processHOATDONGTAIXE_Group9Tracking(response: HttpResponseBase): Observable<Group9HoatDongTaiXeDto[]> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -9178,7 +9178,11 @@ export class Group9LoaiXeServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Group9HoatDongTaiXeDto.fromJS(item));
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -9186,7 +9190,19 @@ export class Group9LoaiXeServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<string>(<any>null);
+        return _observableOf<Group9HoatDongTaiXeDto[]>(<any>null);
+    }
+}
+
+@Injectable()
+export class Group9LoaiXeServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
     }
 
     /**
