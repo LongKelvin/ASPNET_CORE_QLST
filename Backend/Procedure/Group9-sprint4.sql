@@ -40,6 +40,7 @@ else
 
 begin transaction
 begin try
+	declare @Ma int = SCOPE_IDENTITY()
 
 	INSERT INTO [dbo].[HoatDongTaiXe]
     ( 
@@ -68,7 +69,6 @@ GETDATE(),
 @HoatDongTaiXe_KmUocTinh,
 @HoatDongTaiXe_NgayBatDau ,
 @HoatDongTaiXe_NgayKetThuc)
-	declare @Ma int = SCOPE_IDENTITY()
 commit transaction
 	select '0' as Result, N'' as ErrorDesc, @Ma as Ma
 end try
@@ -229,6 +229,17 @@ begin
 end
 go
 
+create or alter proc [dbo].[HOATDONGTAIXE_Group9SearchAllNewLichTrinh]
+as
+begin
+	select * from LichTrinh
+	where LichTrinh_TrangThai = 'N' 
+	and LichTrinh_NgayDi is not null 
+	and LichTrinh_NgayDen is not null 
+	and Ma not in (select HoatDongTaiXe_MaLichTrinh from HoatDongTaiXe)
+end
+go
+
 
 create or alter proc [dbo].[HOATDONGTAIXE_Group9SearchByIdLichTrinh]
 @Ma int = NULL
@@ -279,6 +290,7 @@ begin
 	end
 go
 
+
 exec [dbo].[HOATDONGTAIXE_Group9SearchAllMaTaiXe]
 
 select * from HoatDongTaiXe
@@ -288,5 +300,5 @@ exec HOATDONGTAIXE_Group9SearchAllLichTrinh
 exec HOATDONGTAIXE_Group9InsertLichTrinh '2019-01-01 00:00:00.000', '2019-01-01 00:00:00.000', null, null, 'C', '2019-01-01 00:00:00.000', 'admin', 'N'
 exec [dbo].[HOATDONGTAIXE_Group9Search] null, null, 8, null, 2, null, null, null, null, null, null, null, null
 
-exec [HOATDONGTAIXE_Group9SearchLichTrinh] 7, '2018-01-01 00:00:00.000', null,null, null, null,null,null, null
-exec [HOATDONGTAIXE_Group9SearchLichTrinh] null,null,null,null,null,null,null,null,null
+exec [HOATDONGTAIXE_Group9SearchLichTrinh] 7, '2018-01-01 00:00:00.000', null,null, null, null,null,null, null, null
+exec [HOATDONGTAIXE_Group9SearchLichTrinh] null,null,null,null,null,null,null,null,null, null

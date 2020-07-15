@@ -74,9 +74,9 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
    
 
     getMaLichTrinh(): void {
-        this.group9HoatDongService.hOATDONGTAIXE_Group9SearchLichTrinh({}as any).subscribe((result) => {
-            this.listScheduleID= result;
-        });
+        this.group9HoatDongService.hOATDONGTAIXE_Group9SearchAllNewLichTrinh().subscribe(response=>{
+            this.listScheduleID = response;
+        })
     }
 
     insert(): void {
@@ -212,7 +212,7 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
        
     }
      onKey(event: any) { // without type info
-        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc;
+        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc / 100;
 
       }
 }
