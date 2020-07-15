@@ -55,7 +55,7 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
         }
 
         [HttpPost]
-        public IDictionary<string, object> BAOTRI_Group9App([FromBody] int id, string checkerId)
+        public IDictionary<string, object> BAOTRI_Group9App( int id, string checkerId)
         {
             return Group9BaoTriAppService.BAOTRI_Group9App(id, checkerId);
         }

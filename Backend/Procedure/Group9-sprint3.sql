@@ -386,4 +386,3 @@ exec BAOTRI_Group9MaintainAll
 
 select * from baotri
 
-delete  baotri

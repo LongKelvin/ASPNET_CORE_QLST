@@ -61,6 +61,18 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
         {
             return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9SearchAllLichTrinh();
         }
+
+        [HttpPost]
+        public List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchAllNewLichTrinh()
+        {
+            return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9SearchAllNewLichTrinh();
+        }
+        [HttpPost]
+        public IDictionary<string, object> HOATDONGTAIXE_Group9App(int id, string checkerId)
+        {
+            return Group9HoatDongTaiXeAppService.HOATDONGTAIXE_Group9App(id, checkerId);
+        }
+
         [HttpPost]
         public Group9LichTrinhDto HOATDONGTAIXE_Group9SearchByIdLichTrinh(int id)
         {

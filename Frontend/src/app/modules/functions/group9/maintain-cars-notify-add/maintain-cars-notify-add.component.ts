@@ -92,8 +92,8 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
                 this.notify.error("Thêm đề xuất thất bại", "ERROR", environment.opt);
                 this.huyconfirm();
             } else {
-                window.location.reload();
                 this.notify.info("Thêm   đề xuất thành công", "SUCCESS", environment.opt);
+                window.location.reload();
             }
         });
 

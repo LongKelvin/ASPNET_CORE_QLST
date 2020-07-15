@@ -174,5 +174,67 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
       
         return true;
       }
+      approve()
+      {
+  
+          this.group9BaoTriService.bAOTRI_Group9ById(this.group9BaoTriInput.ma).subscribe((response) => {
+              if (response["Result"] === "1") {
+              } else {
+  
+                  if (response.baoTri_NguoiTao === this.currentUserName) {
+                      this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
+                      return;
+                  }
+                  let self = this;
+                  self.message.confirm(
+                      self.l('Duyệt ?', this.group9BaoTriInput.ma),
+                      this.l('AreYouSure'),
+                      isConfirmed => {
+                          if (isConfirmed) {
+  
+  
+                              this.group9BaoTriService.bAOTRI_Group9App(this.group9BaoTriInput.ma, this.currentUserName).subscribe((response) => {
+                                  if (response["Result"] === "1") {
+                                      this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                                  } else {
+                                      this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
+                                      //this.resetOptions();
+                                      this.send();
+                                  }
+                              });
+                          }
+                      }
+                  );
+              }
+          });
+  
+      }
+      send() {
 
+        this.get();
+    }
+    get(){
+
+          if(this.group9BaoTriInput.baoTri_NgayBaotri == null){
+  
+              this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriInput.baoTri_MaBaoTri, this.group9BaoTriInput.baoTri_MaXe, this.group9BaoTriInput.baoTri_NgayDuyet, 0).subscribe((response) => {
+                  if (response["Result"] === "1") {
+                      this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                  } else {
+                      this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
+                      //this.resetOptions();
+                  }
+              });
+          }
+          else{
+              this.group9BaoTriService.bAOTRI_Group9SendNotification(this.group9BaoTriInput.baoTri_NguoiTao, this.group9BaoTriInput.baoTri_MaBaoTri, this.group9BaoTriInput.baoTri_MaXe, this.group9BaoTriInput.baoTri_NgayDuyet, 1).subscribe((response) => {
+                  if (response["Result"] === "1") {
+                      this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                  } else {
+                      this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
+                      //this.resetOptions();
+                  }
+              });
+            }
+    }
 }

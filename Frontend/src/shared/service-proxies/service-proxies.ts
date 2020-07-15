@@ -7528,14 +7528,13 @@ export class Group9BaoTriServiceProxy {
      */
     bAOTRI_Group9App(id: number | null | undefined, checkerId: string | null | undefined): Observable<{ [key: string] : any; }> {
         let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9App?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         if (checkerId !== undefined)
             url_ += "checkerId=" + encodeURIComponent("" + checkerId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(id);
-
         let options_ : any = {
-            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
@@ -9007,6 +9006,70 @@ export class Group9HoatDongTaiXeServiceProxy {
             }));
         }
         return _observableOf<Group9LichTrinhDto[]>(<any>null);
+    }
+
+    /**
+     * @id (optional) 
+     * @checkerId (optional) 
+     * @return Success
+     */
+    hOATDONGTAIXE_Group9App(id: number | null | undefined, checkerId: string | null | undefined): Observable<{ [key: string] : any; }> {
+        let url_ = this.baseUrl + "/api/Group9HoatDongTaiXe/HOATDONGTAIXE_Group9App?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        if (checkerId !== undefined)
+            url_ += "checkerId=" + encodeURIComponent("" + checkerId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHOATDONGTAIXE_Group9App(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHOATDONGTAIXE_Group9App(<any>response_);
+                } catch (e) {
+                    return <Observable<{ [key: string] : any; }>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<{ [key: string] : any; }>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHOATDONGTAIXE_Group9App(response: HttpResponseBase): Observable<{ [key: string] : any; }> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200) {
+                result200 = {};
+                for (let key in resultData200) {
+                    if (resultData200.hasOwnProperty(key))
+                        result200[key] = resultData200[key];
+                }
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<{ [key: string] : any; }>(<any>null);
     }
 
     /**
@@ -20468,6 +20531,8 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
     hoatDongTaiXe_KmUocTinh!: number | undefined;
     hoatDongTaiXe_NgayBatDau!: moment.Moment | undefined;
     hoatDongTaiXe_NgayKetThuc!: moment.Moment | undefined;
+    hoatDongTaiXe_NguoiDuyet!: string | undefined;
+    hoatDongTaiXe_NgayDuyet!: moment.Moment | undefined;
 
     constructor(data?: IGroup9HoatDongTaiXeDto) {
         if (data) {
@@ -20493,6 +20558,8 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
             this.hoatDongTaiXe_KmUocTinh = data["hoatDongTaiXe_KmUocTinh"];
             this.hoatDongTaiXe_NgayBatDau = data["hoatDongTaiXe_NgayBatDau"] ? moment(data["hoatDongTaiXe_NgayBatDau"].toString()) : <any>undefined;
             this.hoatDongTaiXe_NgayKetThuc = data["hoatDongTaiXe_NgayKetThuc"] ? moment(data["hoatDongTaiXe_NgayKetThuc"].toString()) : <any>undefined;
+            this.hoatDongTaiXe_NguoiDuyet = data["hoatDongTaiXe_NguoiDuyet"];
+            this.hoatDongTaiXe_NgayDuyet = data["hoatDongTaiXe_NgayDuyet"] ? moment(data["hoatDongTaiXe_NgayDuyet"].toString()) : <any>undefined;
         }
     }
 
@@ -20518,6 +20585,8 @@ export class Group9HoatDongTaiXeDto implements IGroup9HoatDongTaiXeDto {
         data["hoatDongTaiXe_KmUocTinh"] = this.hoatDongTaiXe_KmUocTinh;
         data["hoatDongTaiXe_NgayBatDau"] = this.hoatDongTaiXe_NgayBatDau ? this.hoatDongTaiXe_NgayBatDau.toISOString() : <any>undefined;
         data["hoatDongTaiXe_NgayKetThuc"] = this.hoatDongTaiXe_NgayKetThuc ? this.hoatDongTaiXe_NgayKetThuc.toISOString() : <any>undefined;
+        data["hoatDongTaiXe_NguoiDuyet"] = this.hoatDongTaiXe_NguoiDuyet;
+        data["hoatDongTaiXe_NgayDuyet"] = this.hoatDongTaiXe_NgayDuyet ? this.hoatDongTaiXe_NgayDuyet.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -20536,6 +20605,8 @@ export interface IGroup9HoatDongTaiXeDto {
     hoatDongTaiXe_KmUocTinh: number | undefined;
     hoatDongTaiXe_NgayBatDau: moment.Moment | undefined;
     hoatDongTaiXe_NgayKetThuc: moment.Moment | undefined;
+    hoatDongTaiXe_NguoiDuyet: string | undefined;
+    hoatDongTaiXe_NgayDuyet: moment.Moment | undefined;
 }
 
 export class Group9LichTrinhDto implements IGroup9LichTrinhDto {

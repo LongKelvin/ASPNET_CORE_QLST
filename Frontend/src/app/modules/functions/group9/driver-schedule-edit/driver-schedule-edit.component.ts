@@ -69,13 +69,14 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
             this.start_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.format('DD/MM/YYYY').toString();
             this.end_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.format('DD/MM/YYYY').toString();
             this.DRIVER_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaTaiXe;
+            this.notify.error(result.hoatDongTaiXe_MaXe.toString(), "ERROR", environment.opt);
             this.group9XeService.xE_Group5SearchById(result.hoatDongTaiXe_MaXe).subscribe((result) => {
                 this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
                 if(this.dinhmuc == null){
                     this.dinhmuc = 2;   
                 }
-
             });
+            
         });
 
     }
@@ -186,7 +187,37 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
 
     }
     onKey(event: any) { // without type info
-        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc;
+        if(this.dinhmuc == null){
+            this.dinhmuc = 2;   
+        }
+        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc / 100;
 
+      }
+
+      approve()
+      {
+  
+   
+        let self = this;
+                  self.message.confirm(
+                      self.l('Duyệt ?', this.hoatDongTaiXeInput.ma),
+                      this.l('AreYouSure'),
+                      isConfirmed => {
+                          if (isConfirmed) {
+  
+  
+                              this.group9Proxy.hOATDONGTAIXE_Group9App(this.hoatDongTaiXeInput.ma, this.currentUserName).subscribe((response) => {
+                                  if (response["Result"] === "1") {
+                                      this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                                  } else {
+                                      this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
+                                      //this.resetOptions();
+                                  }
+                              });
+                          }
+                      }
+                  );
+          
+  
       }
 }

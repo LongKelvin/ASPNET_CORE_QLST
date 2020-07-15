@@ -86,6 +86,8 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
                 this.notify.error(response["ErrorDesc"], "ERROR", environment.opt);
             } else {
                 this.notify.success("Thêm hoạt động tài xế thành công", "SUCCESS", environment.opt);
+                window.location.reload();
+
             }
         });
     }
@@ -152,7 +154,7 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             this.KM_ESTIMATE = +km;
             this.DRIVER_ID = result.lichTrinh_MaTaiXe;
             this.FUEL_ACTUAL = 0;
-
+            this.maxe = result.lichTrinh_MaXe;
             this.start_date_ = result.lichTrinh_NgayDi.format('DD/MM/YYYY').toString();
             this.end_date_ = result.lichTrinh_NgayDen.format('DD/MM/YYYY').toString();
             
@@ -175,11 +177,12 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
         this.hoatDongTaiXeInput.hoatDongTaiXe_NgayKetThuc = moment(this.END_DATE);
         this.hoatDongTaiXeInput.hoatDongTaiXe_NhienLieu = this.FUEL_ACTUAL;
         this.hoatDongTaiXeInput.hoatDongTaiXe_NguoiTao = this.currentUserName;
-
+        this.hoatDongTaiXeInput.hoatDongTaiXe_MaXe = this.maxe;
         var dateObj_NgayTao = new Date(Date.now());
         var momentObj_NgayTao = moment(dateObj_NgayTao);
         this.hoatDongTaiXeInput.hoatDongTaiXe_NgayTao = momentObj_NgayTao;
         this.hoatDongTaiXeInput.hoatDongTaiXe_MaTaiXe = this.DRIVER_ID;
+        this.hoatDongTaiXeInput.hoatDongTaiXe_Ma = "HDTX" + this.SCHEDULE_ID;
 
        
       

@@ -24,15 +24,29 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9SearchAll();
         List<Group9HoatDongTaiXeDto> HOATDONGTAIXE_Group9Tracking(int? maTaiXe, int? maLichTrinh, DateTime? tuNgay, DateTime? denNgay);
         List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchAllLichTrinh();
+        List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchAllNewLichTrinh();
+
         Group9LichTrinhDto HOATDONGTAIXE_Group9SearchByIdLichTrinh(int id);
         List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchLichTrinh(Group9LichTrinhDto input);
         List<Group9TaiXeDto> HOATDONGTAIXE_Group9SearchAllTaiXe();
+
+        IDictionary<string, object> HOATDONGTAIXE_Group9App(int id, string checkerId);
+        string GetCurrentUserName();
     }
     public class Group9HoatDongTaiXeAppService : BaseService, IGroup9HoatDongTaiXeAppService
     {
         public Group9HoatDongTaiXeAppService()
         {
              
+        }
+
+        public IDictionary<string, object> HOATDONGTAIXE_Group9App(int id, string checkerId)
+        {
+            return procedureHelper.GetData<dynamic>("HOATDONGTAIXE_Group9App", new
+            {
+                Id = id,
+                CheckerId = checkerId
+            }).FirstOrDefault();
         }
 
         public Group9HoatDongTaiXeDto HOATDONGTAIXE_Group9ById(int id)
@@ -69,6 +83,11 @@ namespace Group9.AbpZeroTemplate.Web.Core.Cars
         public List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchAllLichTrinh()
         {
             return procedureHelper.GetData<Group9LichTrinhDto>("HOATDONGTAIXE_Group9SearchAllLichTrinh", new { });
+        }
+
+        public List<Group9LichTrinhDto> HOATDONGTAIXE_Group9SearchAllNewLichTrinh()
+        {
+            return procedureHelper.GetData<Group9LichTrinhDto>("HOATDONGTAIXE_Group9SearchAllNewLichTrinh", new { });
         }
 
         public List<Group9TaiXeDto> HOATDONGTAIXE_Group9SearchAllTaiXe()

@@ -19,6 +19,8 @@ namespace Group9.AbpZeroTemplate.Application.Share.Group9.Dto
 		public double? HoatDongTaiXe_KmUocTinh { get; set; }
 		public DateTime? HoatDongTaiXe_NgayBatDau { get; set; }
 		public DateTime? HoatDongTaiXe_NgayKetThuc { get; set; }
+		public string HoatDongTaiXe_NguoiDuyet { get; set; }
+		public DateTime? HoatDongTaiXe_NgayDuyet { get; set; }
 
 	}
 }
