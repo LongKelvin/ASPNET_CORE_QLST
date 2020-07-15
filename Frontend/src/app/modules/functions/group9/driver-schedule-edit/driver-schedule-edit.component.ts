@@ -6,7 +6,7 @@ import { Paginator } from "primeng/primeng";
 import {
     Group9HoatDongTaiXeServiceProxy,
     Group9HoatDongTaiXeDto,
-
+    Group5XeServiceProxy,
 
 
 
@@ -23,7 +23,9 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
 
-    constructor(injector: Injector, private group9Proxy: Group9HoatDongTaiXeServiceProxy) {
+    constructor(injector: Injector, 
+        private group9Proxy: Group9HoatDongTaiXeServiceProxy,
+        private group9XeService:Group5XeServiceProxy) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
         this.hoatDongTaiXeInput.ma = this.getRouteParam("id");
@@ -39,6 +41,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     KM_ESTIMATE: number;
     FUEL_ACTUAL: number;
     DRIVER_ID: number;
+    dinhmuc : number;
 
     Save_Dialog: boolean;
     Cancel_Dialog: boolean;
@@ -66,6 +69,13 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
             this.start_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.format('DD/MM/YYYY').toString();
             this.end_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.format('DD/MM/YYYY').toString();
             this.DRIVER_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaTaiXe;
+            this.group9XeService.xE_Group5SearchById(result.hoatDongTaiXe_MaXe).subscribe((result) => {
+                this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
+                if(this.dinhmuc == null){
+                    this.dinhmuc = 2;   
+                }
+
+            });
         });
 
     }
@@ -175,4 +185,8 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     ngAfterViewInit(): void {
 
     }
+    onKey(event: any) { // without type info
+        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc;
+
+      }
 }

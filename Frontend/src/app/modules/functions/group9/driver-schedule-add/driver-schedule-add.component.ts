@@ -159,7 +159,7 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             this.group9XeService.xE_Group5SearchById(result.lichTrinh_MaXe).subscribe((result) => {
                 this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
                 if(this.dinhmuc == null){
-                    this.dinhmuc = 2;
+                    this.dinhmuc = 2;   
                 }
 
             });
@@ -211,15 +211,8 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
     ngAfterViewInit(): void {
        
     }
-     myFunction(){
-  
-         this.notify.error(this.KM_ACTUAL.toString(), "ERROR", environment.opt);
-         this.notify.error(this.FUEL_ACTUAL.toString(), "ERROR", environment.opt);  
-         this.notify.error(this.dinhmuc.toString(), "ERROR", environment.opt);
-     }
      onKey(event: any) { // without type info
         this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc;
-        this.myFunction();
 
       }
 }
