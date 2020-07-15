@@ -8159,6 +8159,62 @@ export class Group9BaoTriServiceProxy {
         }
         return _observableOf<Group9XeDto[]>(<any>null);
     }
+
+    /**
+     * @return Success
+     */
+    bAOTRI_Group9SearchXeInMaintain(): Observable<Group9XeDto[]> {
+        let url_ = this.baseUrl + "/api/Group9BaoTri/BAOTRI_Group9SearchXeInMaintain";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processBAOTRI_Group9SearchXeInMaintain(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processBAOTRI_Group9SearchXeInMaintain(<any>response_);
+                } catch (e) {
+                    return <Observable<Group9XeDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<Group9XeDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processBAOTRI_Group9SearchXeInMaintain(response: HttpResponseBase): Observable<Group9XeDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [];
+                for (let item of resultData200)
+                    result200.push(Group9XeDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<Group9XeDto[]>(<any>null);
+    }
 }
 
 @Injectable()
@@ -20396,13 +20452,11 @@ export class Group9XeDto implements IGroup9XeDto {
     xe_BienSo!: string | undefined;
     xe_Gia!: number | undefined;
     xe_Mau!: string | undefined;
-    xe_NgayTao!: moment.Moment | undefined;
     xe_NguoiTao!: string | undefined;
-    loaiXe_Ten!: string | undefined;
-    loaiXe_Hang!: string | undefined;
-    loaiXe_DinhMucNhienLieu!: number | undefined;
-    loaiXe_LoaiNhienLieu!: string | undefined;
-    loaiXe_NamSX!: number | undefined;
+    xe_NgayTao!: moment.Moment | undefined;
+    xe_TrangThai!: string | undefined;
+    xe_NgayBaoTri!: moment.Moment | undefined;
+    xe_KyHan!: number | undefined;
 
     constructor(data?: IGroup9XeDto) {
         if (data) {
@@ -20421,13 +20475,11 @@ export class Group9XeDto implements IGroup9XeDto {
             this.xe_BienSo = data["xe_BienSo"];
             this.xe_Gia = data["xe_Gia"];
             this.xe_Mau = data["xe_Mau"];
-            this.xe_NgayTao = data["xe_NgayTao"] ? moment(data["xe_NgayTao"].toString()) : <any>undefined;
             this.xe_NguoiTao = data["xe_NguoiTao"];
-            this.loaiXe_Ten = data["loaiXe_Ten"];
-            this.loaiXe_Hang = data["loaiXe_Hang"];
-            this.loaiXe_DinhMucNhienLieu = data["loaiXe_DinhMucNhienLieu"];
-            this.loaiXe_LoaiNhienLieu = data["loaiXe_LoaiNhienLieu"];
-            this.loaiXe_NamSX = data["loaiXe_NamSX"];
+            this.xe_NgayTao = data["xe_NgayTao"] ? moment(data["xe_NgayTao"].toString()) : <any>undefined;
+            this.xe_TrangThai = data["xe_TrangThai"];
+            this.xe_NgayBaoTri = data["xe_NgayBaoTri"] ? moment(data["xe_NgayBaoTri"].toString()) : <any>undefined;
+            this.xe_KyHan = data["xe_KyHan"];
         }
     }
 
@@ -20446,13 +20498,11 @@ export class Group9XeDto implements IGroup9XeDto {
         data["xe_BienSo"] = this.xe_BienSo;
         data["xe_Gia"] = this.xe_Gia;
         data["xe_Mau"] = this.xe_Mau;
-        data["xe_NgayTao"] = this.xe_NgayTao ? this.xe_NgayTao.toISOString() : <any>undefined;
         data["xe_NguoiTao"] = this.xe_NguoiTao;
-        data["loaiXe_Ten"] = this.loaiXe_Ten;
-        data["loaiXe_Hang"] = this.loaiXe_Hang;
-        data["loaiXe_DinhMucNhienLieu"] = this.loaiXe_DinhMucNhienLieu;
-        data["loaiXe_LoaiNhienLieu"] = this.loaiXe_LoaiNhienLieu;
-        data["loaiXe_NamSX"] = this.loaiXe_NamSX;
+        data["xe_NgayTao"] = this.xe_NgayTao ? this.xe_NgayTao.toISOString() : <any>undefined;
+        data["xe_TrangThai"] = this.xe_TrangThai;
+        data["xe_NgayBaoTri"] = this.xe_NgayBaoTri ? this.xe_NgayBaoTri.toISOString() : <any>undefined;
+        data["xe_KyHan"] = this.xe_KyHan;
         return data; 
     }
 }
@@ -20464,13 +20514,11 @@ export interface IGroup9XeDto {
     xe_BienSo: string | undefined;
     xe_Gia: number | undefined;
     xe_Mau: string | undefined;
-    xe_NgayTao: moment.Moment | undefined;
     xe_NguoiTao: string | undefined;
-    loaiXe_Ten: string | undefined;
-    loaiXe_Hang: string | undefined;
-    loaiXe_DinhMucNhienLieu: number | undefined;
-    loaiXe_LoaiNhienLieu: string | undefined;
-    loaiXe_NamSX: number | undefined;
+    xe_NgayTao: moment.Moment | undefined;
+    xe_TrangThai: string | undefined;
+    xe_NgayBaoTri: moment.Moment | undefined;
+    xe_KyHan: number | undefined;
 }
 
 export class Group9HangDto implements IGroup9HangDto {

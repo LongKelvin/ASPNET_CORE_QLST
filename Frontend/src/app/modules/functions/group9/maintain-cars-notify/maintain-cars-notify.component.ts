@@ -3,7 +3,7 @@ import { Component, ViewChild, OnInit, AfterViewInit, Injector } from '@angular/
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Table } from "primeng/components/table/table";
 import { Paginator } from "primeng/primeng";
-import { Group9BaoTriServiceProxy, Group9BaoTriDto, Group4XeDto, Group4XeServiceProxy, Group10ServiceProxy, Group4LichTrinhServiceProxy } from '@shared/service-proxies/service-proxies';
+import { Group9BaoTriServiceProxy, Group9BaoTriDto, Group4XeDto, Group4XeServiceProxy, Group10ServiceProxy, Group4LichTrinhServiceProxy, Group9XeDto } from '@shared/service-proxies/service-proxies';
 import {
     Group4LoaiXeDto,
     Group4LoaiXeServiceProxy,
@@ -30,7 +30,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
         private group9BaoTriService: Group9BaoTriServiceProxy,) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
-        this.group4XeService.xE_Group4Search({} as any).subscribe(response => {
+        this.group9BaoTriService.bAOTRI_Group9SearchXeInMaintain().subscribe(response => {
             this.xe_list = response;
         })
         this.group9BaoTriService.bAOTRI_Group9SearchAll().subscribe(response => {
@@ -68,7 +68,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
     selectedLevel4: string;
     maNG: string;
 
-    xe_list: Group4XeDto[];
+    xe_list: Group9XeDto[];
     baotri_list: Group9BaoTriDto[];
     baotri_list_id: Group9BaoTriDto[];
     group9BaoTriInput: Group9BaoTriDto = new Group9BaoTriDto();
@@ -126,47 +126,9 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             }
         );
     }
-    approve()
-    {
+  
 
-        this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe((response) => {
-            if (response["Result"] === "1") {
-            } else {
-
-                if (response.baoTri_NguoiTao === this.currentUserName) {
-                    this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
-                    return;
-                }
-                let self = this;
-                self.message.confirm(
-                    self.l('Duyệt ?', this.curMaBaoTri),
-                    this.l('AreYouSure'),
-                    isConfirmed => {
-                        if (isConfirmed) {
-
-
-                            this.group9BaoTriService.bAOTRI_Group9App(this.curMaBaoTri, this.currentUserName).subscribe((response) => {
-                                if (response["Result"] === "1") {
-                                    this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-                                } else {
-                                    this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
-                                    //this.resetOptions();
-                                    this.send();
-                                }
-                            });
-                        }
-                    }
-                );
-            }
-        });
-
-    }
-
-    send() {
-
-        this.get();
-        this.searchAll();
-    }
+    
 
     search() {
         // show loading trong gridview

@@ -42,6 +42,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     FUEL_ACTUAL: number;
     DRIVER_ID: number;
     dinhmuc : number;
+    trangthai: string;
 
     Save_Dialog: boolean;
     Cancel_Dialog: boolean;
@@ -69,6 +70,13 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
             this.start_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.format('DD/MM/YYYY').toString();
             this.end_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.format('DD/MM/YYYY').toString();
             this.DRIVER_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaTaiXe;
+            if(this.selectedHoatDongTaiXe.hoatDongTaiXe_TrangThai == "N"){
+                this.trangthai = "Chưa duyệt"
+            }
+            else
+            {
+                this.trangthai = "Đã  duyệt"
+            }
             this.notify.error(result.hoatDongTaiXe_MaXe.toString(), "ERROR", environment.opt);
             this.group9XeService.xE_Group5SearchById(result.hoatDongTaiXe_MaXe).subscribe((result) => {
                 this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
@@ -90,6 +98,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
                 this.notify.error(response["ErrorDesc"], "ERROR", environment.opt);
             } else {
                 this.notify.success("Cập nhật hoạt động tài xế thành công", "SUCCESS", environment.opt);
+                this.trangthai = "Chưa duyệt";
             }
         });
     }
@@ -196,9 +205,16 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
 
       approve()
       {
-  
+        this.group9Proxy.hOATDONGTAIXE_Group9ById(this.hoatDongTaiXeInput.ma).subscribe((response) => {
+            if (response["Result"] === "1") {
+            } else {
+
+                if (response.hoatDongTaiXe_NguoiTao === this.currentUserName) {
+                    this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
+                    return;
+                }
    
-        let self = this;
+                let self = this;
                   self.message.confirm(
                       self.l('Duyệt ?', this.hoatDongTaiXeInput.ma),
                       this.l('AreYouSure'),
@@ -211,13 +227,15 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
                                       this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
                                   } else {
                                       this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
+                                      this.trangthai = "Đã  duyệt"
                                       //this.resetOptions();
                                   }
                               });
                           }
                       }
                   );
-          
+                    }
+                });
   
       }
 }

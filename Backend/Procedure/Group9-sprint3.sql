@@ -144,7 +144,7 @@ as
 begin
 select *
 from BaoTri
-where Ma = @Ma
+where Ma = @Ma and BaoTri_TrangThai != 'X'
 end
 go
 -------------------[dbo].[Group9BaoTri_SearchAll] 6/17/2020----------------
@@ -153,7 +153,7 @@ as
 begin
 select *
 from BaoTri
-where BaoTri_TrangThai = 'N'
+where BaoTri_TrangThai != 'X'
 end
 go
 -------------------[dbo].[Group9BaoTri_Search] 6/17/2020----------------
@@ -193,8 +193,7 @@ begin
 	and (@BaoTri_NgayTao is null or BaoTri_NgayTao = @BaoTri_NgayTao)
 	and (@BaoTri_TrangThai is null or BaoTri_TrangThai = @BaoTri_TrangThai)
 	and (@BaoTri_GhiChu is null or BaoTri_GhiChu = @BaoTri_GhiChu)
-	and (BaoTri_TrangThai = 'N' or BaoTri_TrangThai = 'A')
-	and not(BaoTri_NgayXuatXuong is not null and BaoTri_TrangThai = 'A')
+	and (BaoTri_TrangThai != 'X')
 
 end
 go
@@ -378,11 +377,25 @@ where Xe_TrangThai != 'B'
 	and (Ma not in(select distinct Xe.Ma from Xe, BaoTri where Xe.Ma = BaoTri.BaoTri_MaXe and BaoTri_TrangThai = 'N'))
 end
 go
+
+create or alter proc [dbo].[BAOTRI_Group9SearchXeInMaintain]
+
+as
+begin
+select *
+from Xe
+where Xe_TrangThai != 'X'
+	and (Ma in(select  Xe.Ma from Xe, BaoTri where Xe.Ma = BaoTri.BaoTri_MaXe and BaoTri_TrangThai != 'X'))
+end
+go
+
+
 exec [BAOTRI_Group9SearchXeStateNoMaintain]
 
 exec [BAOTRI_Group9UrgentMaintain]
 exec [BAOTRI_Group9ShouldMaintain]
-exec BAOTRI_Group9MaintainAll
+exec [BAOTRI_Group9SearchXeInMaintain]
 
 select * from baotri
+select * from xe
 

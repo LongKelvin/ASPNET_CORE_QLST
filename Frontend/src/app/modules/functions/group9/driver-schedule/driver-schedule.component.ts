@@ -170,5 +170,28 @@ export class DriverScheduleComponent extends AppComponentBase implements OnInit,
         this.HoatDongTaiXeInput.hoatDongTaiXe_TrangThai = null;
         this.HoatDongTaiXeInput.hoatDongTaiXe_KmUocTinh = null;
         this.HoatDongTaiXeInput.hoatDongTaiXe_KmThucTe = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NguoiDuyet = null;
+        this.HoatDongTaiXeInput.hoatDongTaiXe_NgayDuyet = null;
+    }
+    delete(){
+        let self = this;
+        self.message.confirm(
+            self.l('Xoá ?', this.currentId),
+            this.l('AreYouSure'),
+            isConfirmed => {
+                if (isConfirmed) {
+                    this.group9HoatDongService.hOATDONGTAIXE_Group9Delete(this.currentId).subscribe((response) => {
+                        if (response["Result"] === "1") {
+                            this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                        } else {
+                            this.notify.success("Xóa thành công", "SUCCESS", environment.opt);
+                            //this.resetOptions();
+                            this.currentId = null;
+                            this.search();
+                        }
+                    });
+                }
+            }
+        );
     }
 }

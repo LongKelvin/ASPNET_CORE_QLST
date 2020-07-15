@@ -29,12 +29,15 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     maxe: number;
     mataixe: number;
     tinhtrang: string;
+    tinhtrangX: string;
     ngayduyet: string;
     ngaybaotri: string;
     ngaytao: Date;
     ngayxuatxuong: Date;
     nguoitao: string;
     trangthai: string;
+    trangthaiX: string;
+
     thanhtien: string;
     noibaotri: string;
     ghichu: string;
@@ -54,6 +57,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
     }
 
     getValue() {
+
         this.group9BaoTriInput.baoTri_MaXe = this.maxe;
         this.group9BaoTriInput.baoTri_MaTaiXe = this.mataixe;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.tinhtrang;
@@ -72,18 +76,36 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
 
     load(){
 
-        this.maxe = this.group9BaoTriInput.baoTri_MaXe;
-        this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
-        this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
-        this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayBaotri.format("DD/MM/YYYY");
-        this.ngaytao =this.group9BaoTriInput.baoTri_NgayTao.toDate();
-        this.ngayxuatxuong=this.group9BaoTriInput.baoTri_NgayXuatXuong.toDate();
-        this.trangthai=this.group9BaoTriInput.baoTri_TrangThai ;
-        this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien.toString() ;
-        this.noibaotri=this.group9BaoTriInput.baoTri_NoiBaoTri;
-        this.ghichu=this.group9BaoTriInput.baoTri_GhiChu ;
-        this.nguoitao=this.group9BaoTriInput.baoTri_NguoiTao ;
-        this.maNG = this.group9BaoTriInput.baoTri_MaNguoiGui;
+            this.maxe = this.group9BaoTriInput.baoTri_MaXe;
+            this.mataixe=this.group9BaoTriInput.baoTri_MaTaiXe;
+            this.tinhtrang=this.group9BaoTriInput.baoTri_TinhTrangBaoTri;
+            this.ngaybaotri=this.group9BaoTriInput.baoTri_NgayBaotri.format("DD/MM/YYYY");
+            this.trangthai=this.group9BaoTriInput.baoTri_TrangThai ;
+
+            if(this.tinhtrang == "C")
+            {
+                this.tinhtrangX = "Chưa đi bảo trì";
+            }
+            if(this.tinhtrang == "D")
+            {
+                this.tinhtrangX = "Đang đi bảo trì";
+            }
+            if(this.trangthai == "N"){
+                this.trangthaiX = "Chưa duyệt";
+            }
+            if(this.trangthai == "A" && this.tinhtrang == "D"){
+                this.tinhtrangX = "Đã duyệt";
+                this.tinhtrangX = "Hoàn tất bảo trì";
+            }
+
+
+            this.ngaytao =this.group9BaoTriInput.baoTri_NgayTao.toDate();
+            this.ngayxuatxuong=this.group9BaoTriInput.baoTri_NgayXuatXuong.toDate();
+            this.thanhtien=this.group9BaoTriInput.baoTri_ThanhTien.toString() ;
+            this.noibaotri=this.group9BaoTriInput.baoTri_NoiBaoTri;
+            this.ghichu=this.group9BaoTriInput.baoTri_GhiChu ;
+            this.nguoitao=this.group9BaoTriInput.baoTri_NguoiTao ;
+            this.maNG = this.group9BaoTriInput.baoTri_MaNguoiGui;       
     }
 
     commaSeparateNumber(val){
@@ -146,6 +168,12 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
                   } else {
                       this.notify.success("Sửa thông tin thành công","SUCCESS", environment.opt);
                       this.currentId = null;
+                  
+                          this.tinhtrangX = "chưa duyệt";
+                          this.trangthaiX = "Hoàn tất bảo trì"
+                      
+               
+      
                   }
               });
           }
@@ -198,6 +226,20 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
                                       this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
                                   } else {
                                       this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
+
+      
+                        if(this.tinhtrang == "C")
+                            {
+                                this.tinhtrangX = "Chưa duyệt";
+                                this.trangthaiX = "Đang đi bảo trì"
+                            }
+                        else
+                            {
+                                this.tinhtrangX = "Đã duyệt";
+                                this.trangthaiX = "Hoàn tất bảo trì"
+
+                        }
+            
                                       //this.resetOptions();
                                       this.send();
                                   }

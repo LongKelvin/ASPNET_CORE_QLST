@@ -127,8 +127,8 @@ begin try
 [HoatDongTaiXe_KmUocTinh] = @HoatDongTaiXe_KmUocTinh,
 [HoatDongTaiXe_NgayBatDau] = @HoatDongTaiXe_NgayBatDau,
 [HoatDongTaiXe_NgayKetThuc] = @HoatDongTaiXe_NgayKetThuc,
-[HoatDongTaiXe_NguoiDuyet] = @HoatDongTaiXe_NguoiDuyet,
-[HoatDongTaiXe_NgayDuyet] = @HoatDongTaiXe_NgayDuyet
+[HoatDongTaiXe_NguoiDuyet] = null,
+[HoatDongTaiXe_NgayDuyet] = null
 
 	WHERE Ma = @Ma
 commit transaction
@@ -349,3 +349,7 @@ exec [HOATDONGTAIXE_Group9SearchLichTrinh] 7, '2018-01-01 00:00:00.000', null,nu
 exec [HOATDONGTAIXE_Group9SearchLichTrinh] null,null,null,null,null,null,null,null,null, null
 
 exec [HOATDONGTAIXE_Group9SearchAllNewLichTrinh]
+
+select * from TaiXe
+
+

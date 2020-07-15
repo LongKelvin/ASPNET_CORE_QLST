@@ -121,5 +121,12 @@ namespace Group9.AbpZeroTemplate.Application.Controllers
             return Group9BaoTriAppService.BAOTRI_Group9SearchXeStateNoMaintain();
 
         }
+
+        [HttpPost]
+        public List<Group9XeDto> BAOTRI_Group9SearchXeInMaintain()
+        {
+            return Group9BaoTriAppService.BAOTRI_Group9SearchXeInMaintain();
+
+        }
     }
 }
