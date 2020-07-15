@@ -378,7 +378,6 @@ where Xe_TrangThai != 'B'
 	and (Ma not in(select distinct Xe.Ma from Xe, BaoTri where Xe.Ma = BaoTri.BaoTri_MaXe and BaoTri_TrangThai = 'N'))
 end
 go
-
 exec [BAOTRI_Group9SearchXeStateNoMaintain]
 
 exec [BAOTRI_Group9UrgentMaintain]

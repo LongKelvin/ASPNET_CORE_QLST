@@ -245,6 +245,7 @@ create or alter proc [dbo].[HOATDONGTAIXE_Group9SearchLichTrinh]
 @LichTrinh_NgayDen datetime = NULL,
 @LichTrinh_MaTuyenChay int = NULL,
 @LichTrinh_MaTaiXe int = NULL,
+@LichTrinh_MaXe int = NULL,
 @LichTrinh_TrangThaiChuyen varchar(1) = NULL,
 @LichTrinh_NgayTao datetime = NULL,
 @LichTrinh_NguoiTao nvarchar(max) NULL,
@@ -259,6 +260,7 @@ begin
 	and (@LichTrinh_NgayDen is null or LichTrinh_NgayDen <= @LichTrinh_NgayDen)
 	and (@LichTrinh_MaTuyenChay is null or LichTrinh_MaTuyenChay = @LichTrinh_MaTuyenChay)
 	and (@LichTrinh_MaTaiXe is null or LichTrinh_MaTaiXe = @LichTrinh_MaTaiXe)
+	and (@LichTrinh_MaXe is null or LichTrinh_MaXe = @LichTrinh_MaXe)
 	and (@LichTrinh_TrangThaiChuyen is null or LichTrinh_TrangThaiChuyen = @LichTrinh_TrangThaiChuyen)
 	and (@LichTrinh_NgayTao is null or LichTrinh_NgayTao = @LichTrinh_NgayTao)
 	and (@LichTrinh_NguoiTao is null or LichTrinh_NguoiTao = @LichTrinh_NguoiTao)
@@ -287,3 +289,4 @@ exec HOATDONGTAIXE_Group9InsertLichTrinh '2019-01-01 00:00:00.000', '2019-01-01 
 exec [dbo].[HOATDONGTAIXE_Group9Search] null, null, 8, null, 2, null, null, null, null, null, null, null, null
 
 exec [HOATDONGTAIXE_Group9SearchLichTrinh] 7, '2018-01-01 00:00:00.000', null,null, null, null,null,null, null
+exec [HOATDONGTAIXE_Group9SearchLichTrinh] null,null,null,null,null,null,null,null,null

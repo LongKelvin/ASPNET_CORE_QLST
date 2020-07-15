@@ -158,6 +158,9 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
             
             this.group9XeService.xE_Group5SearchById(result.lichTrinh_MaXe).subscribe((result) => {
                 this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
+                if(this.dinhmuc == null){
+                    this.dinhmuc = 2;
+                }
 
             });
 
