@@ -63,7 +63,7 @@ import { DriverScheduleEditComponent } from "./drivers-schedule/driver-schedule-
 import { ManufacturerCarComponent } from "./manufacturer-car/manufacturer-car/manufacturer-car.component";
 import { ManufacturerCarAddComponent } from "./manufacturer-car/manufacturer-car-add/manufacturer-car-add.component";
 import { ManufacturerCarEditComponent } from "./manufacturer-car/manufacturer-car-edit/manufacturer-car-edit.component";
-import { MaintainCarNotifyProposeComponent } from  "./maintain-car-notify/maintain-car-notify-propose/maintain-car-notify-propose.component"
+import { MaintainCarNotifyProposeComponent } from "./maintain-car-notify/maintain-car-notify-propose/maintain-car-notify-propose.component"
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -153,10 +153,7 @@ import { MaintainCarNotifyProposeComponent } from  "./maintain-car-notify/mainta
             path: "maintain-cars-edit",
             component: MaintainCarsEditComponent,
           },
-          {
-            path: "maintain-cars-notify-propose",
-            component: MaintainCarNotifyProposeComponent,
-          },
+
           {
             path: "maintenance-car",
             component: MaintenanceCarComponent,
@@ -289,60 +286,77 @@ import { MaintainCarNotifyProposeComponent } from  "./maintain-car-notify/mainta
             path: "road-price-driver",
             component: RoadPriceEditComponent,
           },
+
+          //Group9_path_and_permission
+          
+
+          //Driver-schedule
           {
             path: 'driver-schedule', component: DriverScheduleComponent,
             children: [
 
-            ]
+            ],
+            data:{permission: 'Pages.Group9.HoatDongTaiXe'}
+            //data: { permission: 'Pages.Administration.Group9.HoatDongTaiXe'}
+          },
+
+          {
+            path: 'driver-schedule-add', component: DriverScheduleAddComponent, 
+             data: { permission: 'Pages.Group9.HoatDongTaiXe.Add'}
           },
           {
-            path: 'driver-schedule-add', component: DriverScheduleAddComponent
+            path: 'driver-schedule-edit', component: DriverScheduleEditComponent,
+             data: { permission: 'Pages.Group9.HoatDongTaiXe.Update'}
           },
-          {
-            path: 'driver-schedule-edit', component: DriverScheduleEditComponent
-          },
+
+          //Maintain-car-Notify
           {
             path: 'maintain-cars-notify', component: MaintainCarNotifyComponent,
             children: [
 
-            ]
+            ],
+             data: { permission: 'Pages.Group9.BaoTri'}
           },
           {
-            path: 'driver-schedule', component: DriverScheduleComponent,
-            children: [
+            path: 'maintain-cars-notify-add', component: MaintainCarNotifyAddComponent,
+            data: { permission: 'Pages.Group9.Add'}
+          },
+          {
+            path: 'maintain-cars-notify-edit', component: MaintainCarNotifyEditComponent,
+            data: { permission: 'Pages.Group9.BaoTri.Update'}
+          },
+          {
+            path: "maintain-cars-notify-propose",
+            component: MaintainCarNotifyProposeComponent,
+            data: { permission: 'Pages.Group9.BaoTri.Add'}
+          },
 
-            ]
+
+          //Brand-cars
+          {
+            path: "manufacturer-car",
+            component: ManufacturerCarComponent,
+            data: { permission: 'Pages.Group9.Hang'}
           },
           {
-            path: 'maintain-cars-notify-add', component: MaintainCarNotifyAddComponent
+            path: "manufacturer-car-add",
+            component: ManufacturerCarAddComponent,
+            data: { permission: 'Pages.Group9.Hang.Add'}
           },
           {
-            path: 'maintain-cars-notify-edit', component: MaintainCarNotifyEditComponent
+            path: "manufacturer-car-edit",
+            component: ManufacturerCarEditComponent,
+            data: { permission: 'Pages.Group9.Hang.Update'}
           },
+
+          //Block area
+
           {
             path: 'car-maintenance-notify-edit', component: MaintainCarNotifyComponent
           },
           {
             path: 'car-maintenance-notify-search', component: MaintainCarNotifyComponent
 
-          },
-          {
-            path: 'driver-schedule-add', component: DriverScheduleAddComponent
-          },
-          {
-            path: 'driver-schedule-edit', component: DriverScheduleEditComponent
-          },
-          {
-            path: "manufacturer-car",
-            component: ManufacturerCarComponent,
-          },
-          {
-            path: "manufacturer-car-add",
-            component: ManufacturerCarAddComponent,
-          },
-          {
-            path: "manufacturer-car-edit",
-            component: ManufacturerCarEditComponent,
           },
         ],
       },

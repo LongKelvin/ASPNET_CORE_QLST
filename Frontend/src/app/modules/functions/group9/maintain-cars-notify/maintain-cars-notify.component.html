@@ -3,41 +3,20 @@
         <div class="m-portlet m-portlet__header m-portlet-mobile">
             <div class="m-portlet__nav">
                 <ul>
-                    <li>
-                        <a routerLink="/app/admin/maintain-cars-notify-add">
-                            <i class="flaticon-add"></i>
-                            Thêm mới
-                        </a>
+                    <li *ngIf="isGranted('Pages.Group9.BaoTri.Add')"><a routerLink="/app/admin/maintain-cars-notify-add"><i
+                                class="flaticon-add"></i>
+                            Thêm mới</a></li>
+                    <li *ngIf="isGranted('Pages.Group9.BaoTri.Update')" ><a [class.disabled]="!curMaBaoTri"
+                            [routerLink]="['/app/admin/maintain-cars-notify-edit', {id : curMaBaoTri}]"><i class="flaticon-edit"></i> Chỉnh
+                            sửa</a></li>
+                    
+                    <li *ngIf="isGranted('Pages.Group9.BaoTri.Delete')" style="cursor: pointer;" ><a [class.disabled]="!curMaBaoTri"
+                            (click)=" delete()"><i class="fa fa-trash" disabled></i> Xóa</a>
                     </li>
-                    <!-- *ngIf="isGranted('Pages.Group0.Car.Update')" -->
-                    <li>
-                        <a [class.disabled]="!curMaBaoTri"
-                            [routerLink]="['/app/admin/maintain-cars-notify-edit', {id : curMaBaoTri}]">
-                            <i class="flaticon-edit"></i> Chỉnh sửa
-                        </a>
-                    </li>
-                    <li>
-                        <span (click)="searchAll()">
-                            <i class="flaticon-search"></i>
-                            Tìm kiếm
-                        </span>
-                    </li>
-                    <!-- *ngIf="isGranted('Pages.Group4.Car.Delete')" -->
-                    <li>
-                        <span (click)="delete()" [class.disabled]="!curMaBaoTri">
-                            <i class="fa fa-trash"></i> Xóa
-                        </span>
-                    </li>
-
-
-                    <li>
-                        <span>
-                        <a routerLink="/app/admin/maintain-cars-notify-propose">
-                            <i class="flaticon-add"
-                             class="fa fa-send"></i> Đề xuất
-                         </a>
-                        </span>
-                    </li>
+                    <li *ngIf="isGranted('Pages.Group9.BaoTri.Add')"><a routerLink="/app/admin/maintain-cars-notify-propose"><i class= "fa fa-send"></i>
+                            Đề xuất</a></li>
+                    
+                    <li style="cursor: pointer;"><a (click)="search()"><i class="flaticon-search"></i> Tìm kiếm</a></li>
                 </ul>
             </div>
         </div>

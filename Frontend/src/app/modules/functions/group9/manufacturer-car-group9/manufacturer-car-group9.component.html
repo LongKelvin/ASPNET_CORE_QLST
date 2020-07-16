@@ -3,19 +3,15 @@
       <div class="m-portlet m-portlet__header m-portlet-mobile">
         <div class="m-portlet__nav">
           <ul >
-            <li *ngIf="isGranted('Pages.Group9.Hang.Add')"><a routerLink="/app/admin/manufacturer-car-add"><i class="flaticon-add"></i>
-              Thêm mới</a></li>
-            <li *ngIf="isGranted('Pages.Group9.Hang.Update')" ><a [class.disabled]="!currentId"  
-                [routerLink]="['/app/admin/manufacturer-car-edit', {id : currentId}]"><i class="flaticon-edit"></i> Chỉnh
-              sửa</a></li>
-        
-            <!-- <li *ngIf="isGranted('Pages.Group9.Hang.Delete')" style="cursor: pointer;" ><a ><i
-              class="flaticon-close"></i>Xóa</a>
-            </li> -->
-            <li>
-                <span (click)="delete()" [class.disabled]="!currentId">
-                    <i class="fa fa-trash"></i> Xóa
-                </span>
+            <li *ngIf="isGranted('Pages.Group9.Hang.Add')"><a routerLink="/app/admin/manufacturer-car-add"><i
+                        class="flaticon-add"></i>
+                    Thêm mới</a></li>
+            <li *ngIf="isGranted('Pages.Group9.Hang.Update')" ><a [class.disabled]="!currentId"
+                    [routerLink]="['//app/admin/manufacturer-car-edit', {id : currentId}]"><i class="flaticon-edit"></i> Chỉnh
+                    sửa</a></li>
+            
+            <li *ngIf="isGranted('Pages.Group9.Hang.Delete')" style="cursor: pointer;" ><a [class.disabled]="!currentId"
+                    (click)=" delete()"><i class="fa fa-trash" disabled></i> Xóa</a>
             </li>
             <li style="cursor: pointer;"><a ><i class="flaticon-search"></i> Tìm kiếm</a></li>
           </ul>

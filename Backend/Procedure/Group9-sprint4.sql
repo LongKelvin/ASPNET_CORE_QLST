@@ -266,14 +266,14 @@ end
 go
 
 
-create or alter proc [dbo].[HOATDONGTAIXE_Group9SearchByIdLichTrinh]
+ALTER   proc [dbo].[HOATDONGTAIXE_Group9SearchByIdLichTrinh]
 @Ma int = NULL
 as
 begin
-	select * from LichTrinh
-	where Ma = @Ma and LichTrinh_TrangThai = 'N' and LichTrinh_NgayDi is not null and LichTrinh_NgayDen is not null
+	select LichTrinh.*, TuyenChay.TuyenChay_SoKm from LichTrinh, TuyenChay
+	where LichTrinh.Ma = @Ma and LichTrinh_TrangThai = 'N' and LichTrinh_NgayDi is not null and LichTrinh_NgayDen is not null
+	and TuyenChay.Ma = LichTrinh.LichTrinh_MaTuyenChay
 end
-go
 
 create or alter proc [dbo].[HOATDONGTAIXE_Group9SearchLichTrinh]
 @Ma int = NULL,

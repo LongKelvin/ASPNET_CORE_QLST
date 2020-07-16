@@ -3,33 +3,18 @@
         <div class="m-portlet m-portlet__header m-portlet-mobile">
             <div class="m-portlet__nav">
                 <ul>
-                    <li>
-                        <a routerLink="/app/admin/driver-schedule-add">
-                            <i class="flaticon-add"></i>
-                            Thêm mới
-                        </a>
-                    </li>
-                    <!-- *ngIf="isGranted('Pages.Group0.Car.Update')" -->
-                    <li>
-                        <a [class.disabled]="!currentId" 
-                      [routerLink]="['/app/admin/driver-schedule-edit', {id : currentId}]">
-                            <i class="flaticon-edit"></i> Chỉnh sửa
-                        </a>
-                    </li>
 
-                    <li>
-                        <span (click)="delete()">
-                            <i class="flaticon-trash"></i>
-                            Xóa
-                        </span>
-                    </li>
-                    <li>
-                        <span (click)="search()">
-                            <i class="flaticon-search"></i>
-                            Tìm kiếm
-                        </span>
-                    </li>
-                    <!-- *ngIf="isGranted('Pages.Group4.Car.Delete')" -->
+                <li *ngIf="isGranted('Pages.Group9.HoatDongTaiXe.Add')"><a routerLink="/app/admin/driver-schedule-add"><i
+                            class="flaticon-add"></i>
+                        Thêm mới</a></li>
+                <li *ngIf="isGranted('Pages.Group9.HoatDongTaiXe.Update')" ><a [class.disabled]="!currentId"
+                        [routerLink]="['/app/admin/driver-schedule-edit', {id : currentId}]"><i class="flaticon-edit"></i> Chỉnh
+                        sửa</a></li>
+                
+                <li *ngIf="isGranted('Pages.Group9.HoatDongTaiXe.Delete')" style="cursor: pointer;" ><a [class.disabled]="!currentId"
+                        (click)=" delete()"><i class="fa fa-trash" disabled></i> Xóa</a>
+                </li>
+                <li style="cursor: pointer;"><a (click)="search()"><i class="flaticon-search"></i> Tìm kiếm</a></li>
                    
                 </ul>
             </div>
@@ -131,6 +116,9 @@
                                         Mã Hoạt Động
                                     </th>
                                     <th>
+                                        Mã Tài Xế
+                                    </th>
+                                    <th>
                                         Mã Lịch Trình
                                     </th>
                                     <th>
@@ -166,6 +154,9 @@
                                     </td>
                                     <td>
                                         <span>{{record.hoatDongTaiXe_Ma  }}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{record.hoatDongTaiXe_MaTaiXe}}</span>
                                     </td>
                                     <td>
                                         <span>{{record.hoatDongTaiXe_MaLichTrinh}}</span>

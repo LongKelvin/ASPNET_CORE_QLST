@@ -23,9 +23,9 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     @ViewChild("dataTable") dataTable: Table;
     @ViewChild("paginator") paginator: Paginator;
 
-    constructor(injector: Injector, 
+    constructor(injector: Injector,
         private group9Proxy: Group9HoatDongTaiXeServiceProxy,
-        private group9XeService:Group5XeServiceProxy) {
+        private group9XeService: Group5XeServiceProxy) {
         super(injector);
         this.currentUserName = this.appSession.user.userName;
         this.hoatDongTaiXeInput.ma = this.getRouteParam("id");
@@ -41,7 +41,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
     KM_ESTIMATE: number;
     FUEL_ACTUAL: number;
     DRIVER_ID: number;
-    dinhmuc : number;
+    dinhmuc: number;
     trangthai: string;
 
     Save_Dialog: boolean;
@@ -70,21 +70,20 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
             this.start_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayBatDau.format('DD/MM/YYYY').toString();
             this.end_date_ = this.selectedHoatDongTaiXe.hoatDongTaiXe_NgayKetThuc.format('DD/MM/YYYY').toString();
             this.DRIVER_ID = this.selectedHoatDongTaiXe.hoatDongTaiXe_MaTaiXe;
-            if(this.selectedHoatDongTaiXe.hoatDongTaiXe_TrangThai == "N"){
-                this.trangthai = "Chưa duyệt"
+            if (this.selectedHoatDongTaiXe.hoatDongTaiXe_TrangThai == "N") {
+                this.trangthai = "Chờ duyệt"
             }
-            else
-            {
+            else {
                 this.trangthai = "Đã  duyệt"
             }
-            this.notify.error(result.hoatDongTaiXe_MaXe.toString(), "ERROR", environment.opt);
+           // this.notify.error(result.hoatDongTaiXe_MaXe.toString(), "ERROR", environment.opt);
             this.group9XeService.xE_Group5SearchById(result.hoatDongTaiXe_MaXe).subscribe((result) => {
                 this.dinhmuc = result.loaiXe_DinhMucNhienLieu;
-                if(this.dinhmuc == null){
-                    this.dinhmuc = 2;   
+                if (this.dinhmuc == null) {
+                    this.dinhmuc = 2;
                 }
             });
-            
+
         });
 
     }
@@ -98,7 +97,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
                 this.notify.error(response["ErrorDesc"], "ERROR", environment.opt);
             } else {
                 this.notify.success("Cập nhật hoạt động tài xế thành công", "SUCCESS", environment.opt);
-                this.trangthai = "Chưa duyệt";
+                this.trangthai = "Chờ duyệt";
             }
         });
     }
@@ -196,15 +195,14 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
 
     }
     onKey(event: any) { // without type info
-        if(this.dinhmuc == null){
-            this.dinhmuc = 2;   
+        if (this.dinhmuc == null) {
+            this.dinhmuc = 2;
         }
-        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc / 100;
+        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc / 1000;
 
-      }
+    }
 
-      approve()
-      {
+    approve() {
         this.group9Proxy.hOATDONGTAIXE_Group9ById(this.hoatDongTaiXeInput.ma).subscribe((response) => {
             if (response["Result"] === "1") {
             } else {
@@ -213,29 +211,27 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
                     this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
                     return;
                 }
-   
+
                 let self = this;
-                  self.message.confirm(
-                      self.l('Duyệt ?', this.hoatDongTaiXeInput.ma),
-                      this.l('AreYouSure'),
-                      isConfirmed => {
-                          if (isConfirmed) {
-  
-  
-                              this.group9Proxy.hOATDONGTAIXE_Group9App(this.hoatDongTaiXeInput.ma, this.currentUserName).subscribe((response) => {
-                                  if (response["Result"] === "1") {
-                                      this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-                                  } else {
-                                      this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
-                                      this.trangthai = "Đã  duyệt"
-                                      //this.resetOptions();
-                                  }
-                              });
-                          }
-                      }
-                  );
+                self.message.confirm(
+                    self.l('Duyệt ?', this.hoatDongTaiXeInput.ma),
+                    this.l('AreYouSure'),
+                    isConfirmed => {
+                        if (isConfirmed) {
+                            this.group9Proxy.hOATDONGTAIXE_Group9App(this.hoatDongTaiXeInput.ma, this.currentUserName).subscribe((response) => {
+                                if (response["Result"] === "1") {
+                                    this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                                } else {
+                                    this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
+                                    this.trangthai = "Đã  duyệt"
+                                    //this.resetOptions();
+                                }
+                            });
+                        }
                     }
-                });
-  
-      }
+                );
+            }
+        });
+
+    }
 }

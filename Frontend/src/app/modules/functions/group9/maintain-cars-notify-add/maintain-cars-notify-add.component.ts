@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, AfterViewInit } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { Group9BaoTriServiceProxy, Group9BaoTriDto, Group4XeServiceProxy, Group4XeDto, Group9XeDto} from '@shared/service-proxies/service-proxies';
+import { Group9BaoTriServiceProxy, Group9BaoTriDto, Group4XeServiceProxy, Group4XeDto, Group9XeDto } from '@shared/service-proxies/service-proxies';
 import { environment } from 'environments/environment';
 import { Table } from "primeng/components/table/table";
 import { Paginator, SelectItem } from "primeng/primeng";
@@ -18,10 +18,10 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     constructor(injector: Injector, private group9BaoTriService: Group9BaoTriServiceProxy,
         private group4XeService: Group4XeServiceProxy,) {
         super(injector);
-        this.group9BaoTriService.getCurrentUserName().subscribe(response=>{
-          this.currentUserName = response;
+        this.group9BaoTriService.getCurrentUserName().subscribe(response => {
+            this.currentUserName = response;
         })
-        this.group9BaoTriService.bAOTRI_Group9SearchXeStateNoMaintain().subscribe(response=>{
+        this.group9BaoTriService.bAOTRI_Group9SearchXeStateNoMaintain().subscribe(response => {
             this.xe_list = response;
         })
         console.log(this);
@@ -41,7 +41,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     currentId: number;
     saving = false;
     carManufacturerOpt: object = {};
-    xe_list : Group9XeDto[];
+    xe_list: Group9XeDto[];
 
     selectedLevel: number;
 
@@ -51,7 +51,12 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     }
 
 
-
+    SearchCarNoMaintainState() {
+        this.group9BaoTriService.bAOTRI_Group9SearchXeStateNoMaintain().subscribe(response => {
+            this.xe_list = response;
+        })
+        console.log(this);
+    }
     getValue() {
         this.group9BaoTriInput.baoTri_MaBaoTri = null;
         this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
@@ -62,7 +67,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
         this.group9BaoTriInput.baoTri_TrangThai = "U";
         this.group9BaoTriInput.baoTri_ThanhTien = null;
         this.group9BaoTriInput.baoTri_MaTaiXe = null;
-        this.group9BaoTriInput.baoTri_MaNguoiGui = this.currentUserName; 
+        this.group9BaoTriInput.baoTri_MaNguoiGui = this.currentUserName;
         this.group9BaoTriInput.baoTri_NguoiTao = this.currentUserName;
         this.group9BaoTriInput.baoTri_NgayTao = null;
         this.group9BaoTriInput.baoTri_GhiChu = this.ghichu;
@@ -70,22 +75,22 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
         // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
     }
 
-    commaSeparateNumber(val){
-        while (/(\d+)(\d{3})/.test(val.toString())){
-          val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+    commaSeparateNumber(val) {
+        while (/(\d+)(\d{3})/.test(val.toString())) {
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
         }
         return val;
     }
 
-    formatCurrency(getValue){
+    formatCurrency(getValue) {
 
         $('#Gia').val(this.commaSeparateNumber($('#Gia').val().toString().split(',').join("")));
-     
-      }
+
+    }
 
     add() {
         this.getValue();
-      
+
 
         this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
             if (response["Result"] == "1") {
@@ -93,35 +98,37 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
                 this.huyconfirm();
             } else {
                 this.notify.info("Thêm   đề xuất thành công", "SUCCESS", environment.opt);
-                window.location.reload();
+                //window.location.reload();
+                this.SearchCarNoMaintainState();
             }
         });
 
     }
 
-    insert(): void{
+    insert(): void {
         this.checkvalue();
-    this.getValue();
-    this.primengTableHelper.showLoadingIndicator();
+        this.getValue();
+        this.primengTableHelper.showLoadingIndicator();
 
-   
-          this.group9BaoTriService.bAOTRI_Group9SearchXeStateNoMaintain().subscribe(response=>{
+
+        this.group9BaoTriService.bAOTRI_Group9SearchXeStateNoMaintain().subscribe(response => {
             this.xe_list = response;
             this.group9BaoTriService.bAOTRI_Group9Insert(this.group9BaoTriInput).subscribe((response) => {
                 if (response["Result"] == "1") {
-                    this.notify.error(response["ErrorDesc"],"ERROR", environment.opt);
+                    this.notify.error(response["ErrorDesc"], "ERROR", environment.opt);
                 } else {
-                    this.notify.success("Thêm xe thành công","SUCCESS", environment.opt);
+                    this.notify.success("Thêm xe thành công", "SUCCESS", environment.opt);
 
-                }});
-                this.selectedLevel = null;
+                }
+            });
+            this.selectedLevel = null;
 
             this.primengTableHelper.hideLoadingIndicator();
 
         });
 
-      
-  }
+
+    }
 
     checkvalue(): boolean {
         if (this.selectedLevel == 0) {
@@ -147,5 +154,5 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     }
 
     ngOnInit() {
-    }    
+    }
 }

@@ -39,7 +39,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
 
         this.trangthai_list = [
             { content: "Đã duyệt", value: "A" },
-            { content: "Chưa duyệt", value: "N" }
+            { content: "Chờ duyệt", value: "N" }
         ];
 
         this.tinhtrang_list = [
@@ -126,9 +126,9 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
             }
         );
     }
-  
 
-    
+
+
 
     search() {
         // show loading trong gridview
@@ -154,94 +154,94 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
         this.group9BaoTriService.bAOTRI_Group9Search({} as any).subscribe(response => {
             this.baotri_list = response;
         });
-    
-  }
-  get(){
-    
-    this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response=>{
-        this.group9BaoTriRowInput = response;
-        this.maNG = this.group9BaoTriRowInput.baoTri_MaNguoiGui;
-        if(response.baoTri_NgayBaotri == null){
 
-            this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet, 0).subscribe((response) => {
-                if (response["Result"] === "1") {
-                    this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-                } else {
-                    this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
-                    //this.resetOptions();
-                    this.curMaBaoTri = null;
-                }
+    }
+    get() {
+
+        this.group9BaoTriService.bAOTRI_Group9ById(this.curMaBaoTri).subscribe(response => {
+            this.group9BaoTriRowInput = response;
+            this.maNG = this.group9BaoTriRowInput.baoTri_MaNguoiGui;
+            if (response.baoTri_NgayBaotri == null) {
+
+                this.group9BaoTriService.bAOTRI_Group9SendNotification(this.maNG, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet, 0).subscribe((response) => {
+                    if (response["Result"] === "1") {
+                        this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                    } else {
+                        this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
+                        //this.resetOptions();
+                        this.curMaBaoTri = null;
+                    }
+                });
+            }
+            else {
+                this.group9BaoTriService.bAOTRI_Group9SendNotification(response.baoTri_NguoiTao, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet, 1).subscribe((response) => {
+                    if (response["Result"] === "1") {
+                        this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                    } else {
+                        this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
+                        //this.resetOptions();
+                        this.curMaBaoTri = null;
+                    }
+                });
+            }
+        });
+    }
+    getValue() {
+        this.group9BaoTriInput.ma = this.selectedLevel2;
+        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
+        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.selectedLevel4;
+        this.group9BaoTriInput.baoTri_NgayDuyet = null;
+        this.group9BaoTriInput.baoTri_NgayTao = null;
+        this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
+        this.group9BaoTriInput.baoTri_NguoiTao = null;
+        this.group9BaoTriInput.baoTri_TrangThai = this.selectedLevel3;
+        this.group9BaoTriInput.baoTri_ThanhTien = null;
+        this.group9BaoTriInput.baoTri_NoiBaoTri = null;
+        this.group9BaoTriInput.baoTri_GhiChu = null;
+        this.group9BaoTriInput.baoTri_NguoiDuyet = null;
+        // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
+    }
+    selectOption(id: number) {
+
+
+        this.search()
+
+    }
+    searchAll() {
+        this.group9BaoTriInput.ma = null;
+        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_MaXe = null;
+        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_TinhTrangBaoTri = null;
+        this.group9BaoTriInput.baoTri_NgayDuyet = null;
+        this.group9BaoTriInput.baoTri_NgayTao = null;
+        this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
+        this.group9BaoTriInput.baoTri_NguoiTao = null;
+        this.group9BaoTriInput.baoTri_TrangThai = null;
+        this.group9BaoTriInput.baoTri_ThanhTien = null;
+        this.group9BaoTriInput.baoTri_NoiBaoTri = null;
+        this.group9BaoTriInput.baoTri_GhiChu = null;
+        this.group9BaoTriInput.baoTri_NguoiDuyet = null;
+        this.selectedLevel = null;
+        this.selectedLevel4 = null;
+        this.selectedLevel2 = null;
+        this.selectedLevel3 = null;
+        this.primengTableHelper.showLoadingIndicator();
+        this.group9BaoTriService.bAOTRI_Group9Search(this.group9BaoTriInput)
+            .subscribe((result) => {
+                let no = 1;
+                result.forEach((item) => {
+                    item["no"] = no++;
+                });
+                result.length < 1 && this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                this.primengTableHelper.totalRecordsCount = result.length;
+                this.primengTableHelper.records = result;
+                this.primengTableHelper.hideLoadingIndicator();
             });
-        }
-        else{
-            this.group9BaoTriService.bAOTRI_Group9SendNotification(response.baoTri_NguoiTao, this.group9BaoTriRowInput.baoTri_MaBaoTri, this.group9BaoTriRowInput.baoTri_MaXe, this.group9BaoTriRowInput.baoTri_NgayDuyet, 1).subscribe((response) => {
-                if (response["Result"] === "1") {
-                    this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-                } else {
-                    this.notify.success("Gửi thành công", "SUCCESS", environment.opt);
-                    //this.resetOptions();
-                    this.curMaBaoTri = null;
-                }
-            });
-        }
-    });
-  }
-  getValue() {
-      this.group9BaoTriInput.ma = this.selectedLevel2;
-      this.group9BaoTriInput.baoTri_MaBaoTri = null;
-    this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
-    this.group9BaoTriInput.baoTri_MaBaoTri = null;
-    this.group9BaoTriInput.baoTri_TinhTrangBaoTri = this.selectedLevel4;
-    this.group9BaoTriInput.baoTri_NgayDuyet = null;
-    this.group9BaoTriInput.baoTri_NgayTao = null;
-    this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
-    this.group9BaoTriInput.baoTri_NguoiTao = null;
-    this.group9BaoTriInput.baoTri_TrangThai = this.selectedLevel3;
-    this.group9BaoTriInput.baoTri_ThanhTien = null;
-    this.group9BaoTriInput.baoTri_NoiBaoTri = null;
-    this.group9BaoTriInput.baoTri_GhiChu = null;
-    this.group9BaoTriInput.baoTri_NguoiDuyet = null;
-    // console.log(`[getValue] loainhienlieu: ${this.loainhienlieu}`);
-  }
-  selectOption(id: number) {
-   
 
-    this.search()
-
-  }
-  searchAll(){
-    this.group9BaoTriInput.ma = null;
-    this.group9BaoTriInput.baoTri_MaBaoTri = null;
-  this.group9BaoTriInput.baoTri_MaXe = null;
-  this.group9BaoTriInput.baoTri_MaBaoTri = null;
-  this.group9BaoTriInput.baoTri_TinhTrangBaoTri = null;
-  this.group9BaoTriInput.baoTri_NgayDuyet = null;
-  this.group9BaoTriInput.baoTri_NgayTao = null;
-  this.group9BaoTriInput.baoTri_NgayXuatXuong = null;
-  this.group9BaoTriInput.baoTri_NguoiTao = null;
-  this.group9BaoTriInput.baoTri_TrangThai = null;
-  this.group9BaoTriInput.baoTri_ThanhTien = null;
-  this.group9BaoTriInput.baoTri_NoiBaoTri = null;
-  this.group9BaoTriInput.baoTri_GhiChu = null;
-  this.group9BaoTriInput.baoTri_NguoiDuyet = null;
-  this.selectedLevel =null;
-  this.selectedLevel4 =null;
-  this.selectedLevel2 =null;
-  this.selectedLevel3 =null;
-  this.primengTableHelper.showLoadingIndicator();
-  this.group9BaoTriService.bAOTRI_Group9Search(this.group9BaoTriInput)
-      .subscribe((result) => {
-          let no = 1;
-          result.forEach((item) => {
-              item["no"] = no++;
-          });
-          result.length < 1 && this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
-          this.primengTableHelper.totalRecordsCount = result.length;
-          this.primengTableHelper.records = result;
-          this.primengTableHelper.hideLoadingIndicator();
-      });
-
-  }
+    }
 
 
 }

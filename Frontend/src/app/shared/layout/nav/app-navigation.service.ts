@@ -74,6 +74,12 @@ export class AppNavigationService {
         "/app/admin/model-car"
       ),
       new AppMenuItem(
+        "Quản lý hãng xe",
+        "Pages.Group9.Hang",
+        "flaticon-users",
+        "/app/admin/manufacturer-car"
+      ),
+      new AppMenuItem(
         "Quản lý đề xuất xe",
         "Pages.Group0.Car",
         "flaticon-plus",
@@ -171,12 +177,7 @@ export class AppNavigationService {
         "/app/admin/users"
         
       ),
-      new AppMenuItem(
-        "Quản lý hãng xe",
-        "Pages.Group9.Hang",
-        "flaticon-users",
-        "/app/admin/manufacturer-car"
-      ),
+      
     ]);
   }
 
