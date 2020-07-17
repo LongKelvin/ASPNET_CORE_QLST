@@ -319,7 +319,7 @@ import { MaintainCarNotifyProposeComponent } from "./maintain-car-notify/maintai
           },
           {
             path: 'maintain-cars-notify-add', component: MaintainCarNotifyAddComponent,
-            data: { permission: 'Pages.Group9.Add'}
+            data: { permission: 'Pages.Group9.BaoTri.Add'}
           },
           {
             path: 'maintain-cars-notify-edit', component: MaintainCarNotifyEditComponent,

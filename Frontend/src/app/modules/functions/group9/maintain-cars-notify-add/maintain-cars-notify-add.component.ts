@@ -25,6 +25,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
             this.xe_list = response;
         })
         console.log(this);
+
     }
 
     currentUserName: string

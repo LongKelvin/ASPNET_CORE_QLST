@@ -7,6 +7,7 @@ import {
     Group9HangServiceProxy, Group9HangDto
 
 } from "@shared/service-proxies/service-proxies";
+import { Console } from 'console';
 
 @Component({
     selector: 'app-manufacturer-car-edit-group9',
@@ -112,6 +113,7 @@ export class ManufacturerCarEditComponentGroup9 extends AppComponentBase impleme
             this.selectedHangXe = result;
             this.Ma_Hang = this.selectedHangXe.hang_MaHang;
             this.Ten_Hang = this.selectedHangXe.hang_TenHang;
+
         })
     }
 
