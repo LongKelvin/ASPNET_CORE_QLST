@@ -137,6 +137,10 @@
                                         Nhiên liệu tiêu thụ (lít)
                                     </th>
 
+                                    <th>
+                                        Trạng thái
+                                    </th>
+
                                 </tr>
                             </ng-template>
 
@@ -176,7 +180,16 @@
                                     <td>
                                         <span>{{record.hoatDongTaiXe_NhienLieu }}</span>
                                     </td>
-
+                                    
+                                    <td>
+                                        <span *ngIf="record.hoatDongTaiXe_TrangThai=='N'"  >
+                                          Chờ duyệt                 
+                                        </span>
+                                        
+                                        <span *ngIf="record.hoatDongTaiXe_TrangThai=='A'"  >
+                                          Đã duyệt    
+                                        </span>
+                                      </td>
                                    
                                 </tr>
                             </ng-template>

@@ -125,9 +125,6 @@
                                         Ngày Xuất Xưởng
                                     </th>
                                     <th>
-                                        Trạng Thái
-                                    </th>
-                                    <th>
                                         Thành Tiền
                                     </th>
                                     <th>
@@ -139,6 +136,9 @@
                                     </th>
                                     <th>
                                         Người thực hiện
+                                    </th>
+                                    <th>
+                                        Trạng Thái
                                     </th>
                                 </tr>
                             </ng-template>
@@ -168,9 +168,6 @@
                                         <span>{{record.baoTri_NgayXuatXuong | date: 'shortDate'}}</span>
                                     </td>
                                     <td>
-                                        <span>{{record.baoTri_TinhTrangBaoTri}}</span>
-                                    </td>
-                                    <td>
                                         <span>{{record.baoTri_ThanhTien}}</span>
                                     </td>
                                     <td>
@@ -182,6 +179,16 @@
                                     <td>
                                         <span>{{record.baoTri_NguoiTao}}</span>
                                     </td>
+
+                                    <td>
+                                        <span *ngIf="record.baoTri_TinhTrangBaoTri=='C'"  >
+                                          Chờ duyệt đề xuất                  
+                                        </span>
+                                        
+                                        <span *ngIf="record.baoTri_TinhTrangBaoTri=='D'"  >
+                                          Đang đi bảo trì      
+                                        </span>
+                                      </td>
                                 </tr>
                             </ng-template>
                         </p-table>

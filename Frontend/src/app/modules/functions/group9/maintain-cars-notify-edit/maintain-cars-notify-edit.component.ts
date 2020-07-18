@@ -202,10 +202,17 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
         this.group9BaoTriService.bAOTRI_Group9ById(this.group9BaoTriInput.ma).subscribe((response) => {
             if (response["Result"] === "1") {
             } else {
-
-                if (response.baoTri_NguoiTao === this.currentUserName) {
+                if(this.tinhtrang == "C")
+                {if (response.baoTri_NguoiTao === this.currentUserName) {
                     this.notify.error("Người tạo không được duyệt", "ERROR", environment.opt);
                     return;
+                }}
+                else if (this.tinhtrang == "D")
+                {
+                    if (response.baoTri_NguoiDuyet === this.currentUserName) {
+                        this.notify.error("Người đi bảo trì không được duyệt", "ERROR", environment.opt);
+                        return;
+                    }
                 }
                 let self = this;
                 self.message.confirm(
@@ -215,7 +222,7 @@ export class MaintainCarsNotifyEditComponent extends AppComponentBase implements
                         if (isConfirmed) {
                             this.group9BaoTriService.bAOTRI_Group9App(this.group9BaoTriInput.ma, this.currentUserName).subscribe((response) => {
                                 if (response["Result"] === "1") {
-                                    this.notify.error("Không tìm thấy dữ liệu", "ERROR", environment.opt);
+                                    this.notify.error("Đang chờ cập nhật thông tin bảo trì hoàn tất", "ERROR", environment.opt);
                                 } else {
                                     this.notify.success("Duyệt thành công", "SUCCESS", environment.opt);
 

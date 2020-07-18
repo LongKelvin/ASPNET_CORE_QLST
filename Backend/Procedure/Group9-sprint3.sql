@@ -109,6 +109,11 @@ begin
 	select '1' as Result, N'Dữ liệu không tồn tại trong hệ thống' as ErrorDesc
 	RETURN
 end
+if(not exists(select * from BaoTri where Ma =@Ma and  @BaoTri_TrangThai = 'N' and @BaoTri_TinhTrangBaoTri = 'D'))
+begin
+	select '1' as Result, N'Không thể cập nhật thông tin bảo trì' as ErrorDesc
+	RETURN
+end
 begin transaction
 begin try
 
@@ -225,6 +230,12 @@ go
 create or alter Proc [dbo].[BAOTRI_Group9App] 
 @Id int = NULL,@CheckerId varchar(15)
 as
+if(exists(select * from BaoTri, Xe where BaoTri.Ma = @id and BaoTri.BaoTri_MaXe = Xe.Ma and ((BaoTri.BaoTri_TrangThai = 'A') or (BaoTri.BaoTri_TrangThai = 'N' and BaoTri_TinhTrangBaoTri = 'D' and BaoTri_NgayXuatXuong is null))))
+begin
+	select '1' as Result, N'Thông báo đã được duyệt' as ErrorDesc
+	return
+end
+else
 begin transaction
 begin try
 begin
@@ -242,6 +253,12 @@ begin
 		, Baotri_NguoiDuyet = @CheckerId
 		, BaoTri_NgayDuyet = GetDate()
 		where Ma = @Id
+		if(exists(select * from BaoTri where Ma = @id and BaoTri_NgayBaoTri < GetDate()))
+		begin
+			update BaoTri 
+			set BaoTri_NgayBaoTri = GetDate()
+			where Ma = @Id
+		end
 	end
 	else
 	begin
