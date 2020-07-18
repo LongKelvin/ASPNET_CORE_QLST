@@ -198,7 +198,7 @@ export class DriverScheduleEditComponent extends AppComponentBase implements OnI
         if (this.dinhmuc == null) {
             this.dinhmuc = 2;
         }
-        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc / 1000;
+        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc / 100;
 
     }
 

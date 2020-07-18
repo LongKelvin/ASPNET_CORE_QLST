@@ -52,6 +52,7 @@ export class MaintainCarsNotifyComponent extends AppComponentBase implements OnI
 
     currentUserName: string;
     ngOnInit() {
+         
     }
     ngAfterViewInit(): void {
         this.search();

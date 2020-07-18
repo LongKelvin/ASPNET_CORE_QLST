@@ -45,6 +45,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
     xe_list: Group9XeDto[];
 
     selectedLevel: number;
+    maBaoTri: string;
 
 
     ngAfterViewInit(): void {
@@ -59,7 +60,7 @@ export class MaintainCarsNotifyAddComponent extends AppComponentBase implements 
         console.log(this);
     }
     getValue() {
-        this.group9BaoTriInput.baoTri_MaBaoTri = null;
+        this.group9BaoTriInput.baoTri_MaBaoTri = this.maBaoTri;
         this.group9BaoTriInput.baoTri_MaXe = this.selectedLevel;
         this.group9BaoTriInput.baoTri_TinhTrangBaoTri = "C";
         this.group9BaoTriInput.baoTri_NoiBaoTri = null;

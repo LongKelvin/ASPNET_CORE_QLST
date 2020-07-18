@@ -232,7 +232,7 @@ export class DriverScheduleAddComponent extends AppComponentBase implements OnIn
 
     }
     onKey(event: any) { // without type info
-        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc / 1000;
+        this.FUEL_ACTUAL = this.KM_ACTUAL * this.dinhmuc / 100;
 
     }
 }
