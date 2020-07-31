@@ -67,7 +67,7 @@ begin try
 	if(@BaoTri_NgayBaotri is null)
 	begin
 	update baotri
-	set BaoTri_NgayBaoTri = DATEADD(DAY, Xe.Xe_KyHan, Xe.Xe_NgayBaoTri)
+	set BaoTri_NgayBaoTri = DATEADD(DAY, Xe.Xe_KiHanBaoTri, Xe.Xe_NgayBaoTri)
 	from BaoTri, Xe
 	where Xe.Ma = @BaoTri_MaXe and BaoTri.Ma = @Ma 
 	end
@@ -338,8 +338,8 @@ begin
 select *
 from Xe
 where Xe_TrangThai = 'N'
-	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KyHan - 30
-	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KyHan
+	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KiHanBaoTri - 30
+	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KiHanBaoTri
 	and Xe.Xe_TrangThai != 'B'
 	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe 
 	and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' 
@@ -354,7 +354,7 @@ begin
 select *
 from Xe
 where Xe_TrangThai = 'N' 
-	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KyHan
+	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KiHanBaoTri
 	and Xe.Xe_TrangThai != 'B'
 	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe 
 	and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' 
@@ -369,13 +369,13 @@ begin
 select *
 from Xe
 where Xe_TrangThai = 'N' 
-	and (DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KyHan
+	and (DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) >= Xe_KiHanBaoTri
 	and Xe.Xe_TrangThai != 'B'
 	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe 
 	and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N'
 	and BaoTri_TinhTrangBaoTri = 'C')))))
-	or(DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KyHan - 30
-	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KyHan
+	or(DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) > Xe_KiHanBaoTri - 30
+	and DATEDIFF(Day, Xe_NgayBaoTri, GETDATE()) < Xe_KiHanBaoTri
 	and Xe.Xe_TrangThai != 'B'
 	and (not exists(select * from BaoTri where Xe.ma = BaoTri_MaXe 
 	and (BaoTri_TrangThai != 'X' or (BaoTri_TrangThai = 'N' 

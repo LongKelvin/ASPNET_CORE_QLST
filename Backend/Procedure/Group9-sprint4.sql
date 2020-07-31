@@ -127,8 +127,8 @@ begin try
 [HoatDongTaiXe_KmUocTinh] = @HoatDongTaiXe_KmUocTinh,
 [HoatDongTaiXe_NgayBatDau] = @HoatDongTaiXe_NgayBatDau,
 [HoatDongTaiXe_NgayKetThuc] = @HoatDongTaiXe_NgayKetThuc,
-[HoatDongTaiXe_NguoiDuyet] = null,
-[HoatDongTaiXe_NgayDuyet] = null
+[HoatDongTaiXe_NguoiDuyet] = @HoatDongTaiXe_NguoiDuyet,
+[HoatDongTaiXe_NgayDuyet] = @HoatDongTaiXe_NgayDuyet
 
 	WHERE Ma = @Ma
 commit transaction
